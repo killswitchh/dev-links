@@ -13,26 +13,17 @@
     nav_bar.map((x) => (x.active = x.id === route.id))
     nav_bar = nav_bar
   }
+  let user: Session | undefined | null
 
-  const user: Session | null = $page.data.session
-
-  if (user) {
-    nav_bar = routesLoggedIn
-  } else {
-    nav_bar = routes
-  }
-
-  // appStore.subscribe((store) => {
-  // 	user = store.user;
-  // 	if (user)
-  // 	{
-  // 		nav_bar = routesLoggedIn
-  // 	}
-  // 	else {
-  // 		nav_bar = routes
-  // 	}
-  // 	return store;
-  // });
+  appStore.subscribe((store) => {
+    user = store.user
+    if (user) {
+      nav_bar = routesLoggedIn
+    } else {
+      nav_bar = routes
+    }
+    return store
+  })
 </script>
 
 <header>

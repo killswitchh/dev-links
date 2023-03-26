@@ -9,12 +9,17 @@ export const PageService = {
       createdTs: new Date(),
       updatedTs: new Date(),
       ownerId: 'string',
-        active: true,
+      active: true,
       underCreation: true,
     }
     return Promise.resolve([mockPage, mockPage])
     // const url = API_URLS.GET_PAGES_URL(userId);
     // return ApiWrapper.get(url);
+  },
+
+  getAvailablePages(userId: string): Promise<number> {
+    console.log('fetching pages for user', userId)
+    return Promise.resolve(4)
   },
 }
 
