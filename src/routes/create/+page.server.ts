@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types'
 
 export const load = (async ({ locals: { getSession } }) => {
   const session = await getSession()
-
+  console.log(session)
   if (!session) {
     throw error(401, { message: 'Unauthorized' })
   }
