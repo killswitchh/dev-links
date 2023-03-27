@@ -1,29 +1,28 @@
 <script lang="ts">
-  import { page } from '$app/stores'
-  import logo from '$lib/images/logo.png'
-  import type { Session } from '@supabase/supabase-js'
-  import DarkThemeToggle from '../components/dark-theme-toggle/DarkThemeToggle.svelte'
-  import { routes, routesLoggedIn } from '../routes'
-  import { appStore } from '../stores'
-  import type { Route } from '../types'
+  import logo from '$lib/images/logo.png';
+  import type { Session } from '@supabase/supabase-js';
+  import DarkThemeToggle from '../components/dark-theme-toggle/DarkThemeToggle.svelte';
+  import { routes, routesLoggedIn } from '../routes';
+  import { appStore } from '../stores';
+  import type { Route } from '../types';
 
-  let nav_bar: Route[] = []
+  let nav_bar: Route[] = [];
 
   function updateActiveNavBarElement(route: Route) {
-    nav_bar.map((x) => (x.active = x.id === route.id))
-    nav_bar = nav_bar
+    nav_bar.map((x) => (x.active = x.id === route.id));
+    nav_bar = nav_bar;
   }
-  let user: Session | undefined | null
+  let user: Session | undefined | null;
 
   appStore.subscribe((store) => {
-    user = store.user
+    user = store.user;
     if (user) {
-      nav_bar = routesLoggedIn
+      nav_bar = routesLoggedIn;
     } else {
-      nav_bar = routes
+      nav_bar = routes;
     }
-    return store
-  })
+    return store;
+  });
 </script>
 
 <header>

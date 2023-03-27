@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { slide } from 'svelte/transition'
-  import { darkTheme } from '../../stores'
+  import { slide } from 'svelte/transition';
+  import { darkTheme } from '../../stores';
 
-  const toggleDark = () => ($darkTheme = !$darkTheme)
+  const toggleDark = () => ($darkTheme = !$darkTheme);
 
-  $: dark = $darkTheme
+  $: dark = $darkTheme;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

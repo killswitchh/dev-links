@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { NullSafePageItem } from '../types'
-  export let page: NullSafePageItem
+  import type { NullSafePageItem } from '../types';
+  export let page: NullSafePageItem;
 </script>
 
 <div

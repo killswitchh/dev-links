@@ -1,13 +1,13 @@
 <script lang="ts">
-  import PageListItem from '../../components/PageListItem.svelte'
-  import type { NullSafePageItem } from '../../types'
-  import type { PageData } from './$types'
+  import PageListItem from '../../components/PageListItem.svelte';
+  import type { NullSafePageItem } from '../../types';
+  import type { PageData } from './$types';
 
-  export let data: PageData
+  export let data: PageData;
 
-  const pages: NullSafePageItem[] = data.pages.filter(() => true) satisfies NullSafePageItem[]
+  const pages: NullSafePageItem[] = data.pages.filter(() => true) satisfies NullSafePageItem[];
   while (pages.length < data.pageLimit) {
-    pages.push(null)
+    pages.push(null);
   }
 </script>
 

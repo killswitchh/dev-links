@@ -1,11 +1,11 @@
-import type { Page } from './core/models/page.dto'
+import type { Page } from './core/models/page.dto';
 
 export type Route = {
-  name: string
-  path: string
-  id: number
-  active: boolean
-  position: 'left' | 'right'
-}
+  name: string;
+  path: string;
+  id: number;
+  active: boolean;
+  position: 'left' | 'right';
+};
 
-export type NullSafePageItem = Page | null
+export type NullSafePageItem = Page | null;

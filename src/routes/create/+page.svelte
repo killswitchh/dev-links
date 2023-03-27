@@ -1,6 +1,6 @@
 <script lang="ts">
-  import CreatePageWizard from '../../components/Wizard/CreatePageWizard.svelte'
-  import CreatePageWizardPreview from '../../components/Wizard/CreatePageWizardPreview.svelte'
+  import CreatePageWizard from '../../components/Wizard/CreatePageWizard.svelte';
+  import CreatePageWizardPreview from '../../components/Wizard/CreatePageWizardPreview.svelte';
 </script>
 
 <div class="flex flex-row justify-center h-[80vh]">

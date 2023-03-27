@@ -1,64 +1,64 @@
 <script lang="ts">
-  import type { Session } from '@supabase/supabase-js'
-  import { appStore, darkTheme } from '../../stores'
-  import { supabase } from '../../supabaseClient'
+  import type { Session } from '@supabase/supabase-js';
+  import { appStore, darkTheme } from '../../stores';
+  import { supabase } from '../../supabaseClient';
 
-  let loading = false
-  let email = ''
-  let session: Session | null | undefined = null
+  let loading = false;
+  let email = '';
+  let session: Session | null | undefined = null;
 
   const handleLogin = async () => {
     try {
-      loading = true
-      const { error } = await supabase.auth.signInWithOtp({ email })
-      if (error) throw error
-      alert('Check your email for login link!')
+      loading = true;
+      const { error } = await supabase.auth.signInWithOtp({ email });
+      if (error) throw error;
+      alert('Check your email for login link!');
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message)
+        alert(error.message);
       }
     } finally {
-      loading = false
+      loading = false;
     }
-  }
+  };
 
   const handleLogout = async () => {
     try {
-      loading = true
-      const { error } = await supabase.auth.signOut()
-      appStore.updateCurrentSession(null)
-      if (error) throw error
+      loading = true;
+      const { error } = await supabase.auth.signOut();
+      appStore.updateCurrentSession(null);
+      if (error) throw error;
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message)
+        alert(error.message);
       }
     } finally {
-      loading = false
+      loading = false;
     }
-  }
+  };
 
   const handleGithubLogin = async () => {
     try {
-      loading = true
+      loading = true;
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
-      })
-      if (error) throw error
-      alert('Github Sign In')
+      });
+      if (error) throw error;
+      alert('Github Sign In');
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message)
+        alert(error.message);
       }
     } finally {
-      loading = false
+      loading = false;
     }
-  }
+  };
 
   appStore.subscribe((x) => {
-    session = x.user
-  })
+    session = x.user;
+  });
 
-  $: dark = $darkTheme
+  $: dark = $darkTheme;
 </script>
 
 <div>

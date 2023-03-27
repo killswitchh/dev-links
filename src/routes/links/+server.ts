@@ -1,18 +1,18 @@
-import { error, json, type RequestHandler } from '@sveltejs/kit'
+import { error, json, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ locals: { supabase, getSession } }) => {
-  const session = await getSession()
+  const session = await getSession();
 
   if (!session) {
-    throw error(401, { message: 'Unauthorized' })
+    throw error(401, { message: 'Unauthorized' });
   }
 
-  const { data } = await supabase.from('test').select('*')
+  const { data } = await supabase.from('test').select('*');
 
-  return json({ data })
-}
+  return json({ data });
+};
 
 export const POST = (async ({ request }) => {
-  const { a, b } = await request.json()
-  return json(a + b)
-}) satisfies RequestHandler
+  const { a, b } = await request.json();
+  return json(a + b);
+}) satisfies RequestHandler;

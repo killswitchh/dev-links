@@ -14,16 +14,16 @@ export const ApiWrapper = {
     const response = await fetch(url, {
       method: HTTP_METHODS.GET,
       headers: this.getDefaultHeaders(),
-    })
-    return await this.handleError(response)
+    });
+    return await this.handleError(response);
   },
 
   async handleError(response: any) {
-    const getResponse: any = await response.json()
+    const getResponse: any = await response.json();
     if (response.status >= 400) {
-      throw new Error(getResponse.message)
+      throw new Error(getResponse.message);
     }
-    return getResponse
+    return getResponse;
   },
 
   async post(url: string, body: any) {
@@ -31,11 +31,11 @@ export const ApiWrapper = {
       method: HTTP_METHODS.POST,
       headers: this.getDefaultHeaders(),
       body: JSON.stringify(body),
-    })
-    return await response.json()
+    });
+    return await response.json();
   },
 
   getDefaultHeaders(): HeadersInit | undefined {
-    return { 'Content-Type': 'application/json' }
+    return { 'Content-Type': 'application/json' };
   },
-}
+};

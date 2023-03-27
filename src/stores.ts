@@ -1,81 +1,93 @@
-import type { Session } from '@supabase/supabase-js'
-import { writable } from 'svelte/store'
+import type { Session } from '@supabase/supabase-js';
+import { writable } from 'svelte/store';
 
 export type Store = {
-  error?: string | null
-  user?: Session | null
-  wizard?: WizardStep[]
-}
+  error?: string | null;
+  user?: Session | null;
+};
 
 export type WizardStep = {
-  stepId: number
-  title: string
-  status: 'INITIATED' | 'IN-PROGRESS' | 'COMPLETE'
-  value: any // Link[] | Style
-}
+  stepId: number;
+  text: string;
+  status: WizardStepStatus;
+  value: any; // Link[] | Style
+};
 
 const defaultStoreValue: Store = {
   error: null,
-  wizard: [
+};
+
+const defaultWizardStoreValue: { steps: WizardStep[] } = {
+  steps: [
     {
       stepId: 1,
-      title: 'Links',
-      status: 'INITIATED',
+      text: 'Links',
+      status: 'COMPLETE',
       value: {},
     },
     {
       stepId: 2,
-      title: 'Buttons',
-      status: 'INITIATED',
+      text: 'Buttons',
+      status: 'IN_PROGRESS',
       value: {},
     },
     {
       stepId: 3,
-      title: 'Theme',
-      status: 'INITIATED',
+      text: 'Theme',
+      status: 'NOT_STARTED',
       value: {},
     },
   ],
-}
+};
 
-export type WizardStepStatus = 'INITIATED' | 'IN-PROGRESS' | 'COMPLETE'
+export type WizardStepStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE';
 
 function createAppStore() {
-  const { subscribe, update } = writable(defaultStoreValue)
+  const { subscribe, update } = writable(defaultStoreValue);
 
   return {
     subscribe,
     updateError: (error: string | null) =>
       update((store) => {
-        store.error = error
-        return store
+        store.error = error;
+        return store;
       }),
     updateCurrentSession: (user: Session | null) =>
       update((store) => {
-        store.user = user
-        return store
+        store.user = user;
+        return store;
       }),
+  };
+}
+
+function createWizardStore() {
+  const { subscribe, update } = writable(defaultWizardStoreValue);
+
+  return {
+    subscribe,
     updateWizardStepValue: (stepId: number, value: any) =>
       update((store) => {
-        store.wizard?.map((wiz) => {
+        store.steps?.map((wiz) => {
           if (wiz.stepId === stepId) {
-            wiz.value = value
+            wiz.value = value;
           }
-        })
-        return store
+        });
+        return store;
       }),
     updateWizardStepStatus: (stepId: number, status: WizardStepStatus) =>
       update((store) => {
-        store.wizard?.map((wiz) => {
+        store.steps?.map((wiz) => {
           if (wiz.stepId === stepId) {
-            wiz.status = status
+            wiz.status = status;
           }
-        })
-        return store
+        });
+        return store;
       }),
-  }
+  };
 }
 
-export const appStore = createAppStore()
+export const appStore = createAppStore();
 
-export const darkTheme = writable(false)
+export const darkTheme = writable(false);
+
+export const wizardStore = createWizardStore();
