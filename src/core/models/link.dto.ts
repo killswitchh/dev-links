@@ -1,11 +1,18 @@
 export type Link = {
-  id: string;
-  url: string;
   provider: Provider;
   enrich: boolean | null;
-  order: number;
   prioritize: boolean;
+  url: string;
+  id?: string;
+  order?: number;
   pageId?: string;
+};
+
+export type CreateLinkRequest = {
+  url: string;
+  provider: Provider;
+  prioritize: boolean;
+  enrich: boolean;
 };
 
 export const enum Provider {

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Provider, type Link } from '../../../core/models/link.dto';
+  import CreateLink from './CreateLink.svelte';
   import LinkDisplay from './LinkDisplay.svelte';
 
   let links: Link[] = [
@@ -27,7 +28,7 @@
     <LinkDisplay link="{link}" />
   {/each}
 
-  <div class="mt-2 w-[10%] h-[18%] bg-white rounded-full flex flex-col items-center">
-    <div>+</div>
+  <div class="mt-2 w-[50%] bg-white rounded-xl flex flex-col items-center">
+    <CreateLink />
   </div>
 </div>
