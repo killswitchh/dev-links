@@ -1,5 +1,6 @@
 import type { Session } from '@supabase/supabase-js';
-import { writable } from 'svelte/store';
+import { writable, type Writable } from 'svelte/store';
+import type { Page } from './core/models/page.dto';
 
 export type Store = {
   error?: string | null;
@@ -10,7 +11,6 @@ export type WizardStep = {
   stepId: number;
   text: string;
   status: WizardStepStatus;
-  value: any; // Link[] | Style
 };
 
 const defaultStoreValue: Store = {
@@ -21,21 +21,18 @@ const defaultWizardStoreValue: { steps: WizardStep[] } = {
   steps: [
     {
       stepId: 1,
-      text: 'Links',
+      text: 'Overview',
       status: 'COMPLETE',
-      value: {},
     },
     {
       stepId: 2,
-      text: 'Buttons',
+      text: 'Links',
       status: 'IN_PROGRESS',
-      value: {},
     },
     {
       stepId: 3,
-      text: 'Theme',
+      text: 'Styling',
       status: 'NOT_STARTED',
-      value: {},
     },
   ],
 };
@@ -65,15 +62,6 @@ function createWizardStore() {
 
   return {
     subscribe,
-    updateWizardStepValue: (stepId: number, value: any) =>
-      update((store) => {
-        store.steps?.map((wiz) => {
-          if (wiz.stepId === stepId) {
-            wiz.value = value;
-          }
-        });
-        return store;
-      }),
     updateWizardStepStatus: (stepId: number, status: WizardStepStatus) =>
       update((store) => {
         store.steps?.map((wiz) => {
@@ -91,3 +79,5 @@ export const appStore = createAppStore();
 export const darkTheme = writable(false);
 
 export const wizardStore = createWizardStore();
+
+export const pageStore: Writable<Page> = writable();

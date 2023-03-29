@@ -12,6 +12,15 @@ export const CONSTANTS = {
   },
 };
 
+export const ERROR_MESSAGES = {
+  DEFAULT: 'Something Went Wrong!, Please try again later',
+};
+
 export const API_URLS = {
   GET_PAGES_URL: (userId: string) => `${CONSTANTS.API_URL.PAGES_BASE_URL}users/${userId}`,
+  GET_PAGE_BY_ID_URL: (userId: string) => `${CONSTANTS.API_URL.PAGES_BASE_URL}users/${userId}`,
+  GET_LINKS_URL: (pageId: string) => `${CONSTANTS.API_URL.PAGES_BASE_URL}links/${pageId}`,
+  CREATE_LINK_URL: () => `${CONSTANTS.API_URL.PAGES_BASE_URL}links/`,
+  CREATE_PAGE_URL: () => `${CONSTANTS.API_URL.PAGES_BASE_URL}links/`,
+  UPDATE_PAGE_DESCRIPTION_URL: () => `${CONSTANTS.API_URL.PAGES_BASE_URL}links/`,
 };

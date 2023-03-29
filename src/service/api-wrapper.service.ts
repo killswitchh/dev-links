@@ -5,6 +5,7 @@ export enum HTTP_METHODS {
   HEAD = 'HEAD',
   OPTIONS = 'OPTIONS',
   POST = 'POST',
+  PATCH = 'PATCH',
   PUT = 'PUT',
   TRACE = 'TRACE',
 }
@@ -31,6 +32,15 @@ export const ApiWrapper = {
       method: HTTP_METHODS.POST,
       headers: this.getDefaultHeaders(),
       body: JSON.stringify(body),
+    });
+    return await response.json();
+  },
+
+  async patch(url: string, body?: any) {
+    const response = await fetch(url, {
+      method: HTTP_METHODS.PATCH,
+      headers: this.getDefaultHeaders(),
+      body: body ? JSON.stringify(body) : null,
     });
     return await response.json();
   },

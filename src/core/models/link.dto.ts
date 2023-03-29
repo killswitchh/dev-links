@@ -6,6 +6,7 @@ export type Link = {
   id?: string;
   order?: number;
   pageId?: string;
+  active?: boolean;
 };
 
 export type CreateLinkRequest = {
@@ -13,6 +14,8 @@ export type CreateLinkRequest = {
   provider: Provider;
   prioritize: boolean;
   enrich: boolean;
+  pageId: string;
+  active: boolean;
 };
 
 export const enum Provider {
@@ -29,3 +32,5 @@ export const enum Provider {
   LINKEDIN = 'LINKEDIN',
   OTHER = 'OTHER',
 }
+
+export type SelectValue = { index: number; value: string; label: string };

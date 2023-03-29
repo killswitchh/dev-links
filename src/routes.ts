@@ -10,6 +10,5 @@ export const routes: Route[] = [
 
 export const routesLoggedIn: Route[] = [
   { name: 'Links', path: '/links', id: 1, active: true, position: 'left' },
-  { name: 'Create', path: '/create', id: 2, active: false, position: 'left' },
   { name: 'Logout', path: '/login', id: 3, active: false, position: 'right' },
 ];
