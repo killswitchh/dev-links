@@ -1,46 +1,51 @@
 import { error, fail } from '@sveltejs/kit';
 import { get } from 'svelte/store';
+import { superValidate } from 'sveltekit-superforms/server';
 import PageService from '../../service/api/page.service';
 import { pageStore } from '../../stores';
 import type { PageServerLoad } from './$types';
-import type { CreateLinkRequest, Link, Provider, SelectValue } from './../../core/models/link.dto';
+import {
+  CreateLinkRequestSchema,
+  type CreateLinkRequest,
+  type Link,
+} from './../../core/models/link.dto';
 import type { Page } from './../../core/models/page.dto';
 import { LinkService } from './../../service/api/link.service';
 
-export const load = (async ({ locals: { getSession } }) => {
+export const load = (async (event) => {
   console.log('Im Running');
-  const session = await getSession();
+  const session = await event.locals.getSession();
   if (!session) {
     throw error(401, { message: 'Unauthorized' });
   }
-
   const storePage = get(pageStore);
   const page: Page = await PageService.getPageById(storePage.id);
   const links: Link[] = await LinkService.getLinks(page.id);
   page.links = links;
   pageStore.set(page);
-
+  const form = await superValidate(event, CreateLinkRequestSchema);
   return {
+    form: form,
     page: page,
-    session: getSession(),
+    session: event.locals.getSession(),
   };
 }) satisfies PageServerLoad;
 
 export const actions = {
-  link: async ({ request }) => {
-    const body = await request.formData();
-    const provider: SelectValue = JSON.parse(body.get('provider') as string) as SelectValue;
+  link: async (event) => {
+    const form = await superValidate(event, CreateLinkRequestSchema);
+    if (!form.valid) {
+      return fail(400, {
+        form,
+      });
+    }
     const page = get(pageStore);
-    const createlinkRequest: CreateLinkRequest = {
-      url: body.get('url') as string,
-      prioritize: body.get('prioritize') === 'on',
-      enrich: body.get('enrich') === 'on',
-      pageId: page.id,
-      provider: provider.value as Provider,
-      active: true,
-    };
+    const createlinkRequest: CreateLinkRequest = form.data;
+    createlinkRequest.pageId = page.id;
+
     try {
-      return await LinkService.createLink(createlinkRequest);
+      await LinkService.createLink(form.data);
+      return { form };
     } catch (e) {
       console.error('ERROR', e);
       return fail(400, { createlinkRequest, error: e });

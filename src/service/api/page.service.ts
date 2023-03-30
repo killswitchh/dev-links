@@ -2,6 +2,7 @@ import { API_URLS } from '../../constants';
 import type { Page } from '../../core/models/page.dto';
 import { ApiWrapper } from '../api-wrapper.service';
 import type { CreatePageRequest } from './../../core/models/page.dto';
+import { theme } from './theme.service';
 
 const mockPage: Page = {
   id: '1',
@@ -11,6 +12,7 @@ const mockPage: Page = {
   ownerId: '12345678',
   active: true,
   underCreation: false,
+  theme: theme,
 };
 
 const pages: Page[] = [
@@ -23,6 +25,7 @@ const pages: Page[] = [
     ownerId: '12345678',
     active: false,
     underCreation: true,
+    theme: theme,
   },
 ];
 
@@ -60,6 +63,7 @@ export const PageService = {
       ownerId: createPageRequest.ownerId,
       underCreation: createPageRequest.underCreation,
       active: createPageRequest.active,
+      theme: theme,
     };
     pages.push(createdPage);
     return Promise.resolve(createdPage);

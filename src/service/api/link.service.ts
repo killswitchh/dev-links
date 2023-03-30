@@ -34,10 +34,10 @@ export const LinkService = {
 
   createLink(createLinkRequest: CreateLinkRequest): Promise<Link> {
     console.log('creating Link for request', createLinkRequest);
-    const createdLink = {
+    const createdLink: Link = {
       id: links[links.length - 1].id + '1',
       url: createLinkRequest.url,
-      provider: createLinkRequest.provider,
+      provider: createLinkRequest.provider.value,
       enrich: createLinkRequest.enrich,
       order: links.length + 1,
       prioritize: createLinkRequest.prioritize,

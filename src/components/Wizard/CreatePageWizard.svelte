@@ -1,15 +1,18 @@
 <script lang="ts">
   import { Steps } from 'svelte-steps';
   import type { Page } from '../../core/models/page.dto';
+  import type { PageData } from '../../routes/create/$types';
   import { wizardStore, type WizardStep } from '../../stores';
   import CreateLinks from './links/CreateLinks.svelte';
   import PageInfoForm from './pages/PageInfo.svelte';
+  import CreateTheme from './theme/ThemeEditor.svelte';
   let wizardSteps: WizardStep[] = [];
   wizardStore.subscribe((x) => {
     wizardSteps = x.steps;
   });
 
   export let page: Page;
+  export let data: PageData;
 
   let currentStep = 0;
 
@@ -41,12 +44,17 @@
         current="{currentStep}"
         on:click="{(e) => buttonClicked(e)}"
       />
-      {#if currentStep == 0}
-        <PageInfoForm page="{page}" />
-      {/if}
-      {#if currentStep == 1}
-        <CreateLinks links="{page.links}" />
-      {/if}
+      <div class="m-2 min-h-[80%] bg-slate-400 rounded-xl flex flex-col items-center">
+        {#if currentStep == 0}
+          <PageInfoForm page="{page}" />
+        {/if}
+        {#if currentStep == 1}
+          <CreateLinks links="{page.links}" data="{data}" />
+        {/if}
+        {#if currentStep == 2}
+          <CreateTheme page="{page}" />
+        {/if}
+      </div>
       <div class="m-2 flex flex-row justify-between">
         <button
           type="button"

@@ -1,4 +1,6 @@
 import type { Link } from './link.dto';
+import type { Theme } from './theme.dto';
+
 export type Page = {
   id: string;
   name: string;
@@ -9,6 +11,7 @@ export type Page = {
   ownerId: string;
   active: boolean;
   links?: Link[];
+  theme: Theme;
   underCreation: boolean;
 };
 
