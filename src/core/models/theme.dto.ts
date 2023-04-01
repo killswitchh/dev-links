@@ -17,6 +17,9 @@ export type Button = {
   id: string;
   buttonTheme: ButtonTheme;
   buttonShape: ButtonShape;
+  buttonColor: string;
+  fontColor: string;
+  outlineColor: string;
   themeId: string;
 };
 
@@ -59,6 +62,29 @@ export enum ButtonShape {
 export enum ButtonTheme {
   FILL = 'FILL',
   OUTLINE = 'OUTLINE',
-  HARD_SHADOW = 'HARD_SHADOW',
-  SOFT_SHADOW = 'SOFT_SHADOW',
+  SHADOW = 'SHADOW',
 }
+
+export type ButtonChangeEvent = {
+  selected: ButtonChangeEventContent;
+};
+
+export type BackgroundChangeEvent = {
+  selected: BackgroundChangeEventContent;
+};
+
+export type BackgroundChangeEventContent = {
+  backgroundType: BackgroundType;
+  backgroundColor?: string | null;
+  gradientStops?: GradientStop[];
+  imageUrl?: string | null;
+};
+
+export type ButtonChangeEventContent = {
+  buttonText: string;
+  buttonTheme: ButtonTheme;
+  buttonShape: ButtonShape;
+  buttonColor: string;
+  fontColor: string;
+  outlineColor: string;
+};

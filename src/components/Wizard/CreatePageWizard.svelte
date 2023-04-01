@@ -44,7 +44,9 @@
         current="{currentStep}"
         on:click="{(e) => buttonClicked(e)}"
       />
-      <div class="m-2 min-h-[80%] bg-slate-400 rounded-xl flex flex-col items-center">
+      <div
+        class="m-2 min-h-[80%] h-[100%] overflow-auto bg-slate-400 rounded-xl flex flex-col items-center"
+      >
         {#if currentStep == 0}
           <PageInfoForm page="{page}" />
         {/if}

@@ -10,12 +10,17 @@ export const theme: Theme = {
     buttonShape: ButtonShape.PILL,
     buttonTheme: ButtonTheme.FILL,
     themeId: 'T123',
+    buttonColor: '#FFFFFF',
+    fontColor: '#000000',
+    outlineColor: '#000000',
   },
   background: {
     id: '1',
-    backgroundColor: '#000000',
+    backgroundColor: '#000FFF',
     backgroundType: BackgroundType.FILL,
     themeId: 'T123',
+    gradientStops: [],
+    imageUrl: undefined,
   },
 };
 export const ThemeService = {

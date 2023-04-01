@@ -1,7 +1,6 @@
 <script lang="ts">
   import Select from 'svelte-select';
   import { superForm } from 'sveltekit-superforms/client';
-  import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
   import { CreateLinkRequestSchema, Provider } from '../../../core/models/link.dto';
   import type { PageData } from '../../../routes/create/$types';
 
@@ -21,8 +20,6 @@
     dataType: 'json',
   });
 </script>
-
-<SuperDebug data="{$form}" />
 
 <div>Create Link</div>
 <form method="POST" action="/create?/link" use:enhance>

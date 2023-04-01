@@ -6,6 +6,5 @@
   export let page: Page | undefined;
 </script>
 
-{page?.theme.id}
-<ButtonPicker />
-<BackgroundPicker />
+<ButtonPicker theme="{page?.theme}" />
+<BackgroundPicker theme="{page?.theme}" />
