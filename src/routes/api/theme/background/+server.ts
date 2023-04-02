@@ -1,6 +1,6 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
-import type { Button } from '../../../../core/models/theme.dto';
-import ThemeService from '../../../../service/api/theme.service';
+import type { Background } from './../../../../core/models/theme.dto';
+import { ThemeService } from './../../../../service/api/theme.service';
 
 export const PATCH = (async ({ locals: { getSession }, request }) => {
   const session = await getSession();
@@ -9,7 +9,7 @@ export const PATCH = (async ({ locals: { getSession }, request }) => {
     throw error(401, { message: 'Unauthorized' });
   }
 
-  const r: Button = await request.json();
-  const updatedTheme = await ThemeService.updateButtonForTheme(r.themeId, r.id, r);
+  const r: Background = await request.json();
+  const updatedTheme = await ThemeService.updateBackgroundForTheme(r.themeId, r.id, r);
   return json({ updatedTheme });
 }) satisfies RequestHandler;

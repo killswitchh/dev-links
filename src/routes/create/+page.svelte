@@ -6,8 +6,6 @@
   export let data: PageData;
 </script>
 
-<div>Page ID: {data.page.id} Page Name: {data.page.name}</div>
-
 <div class="flex flex-row justify-center h-[80vh]">
   <CreatePageWizard data="{data}" page="{data.page}" />
   <div class="border-black border-l-2"></div>

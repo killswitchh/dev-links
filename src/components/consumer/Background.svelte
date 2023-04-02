@@ -36,6 +36,7 @@
       'background-size': '100%',
       'background-position': 'center',
       'background-repeat': 'no-repeat',
+      background: '',
     };
     switch (backgroundType) {
       case BackgroundType.FILL:
@@ -47,7 +48,8 @@
         break;
       case BackgroundType.GRADIENT:
         style['background-image'] = 'none';
-        style['background-color'] = getGradientBg(gradientStops);
+        style['background-color'] = 'transparent';
+        style['background'] = getGradientBg(gradientStops);
         break;
       case BackgroundType.IMAGE:
         style['background-image'] = `url(${logo})`;
@@ -65,8 +67,8 @@
     .join(';');
 
   function getGradientBg(gradientStops: GradientStop[] | undefined): string {
-    console.log(gradientStops);
-    return 'transparent';
+    if (!gradientStops) return '';
+    return `linear-gradient(${gradientStops[0].color}, ${gradientStops[1].color})`;
   }
 </script>
 

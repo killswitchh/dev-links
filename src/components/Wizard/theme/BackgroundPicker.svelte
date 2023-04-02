@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { invalidateAll } from '$app/navigation';
   import {
     BackgroundType,
     type BackgroundChangeEventContent,
     type Theme,
   } from '../../../core/models/theme.dto';
+  import { ApiWrapper } from '../../../service/api-wrapper.service';
   import Background from '../../consumer/Background.svelte';
 
   export let theme: Theme | undefined;
@@ -14,25 +16,32 @@
     if (!theme) {
       return;
     }
-    console.log(event);
     theme.background.backgroundType = event.detail.backgroundType;
+  }
+
+  async function saveBackgroundLayout(event: MouseEvent) {
+    const backgroundEvent = await ApiWrapper.patch('api/theme/background', theme?.background);
+    invalidateAll();
+    return backgroundEvent;
   }
 </script>
 
 <div class="h-[50%] w-full flex flex-col items-center mt-5">
-  <div>Button Settings</div>
+  <div>Background Settings</div>
   {#if theme != null}
     <div class="mt-5 flex flex-row justify-between w-[80%]">
       <span class="p-2"> Style </span>
 
       {#each backgroundTypeList as backgroundType}
-        <Background
-          on:selected="{(e) => handleBackgroundChange(e)}"
-          backgroundType="{backgroundType}"
-          backgroundColor="{theme.background.backgroundColor}"
-          gradientStops="{theme.background.gradientStops}"
-          imageUrl="{theme.background.imageUrl}"
-        />
+        <div class="{backgroundType === theme.background.backgroundType ? 'border-b-4 p-1' : ''}">
+          <Background
+            on:selected="{(e) => handleBackgroundChange(e)}"
+            backgroundType="{backgroundType}"
+            backgroundColor="{theme.background.backgroundColor}"
+            gradientStops="{theme.background.gradientStops}"
+            imageUrl="{theme.background.imageUrl}"
+          />
+        </div>
       {/each}
     </div>
 
@@ -41,6 +50,24 @@
         <label>
           <input style="padding:0" type="color" bind:value="{theme.background.backgroundColor}" />
           Background Color
+        </label>
+      {/if}
+      {#if theme.background.backgroundType === BackgroundType.GRADIENT && theme.background.gradientStops?.length == 2}
+        <label>
+          <input
+            style="padding:0"
+            type="color"
+            bind:value="{theme.background.gradientStops[0].color}"
+          />
+          Gradient Primary Color
+        </label>
+        <label>
+          <input
+            style="padding:0"
+            type="color"
+            bind:value="{theme.background.gradientStops[1].color}"
+          />
+          Gradient Secondary Color
         </label>
       {/if}
       {#if theme.background.backgroundType === BackgroundType.IMAGE}
@@ -63,4 +90,10 @@
       {/if}
     </div>
   {/if}
+  <button
+    on:click="{(event) => saveBackgroundLayout(event)}"
+    class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+  >
+    Save
+  </button>
 </div>

@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { invalidateAll } from '$app/navigation';
   import {
     ButtonShape,
     ButtonTheme,
     type ButtonChangeEventContent,
     type Theme,
   } from '../../../core/models/theme.dto';
+  import { ApiWrapper } from '../../../service/api-wrapper.service';
   import Button from '../../consumer/Button.svelte';
 
   export let theme: Theme | undefined;
@@ -25,6 +27,12 @@
       return;
     }
     theme.button.buttonShape = event.detail.buttonShape;
+  }
+
+  async function saveButtonLayout(event: MouseEvent) {
+    const buttonEvent = await ApiWrapper.patch('api/theme/button', theme?.button);
+    invalidateAll();
+    return buttonEvent;
   }
 </script>
 
@@ -51,7 +59,7 @@
             buttonColor="{defaultTheme.button.buttonColor}"
             buttonShape="{defaultTheme.button.buttonShape}"
             fontColor="{defaultTheme.button.fontColor}"
-            outlineColor="{theme.button.outlineColor}"
+            outlineColor="{defaultTheme.button.outlineColor}"
             buttonTheme="{buttonTheme}"
             buttonText="{buttonTheme}"
           />
@@ -69,7 +77,7 @@
             buttonColor="{defaultTheme.button.buttonColor}"
             buttonShape="{buttonShape}"
             fontColor="{defaultTheme.button.fontColor}"
-            outlineColor="{theme.button.outlineColor}"
+            outlineColor="{defaultTheme.button.outlineColor}"
             buttonTheme="{defaultTheme.button.buttonTheme}"
             buttonText="BUTTON"
           />
@@ -95,5 +103,11 @@
         Font Color
       </label>
     </div>
+    <button
+      on:click="{(event) => saveButtonLayout(event)}"
+      class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+    >
+      Save
+    </button>
   {/if}
 </div>

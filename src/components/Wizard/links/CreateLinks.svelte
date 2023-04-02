@@ -14,6 +14,6 @@
   {/each}
 {/if}
 
-<div class="mt-2 mb-2 w-[50%] bg-white rounded-xl flex flex-col items-center">
+<div class="mt-2 mb-2 w-[50%] bg-white dark:bg-slate-700 rounded-xl flex flex-col items-center">
   <CreateLink data="{data}" />
 </div>

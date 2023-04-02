@@ -4,7 +4,9 @@
   export let link: Link;
 </script>
 
-<div class="mt-2 w-[50%] h-[100px] bg-white rounded-xl flex flex-col items-center">
+<div
+  class="mt-2 w-[50%] h-[100px] bg-white dark:bg-slate-700 rounded-xl flex flex-col items-center"
+>
   <div>ID: {link.id}</div>
   <div>url: {link.url}</div>
   <div>provider: {link.provider}</div>
