@@ -22,6 +22,8 @@
 <style>
   iframe {
     width: 100%;
-    height: 1000px;
+    height: 100%;
+    padding: 2%;
+    border-radius: 27px;
   }
 </style>

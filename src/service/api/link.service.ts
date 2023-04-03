@@ -1,8 +1,7 @@
-import { get } from 'svelte/store';
 import { API_URLS } from '../../constants';
+import type { LinkGroup } from '../../core/models/link-group.dto';
 import { Provider, type Link } from '../../core/models/link.dto';
 import type { CreateLinkRequest } from './../../core/models/link.dto';
-import { linkGroupStore } from './../../stores';
 import { ApiWrapper } from './../api-wrapper.service';
 
 const links: Link[] = [
@@ -34,9 +33,8 @@ export const LinkService = {
     return ApiWrapper.get(url);
   },
 
-  createLink(createLinkRequest: CreateLinkRequest): Promise<Link> {
+  createLink(createLinkRequest: CreateLinkRequest, linkGroup: LinkGroup): Promise<Link> {
     console.log('creating Link for request', createLinkRequest);
-    const linkGroup = get(linkGroupStore);
     const linkReq: Link = {
       url: createLinkRequest.url,
       provider: createLinkRequest.provider.value,

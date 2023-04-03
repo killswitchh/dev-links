@@ -14,8 +14,11 @@ export const load = (async (event) => {
   if (!session) {
     throw error(401, { message: 'Unauthorized' });
   }
+  const search = event.url.searchParams;
+  const linkGroupName = search.get('name');
   const storePage = get(linkGroupStore);
-  const linkGroup: LinkGroup = await LinkGroupService.getPageByName(storePage.name);
+  const name = linkGroupName ? linkGroupName : storePage.name;
+  const linkGroup: LinkGroup = await LinkGroupService.getPageByName(name);
   const form = await superValidate(event, CreateLinkRequestSchema);
   return {
     form: form,
@@ -32,12 +35,14 @@ export const actions = {
         form,
       });
     }
+    const name = event.url.searchParams.get('name');
     const linkGroup = get(linkGroupStore);
+    const linkGroupName = name ? name : linkGroup.name;
+    const linkGroupObj: LinkGroup = await LinkGroupService.getPageByName(linkGroupName);
     const createlinkRequest: CreateLinkRequest = form.data;
-    createlinkRequest.linkGroupId = linkGroup.id;
-
+    createlinkRequest.linkGroupId = linkGroupObj.id;
     try {
-      const res = await LinkService.createLink(form.data);
+      const res = await LinkService.createLink(form.data, linkGroupObj);
       console.log('link created', res);
       return { form };
     } catch (e) {

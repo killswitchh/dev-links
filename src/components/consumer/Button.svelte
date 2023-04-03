@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { createEventDispatcher } from 'svelte';
+  import type { Link } from '../../core/models/link.dto';
   import { ButtonShape, ButtonTheme, type ButtonChangeEvent } from '../../core/models/theme.dto';
 
   export let buttonText: string;
@@ -9,9 +11,9 @@
   export let fontColor: string;
   export let outlineColor: string;
   export let selected = false;
+  export let link: Link | null = null;
 
   const dispatch = createEventDispatcher<ButtonChangeEvent>();
-  console.log(selected);
 
   function buttonClicked() {
     dispatch('selected', {
@@ -22,6 +24,10 @@
       fontColor,
       outlineColor,
     });
+
+    if (link) {
+      goto(link.url);
+    }
   }
 
   const getStyles = (

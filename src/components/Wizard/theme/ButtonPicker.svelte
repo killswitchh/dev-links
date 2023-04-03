@@ -30,7 +30,7 @@
   }
 
   async function saveButtonLayout(event: MouseEvent) {
-    const buttonEvent = await ApiWrapper.patch('api/theme/button', theme?.button);
+    const buttonEvent = await ApiWrapper.patch('/api/theme/button', theme?.button);
     invalidateAll();
     return buttonEvent;
   }

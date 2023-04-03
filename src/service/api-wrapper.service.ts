@@ -42,6 +42,7 @@ export const ApiWrapper = {
   },
 
   async patch(url: string, body?: any) {
+    console.log('PATCH REQ', url, body);
     const response = await fetch(url, {
       method: HTTP_METHODS.PATCH,
       headers: this.getDefaultHeaders(),

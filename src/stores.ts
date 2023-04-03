@@ -84,3 +84,5 @@ export const wizardStore = createWizardStore();
 export const linkGroupStore: Writable<LinkGroup> = writable();
 
 export const userStore: Writable<User> = writable();
+
+export const iFrameUrlStore: Writable<string> = writable('');

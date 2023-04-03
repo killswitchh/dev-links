@@ -44,12 +44,9 @@ export const ThemeService = {
   },
 
   updateButtonForTheme(themeId: string, buttonId: string, button: Button): Promise<Button> {
-    console.log('updating Button for linkGroupId', themeId, 'button ID', buttonId);
-    return Promise.resolve(Object.assign(theme.button, button));
-    //TODO: Remove after backend integration
-
-    const url = API_URLS.UPDATE_BUTTON_URL(themeId, buttonId);
-    return ApiWrapper.patch(url);
+    console.log('button ID', buttonId, 'button', button);
+    const url = API_URLS.UPDATE_BUTTON_URL(buttonId);
+    return ApiWrapper.patch(url, button);
   },
 
   updateBackgroundForTheme(

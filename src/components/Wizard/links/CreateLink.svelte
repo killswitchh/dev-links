@@ -22,7 +22,7 @@
 </script>
 
 <div>Create Link</div>
-<form method="POST" action="?/link" use:enhance>
+<form method="POST" action="?/link&name={data.linkGroup.name}" use:enhance>
   <div>
     <div class="mt-3">
       <Select
