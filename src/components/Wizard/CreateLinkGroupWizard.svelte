@@ -1,17 +1,17 @@
 <script lang="ts">
   import { Steps } from 'svelte-steps';
-  import type { Page } from '../../core/models/page.dto';
+  import type { LinkGroup } from '../../core/models/link-group.dto';
   import type { PageData } from '../../routes/admin/create/$types';
   import { wizardStore, type WizardStep } from '../../stores';
   import CreateLinks from './links/CreateLinks.svelte';
-  import PageInfoForm from './pages/PageInfo.svelte';
+  import PageInfoForm from './link-groups/LinkGroupInfo.svelte';
   import CreateTheme from './theme/ThemeEditor.svelte';
   let wizardSteps: WizardStep[] = [];
   wizardStore.subscribe((x) => {
     wizardSteps = x.steps;
   });
 
-  export let page: Page;
+  export let linkGroup: LinkGroup;
   export let data: PageData;
 
   let currentStep = 0;
@@ -28,7 +28,7 @@
   };
 
   const createPage = () => {
-    console.log('Creating Page');
+    console.log('Creating LinkGroup');
   };
 
   $: isLastStep = () => currentStep === wizardSteps.length;
@@ -48,13 +48,13 @@
         class="m-2 min-h-[80%] h-[100%] overflow-auto bg-slate-400 rounded-xl flex flex-col items-center"
       >
         {#if currentStep == 0}
-          <PageInfoForm page="{page}" />
+          <PageInfoForm linkGroup="{linkGroup}" />
         {/if}
         {#if currentStep == 1}
-          <CreateLinks links="{page.links}" data="{data}" />
+          <CreateLinks links="{linkGroup.links}" data="{data}" />
         {/if}
         {#if currentStep == 2}
-          <CreateTheme page="{page}" />
+          <CreateTheme linkGroup="{linkGroup}" />
         {/if}
       </div>
       <div class="m-2 flex flex-row justify-between">

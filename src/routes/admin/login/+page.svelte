@@ -1,25 +1,39 @@
 <script lang="ts">
   import { enhance, type SubmitFunction } from '$app/forms';
-  import { invalidateAll } from '$app/navigation';
   import type { Provider, Session } from '@supabase/supabase-js';
-  import { ApiWrapper } from '../../../service/api-wrapper.service';
-  import { appStore, darkTheme } from '../../../stores';
+  import { onMount } from 'svelte';
+  import { appStore, darkTheme, userStore } from '../../../stores';
   import { supabase } from '../../../supabaseClient';
+  import type { PageData } from './$types';
 
-  let loading = false;
+  export let data: PageData;
   let session: Session | null | undefined = null;
-
+  onMount(() => {
+    console.log('here');
+    console.log('page Data', data);
+  });
   appStore.subscribe((x) => {
     session = x.user;
   });
+  let loading = false;
 
   $: dark = $darkTheme;
+  $: user = $userStore;
 
-  async function logout() {
-    const buttonEvent = await ApiWrapper.post('api/admin/logout', {});
-    invalidateAll();
-    return buttonEvent;
-  }
+  const handleLogout = async () => {
+    try {
+      loading = true;
+      const { error } = await supabase.auth.signOut();
+      appStore.updateCurrentSession(null);
+      if (error) throw error;
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      loading = false;
+    }
+  };
 
   const signInWithProvider = async (provider: Provider) => {
     const { data, error } = await supabase.auth.signInWithOAuth({
@@ -28,7 +42,6 @@
   };
 
   const submitSocialLogin: SubmitFunction = async ({ action, cancel }) => {
-    console.log('here');
     switch (action.searchParams.get('provider')) {
       case 'github':
         await signInWithProvider('github');
@@ -81,7 +94,7 @@
       aria-live="polite"
       disabled="{loading}"
       class="inline-block w-full rounded bg-primary px-7 pt-3 pb-2.5 text-sm font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-      on:click|preventDefault="{() => logout()}"
+      on:click|preventDefault="{() => handleLogout()}"
     >
       <span>{loading ? 'Loading' : 'Logout'}</span>
     </button>

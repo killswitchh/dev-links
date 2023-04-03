@@ -7,7 +7,7 @@ export type Link = {
   url: string;
   id?: string;
   order?: number;
-  pageId?: string;
+  linkGroupId?: string;
   active?: boolean;
 };
 
@@ -33,11 +33,11 @@ export const ProviderSelectValueSchema = z.object({
 });
 
 export const CreateLinkRequestSchema = z.object({
-  url: z.string(),
+  url: z.string().url(),
   provider: ProviderSelectValueSchema,
   prioritize: z.boolean(),
   enrich: z.boolean(),
-  pageId: z.string().nullable(),
+  linkGroupId: z.string().nullable(),
   active: z.boolean().default(true),
 });
 

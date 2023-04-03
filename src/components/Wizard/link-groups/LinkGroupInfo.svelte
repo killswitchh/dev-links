@@ -1,8 +1,8 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import type { Page } from '../../../core/models/page.dto';
+  import type { LinkGroup } from '../../../core/models/link-group.dto';
 
-  export let page: Page | undefined;
+  export let linkGroup: LinkGroup | undefined;
 </script>
 
 <form class="h-full w-full" method="POST" action="?/create" use:enhance>
@@ -14,7 +14,7 @@
           rows="5"
           name="description"
           class="w-[70%] resize-y rounded-md"
-          value="{page?.description ?? ''}"></textarea>
+          value="{linkGroup?.description ?? ''}"></textarea>
         <button
           formaction="?/updateDescription"
           class="h-[20%] text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
@@ -24,8 +24,8 @@
       </div>
     </div>
     <div class="h-[50%]">
-      {#if page?.imageURL}
-        Current Image: <img alt="page" src="{page.imageURL}" />
+      {#if linkGroup?.imageURL}
+        Current Image: <img alt="linkGroup" src="{linkGroup.imageURL}" />
       {/if}
       <div class="pt-4 flex flex-row justify-between m-6">
         <div class="w-[70%]">

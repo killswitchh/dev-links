@@ -1,24 +1,34 @@
 import type { Session } from '@supabase/supabase-js';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { get } from 'svelte/store';
-import type { CreatePageRequest, Page } from '../../../core/models/page.dto';
-import PageService from '../../../service/api/page.service';
-import { appStore, pageStore } from '../../../stores';
+import AppError from '../../../../../../../Code/dev-linktree/dev-tree-dashboard/src/core/models/app-error.dto';
+import type { CreateLinkGroupRequest, LinkGroup } from '../../../core/models/link-group.dto';
+import LinkGroupService from '../../../service/api/link-group.service';
+import { linkGroupStore } from '../../../stores';
 import type { PageServerLoad } from './$types';
 import { ERROR_MESSAGES } from './../../../constants';
+import { userStore } from './../../../stores';
 
 export const load = (async ({ locals: { getSession } }) => {
   const session: Session = await getSession();
   if (!session) {
     throw error(401, { message: 'Unauthorized' });
   }
-
-  const pages: Page[] = await PageService.getUserPages(session.user.id);
-  const pageLimit: number = await PageService.getAvailablePages(session.user.id);
+  const user = get(userStore);
+  let linkGroups: LinkGroup[] = [];
+  let pageLimit = 3;
+  try {
+    linkGroups = await LinkGroupService.getUserPages(user.id);
+    pageLimit = await LinkGroupService.getAvailablePages(session.user.id);
+  } catch (e) {
+    if (e instanceof AppError) {
+      throw error(400, e.message);
+    }
+  }
 
   return {
     session: getSession(),
-    pages: pages,
+    linkGroups: linkGroups,
     pageLimit: pageLimit,
   };
 }) satisfies PageServerLoad;
@@ -26,11 +36,14 @@ export const load = (async ({ locals: { getSession } }) => {
 export const actions = {
   createPage: async ({ request }) => {
     const body = await request.formData();
-    const store = get(appStore);
+    const user = get(userStore);
+    if (!user) {
+      return fail(400, { error: ERROR_MESSAGES.DEFAULT });
+    }
 
-    const createPageRequest: CreatePageRequest = {
+    const createPageRequest: CreateLinkGroupRequest = {
       name: body.get('name') as string,
-      ownerId: store.user?.user.id as string,
+      ownerId: user?.id as string,
       underCreation: true,
       active: true,
     };
@@ -38,9 +51,9 @@ export const actions = {
       return fail(400, { createPageRequest, error: ERROR_MESSAGES.DEFAULT });
     }
     try {
-      const page = await PageService.createPage(createPageRequest);
-      if (page) {
-        pageStore.set(page);
+      const linkGroup = await LinkGroupService.createPage(createPageRequest);
+      if (linkGroup) {
+        linkGroupStore.set(linkGroup);
       }
     } catch (e) {
       console.error('ERROR', e);

@@ -1,7 +1,7 @@
 import type { Link } from './link.dto';
 import type { Theme } from './theme.dto';
 
-export type Page = {
+export type LinkGroup = {
   id: string;
   name: string;
   description?: string;
@@ -15,7 +15,7 @@ export type Page = {
   underCreation: boolean;
 };
 
-export type CreatePageRequest = {
+export type CreateLinkGroupRequest = {
   name: string;
   ownerId: string;
   underCreation: boolean;

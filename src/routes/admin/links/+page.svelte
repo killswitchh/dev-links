@@ -1,18 +1,20 @@
 <script lang="ts">
-  import PageListItem from '../../../components/Wizard/pages/PageListItem.svelte';
+  import PageListItem from '../../../components/Wizard/link-groups/LinkGroupListItem.svelte';
   import type { NullSafePageItem } from '../../../types';
   import type { PageData } from './$types';
 
   export let data: PageData;
 
-  const pages: NullSafePageItem[] = data.pages.filter(() => true) satisfies NullSafePageItem[];
-  while (pages.length < data.pageLimit) {
-    pages.push(null);
+  const linkGroups: NullSafePageItem[] = data.linkGroups.filter(
+    () => true,
+  ) satisfies NullSafePageItem[];
+  while (linkGroups.length < data.pageLimit) {
+    linkGroups.push(null);
   }
 </script>
 
-{#each pages as page}
+{#each linkGroups as linkGroup}
   <div class="flex justify-center mb-5">
-    <PageListItem page="{page}" />
+    <PageListItem linkGroup="{linkGroup}" />
   </div>
 {/each}

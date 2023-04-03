@@ -7,6 +7,11 @@ export type User = {
   active: boolean;
 };
 
+export type CreateUserRequest = {
+  name: string;
+  email: string;
+};
+
 export const LoginRequestSchema = z.object({
   email: z.string().email(),
   name: z.string(),

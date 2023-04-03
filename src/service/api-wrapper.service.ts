@@ -1,3 +1,5 @@
+import AppError from '../core/models/app-error.dto';
+
 export enum HTTP_METHODS {
   CONNECT = 'CONNECT',
   DELETE = 'DELETE',
@@ -12,6 +14,7 @@ export enum HTTP_METHODS {
 
 export const ApiWrapper = {
   async get(url: string) {
+    console.log('GET REQ', url);
     const response = await fetch(url, {
       method: HTTP_METHODS.GET,
       headers: this.getDefaultHeaders(),
@@ -22,12 +25,14 @@ export const ApiWrapper = {
   async handleError(response: any) {
     const getResponse: any = await response.json();
     if (response.status >= 400) {
-      throw new Error(getResponse.message);
+      console.log('error found');
+      throw new AppError(getResponse.message, response.status);
     }
     return getResponse;
   },
 
   async post(url: string, body: any) {
+    console.log('POST REQ', url, body);
     const response = await fetch(url, {
       method: HTTP_METHODS.POST,
       headers: this.getDefaultHeaders(),

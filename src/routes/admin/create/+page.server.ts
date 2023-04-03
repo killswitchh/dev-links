@@ -1,15 +1,11 @@
 import { error, fail } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import { superValidate } from 'sveltekit-superforms/server';
-import {
-  CreateLinkRequestSchema,
-  type CreateLinkRequest,
-  type Link,
-} from '../../../core/models/link.dto';
-import type { Page } from '../../../core/models/page.dto';
+import type { LinkGroup } from '../../../core/models/link-group.dto';
+import { CreateLinkRequestSchema, type CreateLinkRequest } from '../../../core/models/link.dto';
+import LinkGroupService from '../../../service/api/link-group.service';
 import LinkService from '../../../service/api/link.service';
-import PageService from '../../../service/api/page.service';
-import { pageStore } from '../../../stores';
+import { linkGroupStore } from '../../../stores';
 import type { PageServerLoad } from './$types';
 
 export const load = (async (event) => {
@@ -18,16 +14,12 @@ export const load = (async (event) => {
   if (!session) {
     throw error(401, { message: 'Unauthorized' });
   }
-  const storePage = get(pageStore);
-  const page: Page = await PageService.getPageById(storePage.id);
-  const links: Link[] = await LinkService.getLinks(page.id);
-  page.links = links;
-  pageStore.set(page);
+  const storePage = get(linkGroupStore);
+  const linkGroup: LinkGroup = await LinkGroupService.getPageByName(storePage.name);
   const form = await superValidate(event, CreateLinkRequestSchema);
-  console.log(form);
   return {
     form: form,
-    page: page,
+    linkGroup: linkGroup,
     session: event.locals.getSession(),
   };
 }) satisfies PageServerLoad;
@@ -40,12 +32,13 @@ export const actions = {
         form,
       });
     }
-    const page = get(pageStore);
+    const linkGroup = get(linkGroupStore);
     const createlinkRequest: CreateLinkRequest = form.data;
-    createlinkRequest.pageId = page.id;
+    createlinkRequest.linkGroupId = linkGroup.id;
 
     try {
-      await LinkService.createLink(form.data);
+      const res = await LinkService.createLink(form.data);
+      console.log('link created', res);
       return { form };
     } catch (e) {
       console.error('ERROR', e);
@@ -56,12 +49,12 @@ export const actions = {
   updateDescription: async ({ request }) => {
     const body = await request.formData();
     const description = body.get('description') as string;
-    const page = get(pageStore);
+    const linkGroup = get(linkGroupStore);
     try {
-      return await PageService.updatePageDescription(page.id, description);
+      return await LinkGroupService.updatePageDescription(linkGroup.id, description);
     } catch (e) {
       console.error('ERROR', e);
-      return fail(400, { page, error: e });
+      return fail(400, { linkGroup, error: e });
     }
   },
 

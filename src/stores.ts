@@ -1,6 +1,7 @@
 import type { Session } from '@supabase/supabase-js';
 import { writable, type Writable } from 'svelte/store';
-import type { Page } from './core/models/page.dto';
+import type { LinkGroup } from './core/models/link-group.dto';
+import type { User } from './core/models/user.dto';
 
 export type Store = {
   error?: string | null;
@@ -80,4 +81,6 @@ export const darkTheme = writable(false);
 
 export const wizardStore = createWizardStore();
 
-export const pageStore: Writable<Page> = writable();
+export const linkGroupStore: Writable<LinkGroup> = writable();
+
+export const userStore: Writable<User> = writable();

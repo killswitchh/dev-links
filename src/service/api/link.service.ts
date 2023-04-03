@@ -1,6 +1,8 @@
+import { get } from 'svelte/store';
 import { API_URLS } from '../../constants';
 import { Provider, type Link } from '../../core/models/link.dto';
 import type { CreateLinkRequest } from './../../core/models/link.dto';
+import { linkGroupStore } from './../../stores';
 import { ApiWrapper } from './../api-wrapper.service';
 
 const links: Link[] = [
@@ -23,30 +25,28 @@ const links: Link[] = [
 ];
 
 export const LinkService = {
-  getLinks(pageId: string): Promise<Link[]> {
-    console.log('fetching Links for pageId', pageId);
+  getLinks(linkGroupId: string): Promise<Link[]> {
+    console.log('fetching Links for linkGroupId', linkGroupId);
     return Promise.resolve(links);
     //TODO: Remove after backend integration
 
-    const url = API_URLS.GET_LINKS_URL(pageId);
+    const url = API_URLS.GET_LINKS_URL(linkGroupId);
     return ApiWrapper.get(url);
   },
 
   createLink(createLinkRequest: CreateLinkRequest): Promise<Link> {
     console.log('creating Link for request', createLinkRequest);
-    const createdLink: Link = {
-      id: links[links.length - 1].id + '1',
+    const linkGroup = get(linkGroupStore);
+    const linkReq: Link = {
       url: createLinkRequest.url,
       provider: createLinkRequest.provider.value,
       enrich: createLinkRequest.enrich,
-      order: links.length + 1,
+      order: linkGroup.links ? linkGroup.links.length + 1 : 1,
       prioritize: createLinkRequest.prioritize,
+      linkGroupId: linkGroup.id,
     };
-    links.push(createdLink);
-    return Promise.resolve(createdLink);
-    //TODO: Remove after backend integration
     const url = API_URLS.CREATE_LINK_URL();
-    return ApiWrapper.post(url, createLinkRequest);
+    return ApiWrapper.post(url, linkReq);
   },
 };
 

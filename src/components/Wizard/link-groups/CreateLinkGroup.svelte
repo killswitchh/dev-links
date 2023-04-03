@@ -10,7 +10,7 @@
       class="mb-2 text-xl font-medium text-neutral-800 dark:text-neutral-50"
       on:click="{() => (displayForm = !displayForm)}"
     >
-      + Add Page
+      + Add LinkGroup
     </button>
   </div>
 {:else}

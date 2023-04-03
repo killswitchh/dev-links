@@ -1,6 +1,6 @@
 <script lang="ts">
-  import CreatePageWizard from '../../../components/Wizard/CreatePageWizard.svelte';
-  import CreatePageWizardPreview from '../../../components/Wizard/CreatePageWizardPreview.svelte';
+  import CreatePageWizard from '../../../components/Wizard/CreateLinkGroupWizard.svelte';
+  import CreatePageWizardPreview from '../../../components/Wizard/CreateLinkGroupWizardPreview.svelte';
 
   import type { PageData } from './$types';
 
@@ -8,7 +8,7 @@
 </script>
 
 <div class="flex flex-row justify-center h-[80vh]">
-  <CreatePageWizard data="{data}" page="{data.page}" />
+  <CreatePageWizard data="{data}" linkGroup="{data.linkGroup}" />
   <div class="border-black border-l-2"></div>
-  <CreatePageWizardPreview page="{data.page}" />
+  <CreatePageWizardPreview linkGroup="{data.linkGroup}" />
 </div>
