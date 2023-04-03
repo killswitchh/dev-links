@@ -2,8 +2,6 @@
   import { createEventDispatcher } from 'svelte';
   import { ButtonShape, ButtonTheme, type ButtonChangeEvent } from '../../core/models/theme.dto';
 
-  //   export let buttonSettings: Button;
-
   export let buttonText: string;
   export let buttonTheme: ButtonTheme;
   export let buttonShape: ButtonShape;
@@ -13,6 +11,7 @@
   export let selected = false;
 
   const dispatch = createEventDispatcher<ButtonChangeEvent>();
+  console.log(selected);
 
   function buttonClicked() {
     dispatch('selected', {

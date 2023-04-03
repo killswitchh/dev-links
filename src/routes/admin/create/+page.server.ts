@@ -1,16 +1,16 @@
 import { error, fail } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import { superValidate } from 'sveltekit-superforms/server';
-import PageService from '../../service/api/page.service';
-import { pageStore } from '../../stores';
-import type { PageServerLoad } from './$types';
 import {
   CreateLinkRequestSchema,
   type CreateLinkRequest,
   type Link,
-} from './../../core/models/link.dto';
-import type { Page } from './../../core/models/page.dto';
-import { LinkService } from './../../service/api/link.service';
+} from '../../../core/models/link.dto';
+import type { Page } from '../../../core/models/page.dto';
+import LinkService from '../../../service/api/link.service';
+import PageService from '../../../service/api/page.service';
+import { pageStore } from '../../../stores';
+import type { PageServerLoad } from './$types';
 
 export const load = (async (event) => {
   console.log('Im Running');
@@ -24,6 +24,7 @@ export const load = (async (event) => {
   page.links = links;
   pageStore.set(page);
   const form = await superValidate(event, CreateLinkRequestSchema);
+  console.log(form);
   return {
     form: form,
     page: page,

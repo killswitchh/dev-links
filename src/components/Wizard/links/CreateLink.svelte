@@ -2,7 +2,7 @@
   import Select from 'svelte-select';
   import { superForm } from 'sveltekit-superforms/client';
   import { CreateLinkRequestSchema, Provider } from '../../../core/models/link.dto';
-  import type { PageData } from '../../../routes/create/$types';
+  import type { PageData } from '../../../routes/admin/create/$types';
 
   let providers: Provider[] = [
     Provider.BITBUCKET,
@@ -22,7 +22,7 @@
 </script>
 
 <div>Create Link</div>
-<form method="POST" action="/create?/link" use:enhance>
+<form method="POST" action="?/link" use:enhance>
   <div>
     <div class="mt-3">
       <Select

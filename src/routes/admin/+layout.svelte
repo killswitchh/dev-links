@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { appStore, darkTheme } from '../stores';
-
   import type { Session } from '@supabase/supabase-js';
-  import '../app.css';
+  import { appStore, darkTheme } from '../../stores';
+  import '../../app.css';
+
   import Header from './Header.svelte';
-  import './styles.css';
+  import '../styles.css';
   $: dark = $darkTheme;
 
   let user: Session | null | undefined;

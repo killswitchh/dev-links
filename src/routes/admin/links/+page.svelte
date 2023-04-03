@@ -1,6 +1,6 @@
 <script lang="ts">
-  import PageListItem from '../../components/Wizard/pages/PageListItem.svelte';
-  import type { NullSafePageItem } from '../../types';
+  import PageListItem from '../../../components/Wizard/pages/PageListItem.svelte';
+  import type { NullSafePageItem } from '../../../types';
   import type { PageData } from './$types';
 
   export let data: PageData;

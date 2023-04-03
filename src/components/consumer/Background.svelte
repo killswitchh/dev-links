@@ -15,7 +15,6 @@
   const dispatch = createEventDispatcher<BackgroundChangeEvent>();
 
   function backgroundClicked() {
-    console.log('im clicked');
     dispatch('selected', {
       backgroundType,
       backgroundColor,

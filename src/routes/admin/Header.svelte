@@ -1,11 +1,10 @@
 <script lang="ts">
   import logo from '$lib/images/logo.png';
   import type { Session } from '@supabase/supabase-js';
-  import DarkThemeToggle from '../components/dark-theme-toggle/DarkThemeToggle.svelte';
-  import { routes, routesLoggedIn } from '../routes';
-  import { appStore } from '../stores';
-  import type { Route } from '../types';
-
+  import DarkThemeToggle from '../../components/dark-theme-toggle/DarkThemeToggle.svelte';
+  import { routes, routesLoggedIn } from '../../routes';
+  import { appStore } from '../../stores';
+  import type { Route } from '../../types';
   let nav_bar: Route[] = [];
 
   function updateActiveNavBarElement(route: Route) {

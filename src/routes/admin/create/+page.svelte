@@ -1,6 +1,7 @@
 <script lang="ts">
-  import CreatePageWizard from '../../components/Wizard/CreatePageWizard.svelte';
-  import CreatePageWizardPreview from '../../components/Wizard/CreatePageWizardPreview.svelte';
+  import CreatePageWizard from '../../../components/Wizard/CreatePageWizard.svelte';
+  import CreatePageWizardPreview from '../../../components/Wizard/CreatePageWizardPreview.svelte';
+
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -9,5 +10,5 @@
 <div class="flex flex-row justify-center h-[80vh]">
   <CreatePageWizard data="{data}" page="{data.page}" />
   <div class="border-black border-l-2"></div>
-  <CreatePageWizardPreview />
+  <CreatePageWizardPreview page="{data.page}" />
 </div>

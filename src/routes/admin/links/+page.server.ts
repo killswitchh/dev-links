@@ -1,15 +1,14 @@
 import type { Session } from '@supabase/supabase-js';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { get } from 'svelte/store';
+import type { CreatePageRequest, Page } from '../../../core/models/page.dto';
+import PageService from '../../../service/api/page.service';
+import { appStore, pageStore } from '../../../stores';
 import type { PageServerLoad } from './$types';
-import { ERROR_MESSAGES } from './../../constants';
-import type { CreatePageRequest, Page } from './../../core/models/page.dto';
-import { PageService } from './../../service/api/page.service';
-import { appStore, pageStore } from './../../stores';
+import { ERROR_MESSAGES } from './../../../constants';
 
 export const load = (async ({ locals: { getSession } }) => {
   const session: Session = await getSession();
-  console.log('running');
   if (!session) {
     throw error(401, { message: 'Unauthorized' });
   }
@@ -47,6 +46,6 @@ export const actions = {
       console.error('ERROR', e);
       return fail(400, { createPageRequest, error: e });
     }
-    throw redirect(301, '/create');
+    throw redirect(301, '/admin/create');
   },
 };

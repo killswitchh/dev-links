@@ -15,7 +15,7 @@
   </div>
 {:else}
   <div class="flex flex-col justify-start p-6 hover:cursor-pointer">
-    <form method="POST" action="/links?/createPage" use:enhance>
+    <form method="POST" action="?/createPage" use:enhance>
       <div>
         <div class="flex flex-row justify-between">
           <input

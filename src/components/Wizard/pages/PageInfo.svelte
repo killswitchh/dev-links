@@ -5,17 +5,18 @@
   export let page: Page | undefined;
 </script>
 
-<form class="h-full w-full" method="POST" action="/create?" use:enhance>
+<form class="h-full w-full" method="POST" action="?/create" use:enhance>
   <div class="h-full w-full selection:flex flex-col items-center">
     <div class="h-[50%]">
       <div class="pt-4 flex flex-row justify-between m-6">
         <textarea
           placeholder="Enter Description"
           rows="5"
+          name="description"
           class="w-[70%] resize-y rounded-md"
           value="{page?.description ?? ''}"></textarea>
         <button
-          formaction="/create?/updateDescription"
+          formaction="?/updateDescription"
           class="h-[20%] text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
         >
           Save
@@ -36,7 +37,7 @@
           />
         </div>
         <button
-          formaction="/create?/uploadImage"
+          formaction="?/uploadImage"
           class="h-[20%] text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
         >
           Upload

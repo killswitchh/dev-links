@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Steps } from 'svelte-steps';
   import type { Page } from '../../core/models/page.dto';
-  import type { PageData } from '../../routes/create/$types';
+  import type { PageData } from '../../routes/admin/create/$types';
   import { wizardStore, type WizardStep } from '../../stores';
   import CreateLinks from './links/CreateLinks.svelte';
   import PageInfoForm from './pages/PageInfo.svelte';

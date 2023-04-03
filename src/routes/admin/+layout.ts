@@ -1,7 +1,7 @@
 import { PUBLIC_VITE_SUPABASE_ANON_KEY, PUBLIC_VITE_SUPABASE_URL } from '$env/static/public';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
+import { appStore } from '../../stores';
 import type { LayoutLoad } from './$types';
-import { appStore } from './../stores';
 
 export const load: LayoutLoad = async ({ fetch, data, depends }) => {
   depends('supabase:auth');
