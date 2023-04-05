@@ -7,6 +7,7 @@
     type Theme,
   } from '../../../core/models/theme.dto';
   import { ApiWrapper } from '../../../service/api-wrapper.service';
+  import { refreshIframe } from '../../../stores';
   import Button from '../../consumer/Button.svelte';
 
   export let theme: Theme | undefined;
@@ -31,6 +32,7 @@
 
   async function saveButtonLayout(event: MouseEvent) {
     const buttonEvent = await ApiWrapper.patch('/api/theme/button', theme?.button);
+    refreshIframe.set(true);
     invalidateAll();
     return buttonEvent;
   }
@@ -40,19 +42,21 @@
   {#if theme != null && defaultTheme}
     <div class="flex flex-row justify-between w-[80%]">
       <div>Button Settings</div>
-      <Button
-        buttonColor="{theme.button.buttonColor}"
-        buttonShape="{theme.button.buttonShape}"
-        fontColor="{theme.button.fontColor}"
-        outlineColor="{theme.button.outlineColor}"
-        buttonTheme="{theme.button.buttonTheme}"
-        buttonText="{'Generated Button'}"
-      />
+      <div class="w-[20%]">
+        <Button
+          buttonColor="{theme.button.buttonColor}"
+          buttonShape="{theme.button.buttonShape}"
+          fontColor="{theme.button.fontColor}"
+          outlineColor="{theme.button.outlineColor}"
+          buttonTheme="{theme.button.buttonTheme}"
+          buttonText="{'Generated Button'}"
+        />
+      </div>
     </div>
     <div class="mt-5 flex flex-row justify-between w-[80%]">
       <span class="p-2"> Style </span>
       {#each buttonThemeList as buttonTheme}
-        <div class="{buttonTheme === theme.button.buttonTheme ? 'border-b-4 p-1' : ''}">
+        <div class="{buttonTheme === theme.button.buttonTheme ? 'border-b-4 p-1' : ''} w-[20%]">
           <Button
             selected="{buttonTheme === theme.button.buttonTheme}"
             on:selected="{(e) => handleButtonThemeChange(e)}"
@@ -70,7 +74,7 @@
       <span class="p-2"> Shape </span>
 
       {#each buttonShapeList as buttonShape}
-        <div class="{buttonShape === theme.button.buttonShape ? 'border-b-4 p-1' : ''}">
+        <div class="{buttonShape === theme.button.buttonShape ? 'border-b-4 p-1' : ''}  w-[20%]">
           <Button
             selected="{buttonShape === theme.button.buttonShape}"
             on:selected="{(e) => handleButtonShapeChange(e)}"

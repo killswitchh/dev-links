@@ -11,6 +11,7 @@
   export let backgroundColor: string | null | undefined;
   export let gradientStops: GradientStop[] | undefined;
   export let imageUrl: string | null | undefined;
+  export let displayBackgroundType = false;
 
   const dispatch = createEventDispatcher<BackgroundChangeEvent>();
 
@@ -73,12 +74,14 @@
   }
 </script>
 
-<div class="mt-2 flex flex-col items-center">
-  <div>{backgroundType}</div>
-  <button
-    on:click="{() => backgroundClicked()}"
-    class="h-[300px] w-[150px] outline-1 outline rounded"
-    style="{cssVarStyles}"
-  >
-  </button>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div
+  style="{cssVarStyles}"
+  on:click="{() => backgroundClicked()}"
+  class="flex flex-col items-center min-h-full h-full w-full p-3"
+>
+  {#if displayBackgroundType}
+    <div class="mt-2 flex flex-col items-center">{backgroundType}</div>
+  {/if}
+  <slot />
 </div>

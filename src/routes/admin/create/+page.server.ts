@@ -47,7 +47,9 @@ export const actions = {
       return { form };
     } catch (e) {
       console.error('ERROR', e);
-      return fail(400, { createlinkRequest, error: e });
+      return fail(400, {
+        form,
+      });
     }
   },
 

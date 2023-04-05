@@ -3,6 +3,7 @@
   import { superForm } from 'sveltekit-superforms/client';
   import { CreateLinkRequestSchema, Provider } from '../../../core/models/link.dto';
   import type { PageData } from '../../../routes/admin/create/$types';
+  import { refreshIframe } from '../../../stores';
 
   let providers: Provider[] = [
     Provider.BITBUCKET,
@@ -19,6 +20,12 @@
     validators: CreateLinkRequestSchema,
     dataType: 'json',
   });
+
+  function handleSaveButtonClick(): any {
+    setTimeout(() => {
+      refreshIframe.set(true);
+    }, 4000);
+  }
 </script>
 
 <div>Create Link</div>
@@ -78,6 +85,7 @@
     <div class="flex flex-row justify-end">
       <button
         type="submit"
+        on:click="{handleSaveButtonClick}"
         class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
       >
         Save

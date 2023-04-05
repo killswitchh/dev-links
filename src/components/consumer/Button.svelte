@@ -71,6 +71,6 @@
     .join(';');
 </script>
 
-<button on:click="{buttonClicked}" style="{cssVarStyles}" class="p-2 cursor-pointer w-[150px]">
+<button on:click="{buttonClicked}" style="{cssVarStyles}" class="p-2 cursor-pointer w-full">
   {buttonText}
 </button>

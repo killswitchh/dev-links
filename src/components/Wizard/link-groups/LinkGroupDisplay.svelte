@@ -29,7 +29,7 @@
 <div class="flex flex-col items-center align-middle h-full">
   <button
     on:click="{() => editOnClick()}"
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
   >
     Edit
   </button>

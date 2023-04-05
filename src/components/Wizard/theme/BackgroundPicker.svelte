@@ -6,6 +6,7 @@
     type Theme,
   } from '../../../core/models/theme.dto';
   import { ApiWrapper } from '../../../service/api-wrapper.service';
+  import { refreshIframe } from '../../../stores';
   import Background from '../../consumer/Background.svelte';
 
   export let theme: Theme | undefined;
@@ -20,7 +21,8 @@
   }
 
   async function saveBackgroundLayout(event: MouseEvent) {
-    const backgroundEvent = await ApiWrapper.patch('api/theme/background', theme?.background);
+    const backgroundEvent = await ApiWrapper.patch('/api/theme/background', theme?.background);
+    refreshIframe.set(true);
     invalidateAll();
     return backgroundEvent;
   }
@@ -33,9 +35,14 @@
       <span class="p-2"> Style </span>
 
       {#each backgroundTypeList as backgroundType}
-        <div class="{backgroundType === theme.background.backgroundType ? 'border-b-4 p-1' : ''}">
+        <div
+          class="{backgroundType === theme.background.backgroundType
+            ? 'border-b-4 p-1'
+            : ''}  h-[300px] w-[150px] outline-1 outline rounded"
+        >
           <Background
             on:selected="{(e) => handleBackgroundChange(e)}"
+            displayBackgroundType="{true}"
             backgroundType="{backgroundType}"
             backgroundColor="{theme.background.backgroundColor}"
             gradientStops="{theme.background.gradientStops}"

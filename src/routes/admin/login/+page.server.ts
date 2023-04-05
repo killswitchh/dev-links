@@ -1,6 +1,6 @@
 import type { Provider, Session } from '@supabase/supabase-js';
 import { fail, redirect } from '@sveltejs/kit';
-import AppError from '../../../../../../../Code/dev-linktree/dev-tree-dashboard/src/core/models/app-error.dto';
+import AppError from '../../../core/models/app-error.dto';
 import type { CreateUserRequest, User } from '../../../core/models/user.dto';
 import type { PageServerLoad } from './$types';
 import { UserService } from './../../../service/api/user.service';

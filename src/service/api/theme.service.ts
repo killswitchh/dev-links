@@ -54,12 +54,9 @@ export const ThemeService = {
     backgroundId: string,
     background: Background,
   ): Promise<Background> {
-    console.log('updating Background for themeId', themeId, 'button ID', backgroundId);
-    return Promise.resolve(Object.assign(theme.background, background));
-    //TODO: Remove after backend integration
-
-    const url = API_URLS.UPDATE_BACKGROUND_URL(themeId, backgroundId);
-    return ApiWrapper.patch(url);
+    console.log('background ID', backgroundId, 'background', background);
+    const url = API_URLS.UPDATE_BACKGROUND_URL(backgroundId);
+    return ApiWrapper.patch(url, background);
   },
 };
 

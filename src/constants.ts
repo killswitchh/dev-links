@@ -30,8 +30,8 @@ export const API_URLS = {
   UPDATE_PAGE_DESCRIPTION_URL: () => `${CONSTANTS.API_URL.LINKS_BASE_URL}/`,
   UPDATE_BUTTON_URL: (buttonId: string) =>
     `${CONSTANTS.API_URL.THEMES_BASE_URL}/button/${buttonId}`,
-  UPDATE_BACKGROUND_URL: (themeId: string, backgroundId: string) =>
-    `${CONSTANTS.API_URL.THEMES_BASE_URL}backgrounds/${themeId}/${backgroundId}`,
+  UPDATE_BACKGROUND_URL: (backgroundId: string) =>
+    `${CONSTANTS.API_URL.THEMES_BASE_URL}/background/${backgroundId}`,
   GET_USERS_BY_EMAIL_URL: (email: string) => `${CONSTANTS.API_URL.USERS_BASE_URL}/email/${email}`,
   CREATE_USER_URL: () => `${CONSTANTS.API_URL.USERS_BASE_URL}`,
 };
