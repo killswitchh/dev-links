@@ -59,6 +59,6 @@ export const actions = {
       console.error('ERROR', e);
       return fail(400, { createPageRequest, error: e });
     }
-    throw redirect(301, '/admin/create');
+    throw redirect(301, `/admin/create?name=${createPageRequest.name}`);
   },
 };

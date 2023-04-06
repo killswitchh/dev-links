@@ -6,7 +6,7 @@ export const load = async ({ params }) => {
   let linkGroup: LinkGroup | null = null;
   if (linkGroupName) {
     try {
-      linkGroup = await LinkGroupService.getPageByName(linkGroupName);
+      linkGroup = await LinkGroupService.getFilteredPageByName(linkGroupName);
     } catch (e) {
       if (e instanceof AppError) {
         console.log('ERROR:', e);

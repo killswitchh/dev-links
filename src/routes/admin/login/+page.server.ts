@@ -36,7 +36,6 @@ const OAUTH_PROVIDERS = ['google', 'discord', 'github'];
 
 export const actions = {
   login: async ({ locals, url }) => {
-    console.log('testing');
     const provider = url.searchParams.get('provider') as Provider;
 
     if (provider) {
@@ -50,7 +49,7 @@ export const actions = {
       });
 
       if (err) {
-        console.log(err);
+        console.error(err);
         return fail(400, {
           message: 'Something went wrong.',
         });

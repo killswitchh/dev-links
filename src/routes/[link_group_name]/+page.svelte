@@ -11,7 +11,8 @@
   let links: Link[] = data.link_group?.links as Link[];
   let linkGroup: LinkGroup = data.link_group as LinkGroup;
 
-  function getProvider(link: Link): string {
+  function getButtonText(link: Link): string {
+    if (link.name) return link.name;
     return link.provider as string;
   }
 </script>
@@ -34,7 +35,7 @@
               buttonTheme="{linkGroup.theme.button.buttonTheme}"
               outlineColor="{linkGroup.theme.button.outlineColor}"
               fontColor="{linkGroup.theme.button.fontColor}"
-              buttonText="{getProvider(l)}"
+              buttonText="{getButtonText(l)}"
             />
           </div>
         {/each}

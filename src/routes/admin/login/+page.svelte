@@ -1,17 +1,11 @@
 <script lang="ts">
   import { enhance, type SubmitFunction } from '$app/forms';
   import type { Provider, Session } from '@supabase/supabase-js';
-  import { onMount } from 'svelte';
   import { appStore, darkTheme, userStore } from '../../../stores';
   import { supabase } from '../../../supabaseClient';
-  import type { PageData } from './$types';
 
-  export let data: PageData;
   let session: Session | null | undefined = null;
-  onMount(() => {
-    console.log('here');
-    console.log('page Data', data);
-  });
+
   appStore.subscribe((x) => {
     session = x.user;
   });

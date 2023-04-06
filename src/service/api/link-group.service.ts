@@ -46,6 +46,12 @@ export const LinkGroupService = {
     return ApiWrapper.get(url);
   },
 
+  getFilteredPageByName(name: string): Promise<LinkGroup> {
+    console.log('fetching filtered linkGroups for name', name);
+    const url = API_URLS.GET_FILTERED_LINK_GROUP_BY_NAME(name);
+    return ApiWrapper.get(url);
+  },
+
   createPage(createPageRequest: CreateLinkGroupRequest): Promise<LinkGroup> {
     console.log('creating linkGroup', createPageRequest);
     const url = API_URLS.CREATE_LINK_GROUP_URL();

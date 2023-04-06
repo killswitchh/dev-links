@@ -7,14 +7,10 @@
   export let linkGroup: LinkGroup;
   let iFrameUrl = PUBLIC_APP_URL + linkGroup.name;
 
-  console.log('im getting remounted', linkGroup);
-
   refreshIframe.subscribe((x) => {
     if (x === true) {
       iFrameUrl = '';
-      console.log('iframe URL set to none');
       setTimeout(() => {
-        console.log('setting after interval');
         refreshIframe.set(false);
         iFrameUrl = PUBLIC_APP_URL + linkGroup.name;
       }, 1000);

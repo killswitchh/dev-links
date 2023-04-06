@@ -86,3 +86,19 @@ export const linkGroupStore: Writable<LinkGroup> = writable();
 export const userStore: Writable<User> = writable();
 
 export const refreshIframe: Writable<boolean> = writable(false);
+
+function createEditLinkToggleStore() {
+  const store: Writable<Map<string, boolean>> = writable(new Map());
+  return {
+    subscribe: store.subscribe,
+    updateToggleValue: (linkId: string | undefined, status: boolean) =>
+      store.update((store) => {
+        console.log('updating store value for linkID', linkId);
+        if (!linkId) return store;
+        store.set(linkId, status);
+        return store;
+      }),
+  };
+}
+
+export const editLinkToggleStore = createEditLinkToggleStore();

@@ -65,6 +65,14 @@ export enum ButtonTheme {
   SHADOW = 'SHADOW',
 }
 
+export type ActivateInactivateEvent = {
+  clicked: ActivateInactivateEventContent;
+};
+
+export type ActivateInactivateEventContent = {
+  action: 'INACTIVATE' | 'ACTIVATE';
+};
+
 export type ButtonChangeEvent = {
   selected: ButtonChangeEventContent;
 };

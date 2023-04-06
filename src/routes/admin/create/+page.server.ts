@@ -2,11 +2,17 @@ import { error, fail } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import { superValidate } from 'sveltekit-superforms/server';
 import type { LinkGroup } from '../../../core/models/link-group.dto';
-import { CreateLinkRequestSchema, type CreateLinkRequest } from '../../../core/models/link.dto';
+import {
+  CreateLinkRequestSchema,
+  Provider,
+  type CreateLinkRequest,
+} from '../../../core/models/link.dto';
 import LinkGroupService from '../../../service/api/link-group.service';
 import LinkService from '../../../service/api/link.service';
+import MetadataService from '../../../service/api/metadata.service';
 import { linkGroupStore } from '../../../stores';
 import type { PageServerLoad } from './$types';
+import type { CodeName } from './../../../core/models/link.dto';
 
 export const load = (async (event) => {
   console.log('Im Running');
@@ -16,13 +22,13 @@ export const load = (async (event) => {
   }
   const search = event.url.searchParams;
   const linkGroupName = search.get('name');
-  const storePage = get(linkGroupStore);
-  const name = linkGroupName ? linkGroupName : storePage.name;
-  const linkGroup: LinkGroup = await LinkGroupService.getPageByName(name);
+  const linkGroup: LinkGroup = await LinkGroupService.getPageByName(linkGroupName as string);
+  const providers: CodeName<Provider>[] = await MetadataService.getAllProviders();
   const form = await superValidate(event, CreateLinkRequestSchema);
   return {
     form: form,
     linkGroup: linkGroup,
+    providers: providers,
     session: event.locals.getSession(),
   };
 }) satisfies PageServerLoad;

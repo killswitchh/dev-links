@@ -67,8 +67,6 @@
     .join(';');
 
   function getGradientBg(gradientStops: GradientStop[] | undefined): string {
-    console.log(gradientStops);
-
     if (!gradientStops) return '';
     return `linear-gradient(${gradientStops[0].color}, ${gradientStops[1].color})`;
   }

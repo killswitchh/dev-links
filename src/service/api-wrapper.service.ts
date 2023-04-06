@@ -22,16 +22,16 @@ export const ApiWrapper = {
     return await this.handleError(response);
   },
 
-  async handleError(response: any) {
-    const getResponse: any = await response.json();
+  async handleError(response: Response) {
+    const getResponse = await response.json();
     if (response.status >= 400) {
-      console.log('error found');
+      console.error('{ERROR]: Error found');
       throw new AppError(getResponse.message, response.status);
     }
     return getResponse;
   },
 
-  async post(url: string, body: any) {
+  async post(url: string, body: unknown) {
     console.log('POST REQ', url, body);
     const response = await fetch(url, {
       method: HTTP_METHODS.POST,
@@ -41,7 +41,7 @@ export const ApiWrapper = {
     return await response.json();
   },
 
-  async patch(url: string, body?: any) {
+  async patch(url: string, body?: unknown) {
     console.log('PATCH REQ', url, body);
     const response = await fetch(url, {
       method: HTTP_METHODS.PATCH,
