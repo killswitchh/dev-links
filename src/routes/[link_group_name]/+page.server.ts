@@ -1,4 +1,4 @@
-import AppError from '../../../../../../Code/dev-linktree/dev-tree-dashboard/src/core/models/app-error.dto';
+import AppError from '../../core/models/app-error.dto';
 import type { LinkGroup } from '../../core/models/link-group.dto';
 import { LinkGroupService } from './../../service/api/link-group.service';
 export const load = async ({ params }) => {

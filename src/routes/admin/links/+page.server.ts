@@ -1,13 +1,13 @@
 import type { Session } from '@supabase/supabase-js';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { get } from 'svelte/store';
-import AppError from '../../../../../../../Code/dev-linktree/dev-tree-dashboard/src/core/models/app-error.dto';
 import type { CreateLinkGroupRequest, LinkGroup } from '../../../core/models/link-group.dto';
 import LinkGroupService from '../../../service/api/link-group.service';
 import { linkGroupStore } from '../../../stores';
 import type { PageServerLoad } from './$types';
 import { ERROR_MESSAGES } from './../../../constants';
 import { userStore } from './../../../stores';
+import AppError from '../../../core/models/app-error.dto';
 
 export const load = (async ({ locals: { getSession } }) => {
   const session: Session = await getSession();
