@@ -78,7 +78,7 @@
 <div
   style="{cssVarStyles}"
   on:click="{() => backgroundClicked()}"
-  class="flex flex-col items-center min-h-full h-full w-full p-3"
+  class="flex flex-col items-center h-full w-full p-3 overflow-auto"
 >
   {#if displayBackgroundType}
     <div class="mt-2 flex flex-col items-center">{backgroundType}</div>

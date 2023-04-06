@@ -17,7 +17,7 @@
 </script>
 
 {#if linkGroup && links}
-  <div class="min-h-screen w-screen">
+  <div class="h-screen w-screen">
     <Background
       backgroundType="{linkGroup.theme.background.backgroundType}"
       backgroundColor="{linkGroup.theme.background.backgroundColor}"
