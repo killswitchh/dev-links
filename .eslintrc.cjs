@@ -1,9 +1,12 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
+  rules: {
+    "@typescript-eslint/no-inferrable-types": 0
+  },
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   plugins: ['svelte3', '@typescript-eslint'],
-  ignorePatterns: ['*.cjs'],
+  ignorePatterns: ['*.cjs', '@typescript-eslint\no-inferrable-types'],
   overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
   settings: {
     'svelte3/typescript': () => require('typescript'),

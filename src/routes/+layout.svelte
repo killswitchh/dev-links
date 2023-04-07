@@ -5,6 +5,7 @@
   import { invalidate } from '$app/navigation';
   import { darkTheme } from '../stores';
   import type { LayoutData } from './$types';
+  import PageTransition from '../components/common/Transition.svelte';
   import './styles.css';
   $: dark = $darkTheme;
 
@@ -34,7 +35,9 @@
     class="app flex flex-col min-h-screen bg-slate-50 dark:bg-slate-800 dark:text-white text-black"
   >
     <main>
-      <slot />
+      <PageTransition key="{data.url}" duration="{600}">
+        <slot />
+      </PageTransition>
     </main>
   </div>
 </div>
