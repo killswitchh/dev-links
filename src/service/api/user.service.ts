@@ -15,6 +15,20 @@ export const UserService = {
     const url = API_URLS.CREATE_USER_URL();
     return ApiWrapper.post(url, userRequest);
   },
+
+  async getOrCreateUser(email: string, name: string): Promise<User> {
+    let currentUser: User | null = null;
+    try {
+      currentUser = await UserService.getUserForEmail(email);
+    } catch (error) {
+      const createUserRequest: CreateUserRequest = {
+        name: name,
+        email: email,
+      };
+      currentUser = await UserService.createUser(createUserRequest);
+    }
+    return currentUser as User;
+  },
 };
 
 export default UserService;

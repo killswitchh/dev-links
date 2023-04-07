@@ -1,7 +1,6 @@
 import type { Session } from '@supabase/supabase-js';
 import { writable, type Writable } from 'svelte/store';
 import type { LinkGroup } from './core/models/link-group.dto';
-import type { User } from './core/models/user.dto';
 
 export type Store = {
   error?: string | null;
@@ -12,10 +11,6 @@ export type WizardStep = {
   stepId: number;
   text: string;
   status: WizardStepStatus;
-};
-
-const defaultStoreValue: Store = {
-  error: null,
 };
 
 const defaultWizardStoreValue: { steps: WizardStep[] } = {
@@ -40,24 +35,6 @@ const defaultWizardStoreValue: { steps: WizardStep[] } = {
 
 export type WizardStepStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE';
 
-function createAppStore() {
-  const { subscribe, update } = writable(defaultStoreValue);
-
-  return {
-    subscribe,
-    updateError: (error: string | null) =>
-      update((store) => {
-        store.error = error;
-        return store;
-      }),
-    updateCurrentSession: (user: Session | null) =>
-      update((store) => {
-        store.user = user;
-        return store;
-      }),
-  };
-}
-
 function createWizardStore() {
   const { subscribe, update } = writable(defaultWizardStoreValue);
 
@@ -75,15 +52,11 @@ function createWizardStore() {
   };
 }
 
-export const appStore = createAppStore();
-
 export const darkTheme = writable(false);
 
 export const wizardStore = createWizardStore();
 
 export const linkGroupStore: Writable<LinkGroup> = writable();
-
-export const userStore: Writable<User> = writable();
 
 export const refreshIframe: Writable<boolean> = writable(false);
 

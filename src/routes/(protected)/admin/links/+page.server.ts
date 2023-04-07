@@ -1,23 +1,23 @@
 import type { Session } from '@supabase/supabase-js';
 import { error, fail, redirect } from '@sveltejs/kit';
-import { get } from 'svelte/store';
-import type { CreateLinkGroupRequest, LinkGroup } from '../../../core/models/link-group.dto';
-import LinkGroupService from '../../../service/api/link-group.service';
-import { linkGroupStore } from '../../../stores';
+import { ERROR_MESSAGES } from '../../../../constants';
+import AppError from '../../../../core/models/app-error.dto';
+import type { CreateLinkGroupRequest, LinkGroup } from '../../../../core/models/link-group.dto';
+import { linkGroupStore } from '../../../../stores';
 import type { PageServerLoad } from './$types';
-import { ERROR_MESSAGES } from './../../../constants';
-import { userStore } from './../../../stores';
-import AppError from '../../../core/models/app-error.dto';
+import { LinkGroupService } from './../../../../service/api/link-group.service';
 
-export const load = (async ({ locals: { getSession } }) => {
+export const load = (async ({ locals: { getSession, user } }) => {
   const session: Session = await getSession();
   if (!session) {
     throw error(401, { message: 'Unauthorized' });
   }
-  const user = get(userStore);
   let linkGroups: LinkGroup[] = [];
   let pageLimit = 3;
   try {
+    if (!user) {
+      throw new AppError('UNAUTHORIZED', 404);
+    }
     linkGroups = await LinkGroupService.getUserPages(user.id);
     pageLimit = await LinkGroupService.getAvailablePages(session.user.id);
   } catch (e) {
@@ -34,16 +34,16 @@ export const load = (async ({ locals: { getSession } }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-  createPage: async ({ request }) => {
+  createPage: async ({ request, locals }) => {
     const body = await request.formData();
-    const user = get(userStore);
-    if (!user) {
+    if (!locals.user) {
       return fail(400, { error: ERROR_MESSAGES.DEFAULT });
     }
 
+    const id = '123';
     const createPageRequest: CreateLinkGroupRequest = {
       name: body.get('name') as string,
-      ownerId: user?.id as string,
+      ownerId: id as string,
       underCreation: true,
       active: true,
     };

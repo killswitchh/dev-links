@@ -1,6 +1,6 @@
 <script lang="ts">
-  import PageListItem from '../../../components/Wizard/link-groups/LinkGroupListItem.svelte';
-  import type { NullSafePageItem } from '../../../types';
+  import LinkGroupListItem from '../../../../components/Wizard/link-groups/LinkGroupListItem.svelte';
+  import type { NullSafePageItem } from '../../../../types';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -15,6 +15,6 @@
 
 {#each linkGroups as linkGroup}
   <div class="flex justify-center mb-5">
-    <PageListItem linkGroup="{linkGroup}" />
+    <LinkGroupListItem linkGroup="{linkGroup}" />
   </div>
 {/each}

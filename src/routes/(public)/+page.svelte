@@ -1,9 +1,13 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
+  import type { PageData } from './$types';
 
+  export let data: PageData;
   onMount(() => {
-    goto('/admin/login');
+    if (data.session) {
+      goto('/admin/profile');
+    }
   });
 </script>
 
@@ -12,7 +16,7 @@
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section>Redirecting to login</section>
+<section>Welcome to Dev Links</section>
 
 <style lang="postcss">
 </style>

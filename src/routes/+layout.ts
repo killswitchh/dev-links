@@ -1,6 +1,5 @@
 import { PUBLIC_VITE_SUPABASE_ANON_KEY, PUBLIC_VITE_SUPABASE_URL } from '$env/static/public';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
-import { appStore } from '../../stores';
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ fetch, data, depends }) => {
@@ -13,12 +12,11 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
     serverSession: data.session,
   });
 
+  const user = data.user;
+
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  if (data) {
-    appStore.updateCurrentSession(session);
-  }
 
-  return { supabase, session };
+  return { supabase, session, user };
 };

@@ -58,7 +58,6 @@
       {#each buttonThemeList as buttonTheme}
         <div class="{buttonTheme === theme.button.buttonTheme ? 'border-b-4 p-1' : ''} w-[20%]">
           <Button
-            selected="{buttonTheme === theme.button.buttonTheme}"
             on:selected="{(e) => handleButtonThemeChange(e)}"
             buttonColor="{defaultTheme.button.buttonColor}"
             buttonShape="{defaultTheme.button.buttonShape}"
@@ -76,7 +75,6 @@
       {#each buttonShapeList as buttonShape}
         <div class="{buttonShape === theme.button.buttonShape ? 'border-b-4 p-1' : ''}  w-[20%]">
           <Button
-            selected="{buttonShape === theme.button.buttonShape}"
             on:selected="{(e) => handleButtonShapeChange(e)}"
             buttonColor="{defaultTheme.button.buttonColor}"
             buttonShape="{buttonShape}"

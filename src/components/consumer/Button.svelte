@@ -10,7 +10,6 @@
   export let buttonColor: string;
   export let fontColor: string;
   export let outlineColor: string;
-  export let selected = false;
   export let link: Link | null = null;
 
   const dispatch = createEventDispatcher<ButtonChangeEvent>();

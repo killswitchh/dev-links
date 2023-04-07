@@ -15,7 +15,7 @@
     type CodeName,
   } from '../../../core/models/link.dto';
   import { convertToName } from '../../../core/utils/utils';
-  import type { PageData } from '../../../routes/admin/create/$types';
+  import type { PageData } from '../../../routes/(protected)/admin/create/$types';
   import { editLinkToggleStore, refreshIframe } from '../../../stores';
 
   export let data: PageData;
@@ -25,8 +25,7 @@
     taintedMessage: 'Are you sure you want leave?',
     validators: CreateLinkRequestSchema,
     dataType: 'json',
-    onResult: ({ result, formEl, cancel }) => {
-      console.log(result, formEl, cancel);
+    onResult: ({ result }) => {
       const res = result as unknown as { data: { id: string } };
       editLinkToggleStore.updateToggleValue(res.data.id, false);
       refreshIframe.set(true);

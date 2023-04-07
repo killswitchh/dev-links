@@ -1,6 +1,7 @@
-import AppError from '../../core/models/app-error.dto';
-import type { LinkGroup } from '../../core/models/link-group.dto';
-import { LinkGroupService } from './../../service/api/link-group.service';
+import AppError from '../../../core/models/app-error.dto';
+import type { LinkGroup } from '../../../core/models/link-group.dto';
+import LinkGroupService from '../../../service/api/link-group.service';
+
 export const load = async ({ params }) => {
   const linkGroupName = params.link_group_name;
   let linkGroup: LinkGroup | null = null;

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Link } from '../../../core/models/link.dto';
-  import type { PageData } from '../../../routes/admin/create/$types';
+  import type { PageData } from '../../../routes/(protected)/admin/create/$types';
 
   import CreateLink from './CreateLink.svelte';
   import LinkDisplay from './LinkDisplay.svelte';

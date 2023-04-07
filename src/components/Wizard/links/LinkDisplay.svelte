@@ -2,7 +2,7 @@
   import { invalidateAll } from '$app/navigation';
   import type { Link } from '../../../core/models/link.dto';
   import type { ActivateInactivateEventContent } from '../../../core/models/theme.dto';
-  import type { PageData } from '../../../routes/admin/create/$types';
+  import type { PageData } from '../../../routes/(protected)/admin/create/$types';
   import { ApiWrapper } from '../../../service/api-wrapper.service';
   import { editLinkToggleStore, refreshIframe } from '../../../stores';
   import StatusButton from '../../common/StatusButton.svelte';

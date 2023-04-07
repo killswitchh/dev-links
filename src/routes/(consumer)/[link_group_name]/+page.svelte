@@ -1,9 +1,9 @@
 <script lang="ts">
-  import '../../app.css';
-  import Background from '../../components/consumer/Background.svelte';
-  import Button from '../../components/consumer/Button.svelte';
-  import type { LinkGroup } from '../../core/models/link-group.dto';
-  import type { Link } from '../../core/models/link.dto';
+  import Background from '../../../components/consumer/Background.svelte';
+  import Button from '../../../components/consumer/Button.svelte';
+  import type { LinkGroup } from '../../../core/models/link-group.dto';
+  import type { Link } from '../../../core/models/link.dto';
+  import '../../../app.css';
   import type { PageData } from './$types';
 
   export let data: PageData;

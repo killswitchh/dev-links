@@ -1,18 +1,18 @@
 import { error, fail } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import { superValidate } from 'sveltekit-superforms/server';
-import type { LinkGroup } from '../../../core/models/link-group.dto';
+import type { LinkGroup } from '../../../../core/models/link-group.dto';
 import {
   CreateLinkRequestSchema,
   Provider,
+  type CodeName,
   type CreateLinkRequest,
-} from '../../../core/models/link.dto';
-import LinkGroupService from '../../../service/api/link-group.service';
-import LinkService from '../../../service/api/link.service';
-import MetadataService from '../../../service/api/metadata.service';
-import { linkGroupStore } from '../../../stores';
+} from '../../../../core/models/link.dto';
+import LinkGroupService from '../../../../service/api/link-group.service';
+import LinkService from '../../../../service/api/link.service';
+import MetadataService from '../../../../service/api/metadata.service';
+import { linkGroupStore } from '../../../../stores';
 import type { PageServerLoad } from './$types';
-import type { CodeName } from './../../../core/models/link.dto';
 
 export const load = (async (event) => {
   console.log('Im Running');

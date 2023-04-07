@@ -1,10 +1,10 @@
 <script lang="ts">
   import { Steps } from 'svelte-steps';
   import type { LinkGroup } from '../../core/models/link-group.dto';
-  import type { PageData } from '../../routes/admin/create/$types';
+  import type { PageData } from '../../routes/(protected)/admin/create/$types';
   import { wizardStore, type WizardStep } from '../../stores';
-  import CreateLinks from './links/CreateLinks.svelte';
   import PageInfoForm from './link-groups/LinkGroupInfo.svelte';
+  import CreateLinks from './links/CreateLinks.svelte';
   import CreateTheme from './theme/ThemeEditor.svelte';
   let wizardSteps: WizardStep[] = [];
   wizardStore.subscribe((x) => {
