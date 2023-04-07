@@ -42,15 +42,21 @@ export const actions = {
       });
     }
     const name = event.url.searchParams.get('name');
+    const id = event.url.searchParams.get('id');
     const linkGroup = get(linkGroupStore);
     const linkGroupName = name ? name : linkGroup.name;
     const linkGroupObj: LinkGroup = await LinkGroupService.getPageByName(linkGroupName);
     const createlinkRequest: CreateLinkRequest = form.data;
     createlinkRequest.linkGroupId = linkGroupObj.id;
     try {
-      const res = await LinkService.createLink(form.data, linkGroupObj);
-      console.log('link created', res);
-      return { form };
+      if (id) {
+        const res = await LinkService.editLink(form.data, linkGroupObj, id);
+        console.log('link edited', res);
+      } else {
+        const res = await LinkService.createLink(form.data, linkGroupObj);
+        console.log('link created', res);
+      }
+      return { form, id };
     } catch (e) {
       console.error('ERROR', e);
       return fail(400, {
