@@ -35,7 +35,7 @@
 </script>
 
 <div class="w-[70%] border-l-amber-900 flex flex-row justify-center">
-  <div class="h-full w-full py-16">
+  <div class="h-full w-full py-4">
     <div class="h-full w-full container mx-auto">
       <Steps
         size="2rem"
@@ -45,7 +45,7 @@
         on:click="{(e) => buttonClicked(e)}"
       />
       <div
-        class="m-2 min-h-[80%] h-[100%] overflow-auto bg-slate-400 rounded-xl flex flex-col items-center"
+        class="m-2 min-h-[80%] h-[85%] overflow-auto bg-slate-50 rounded-xl flex flex-col items-center"
       >
         {#if currentStep == 0}
           <PageInfoForm linkGroup="{linkGroup}" />

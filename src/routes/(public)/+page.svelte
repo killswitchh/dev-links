@@ -1,10 +1,12 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
-  onMount(() => {
+
+  afterUpdate(() => {
+    console.log('SESSION FOUND', !!data.session);
     if (data.session) {
       goto('/admin/profile');
     }

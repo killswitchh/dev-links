@@ -3,9 +3,11 @@
   import '../app.css';
 
   import { invalidate } from '$app/navigation';
+  import { navigating } from '$app/stores';
+  import FullScreenLoader from '../components/common/FullScreenLoader.svelte';
+  import PageTransition from '../components/common/Transition.svelte';
   import { darkTheme } from '../stores';
   import type { LayoutData } from './$types';
-  import PageTransition from '../components/common/Transition.svelte';
   import './styles.css';
   $: dark = $darkTheme;
 
@@ -24,19 +26,19 @@
 
     return () => subscription.unsubscribe();
   });
-
-  $: if (data.session) {
-    console.log('[Session Changed]', !!data.user);
-  }
 </script>
 
 <div class="{dark ? 'dark' : ''}">
   <div
-    class="app flex flex-col min-h-screen bg-slate-50 dark:bg-slate-800 dark:text-white text-black"
+    class="app flex flex-col min-h-screen bg-slate-200 dark:bg-slate-800 dark:text-white text-black"
   >
     <main>
       <PageTransition key="{data.url}" duration="{600}">
-        <slot />
+        {#if $navigating}
+          <FullScreenLoader />
+        {:else}
+          <slot />
+        {/if}
       </PageTransition>
     </main>
   </div>
