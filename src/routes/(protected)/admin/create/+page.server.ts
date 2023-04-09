@@ -1,6 +1,8 @@
 import { error, fail } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import { superValidate } from 'sveltekit-superforms/server';
+
+import AppError from '../../../../core/models/app-error.dto';
 import type { LinkGroup } from '../../../../core/models/link-group.dto';
 import {
   CreateLinkRequestSchema,
@@ -11,6 +13,7 @@ import {
 import LinkGroupService from '../../../../service/api/link-group.service';
 import LinkService from '../../../../service/api/link.service';
 import MetadataService from '../../../../service/api/metadata.service';
+import UploadService from '../../../../service/api/upload.service';
 import { linkGroupStore } from '../../../../stores';
 import type { PageServerLoad } from './$types';
 
@@ -65,21 +68,36 @@ export const actions = {
     }
   },
 
-  updateDescription: async ({ request }) => {
+  updateDescription: async ({ request, url }) => {
     const body = await request.formData();
     const description = body.get('description') as string;
-    const linkGroup = get(linkGroupStore);
     try {
-      return await LinkGroupService.updatePageDescription(linkGroup.id, description);
+      const id = url.searchParams.get('id');
+      if (!id) {
+        throw new AppError('ID not found', 400);
+      }
+      return await LinkGroupService.updatePageDescription(id as string, description);
     } catch (e) {
       console.error('ERROR', e);
-      return fail(400, { linkGroup, error: e });
+      return fail(400, { error: e });
     }
   },
 
-  uploadImage: async ({ request }) => {
+  uploadImage: async ({ request, url }) => {
     const body = await request.formData();
-    const image = body.get('image') as string;
-    console.log(image);
+    const image: File = body.get('image') as File;
+    try {
+      const id = url.searchParams.get('id');
+      if (!id) {
+        throw new AppError('ID not found', 400);
+      }
+      const fileKey: string = await UploadService.uploadImage(image);
+      const tempImageUrlPrefix = 'https://pub-159254b35b7249da9c3647a6615a7643.r2.dev';
+      const imageURL = tempImageUrlPrefix + '/' + fileKey;
+      return await LinkGroupService.updateLinkGroupImage(id as string, imageURL);
+    } catch (e) {
+      console.error('ERROR', e);
+      return fail(400, { error: e });
+    }
   },
 };

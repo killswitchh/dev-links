@@ -60,15 +60,14 @@ export const LinkGroupService = {
 
   updatePageDescription(linkGroupId: string, description: string) {
     console.log('updating description for ID', linkGroupId, 'to', description);
-    const linkGroup = linkGroups.find((x) => x.id === linkGroupId);
-    if (linkGroup) {
-      linkGroup.description = description;
-      return Promise.resolve(linkGroup);
-    } else {
-      return Promise.resolve(mockPage);
-    }
-    const url = API_URLS.UPDATE_PAGE_DESCRIPTION_URL();
+    const url = API_URLS.UPDATE_PAGE_DESCRIPTION_URL(linkGroupId);
     return ApiWrapper.patch(url, { description });
+  },
+
+  updateLinkGroupImage(linkGroupId: string, imageURL: string) {
+    console.log('updating image for link group with ID', linkGroupId, 'URL: ', imageURL);
+    const url = API_URLS.UPDATE_LINK_GROUP_IMAGE_URL(linkGroupId);
+    return ApiWrapper.patch(url, { imageURL: imageURL });
   },
 };
 

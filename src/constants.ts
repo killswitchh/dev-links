@@ -36,7 +36,10 @@ export const API_URLS = {
   ORDER_SWAP_LINK_URL: (first: string, second: string) =>
     `${CONSTANTS.API_URL.LINKS_BASE_URL}/order-swap/${first}/${second}`,
   CREATE_LINK_GROUP_URL: () => `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}`,
-  UPDATE_PAGE_DESCRIPTION_URL: () => `${CONSTANTS.API_URL.LINKS_BASE_URL}/`,
+  UPDATE_PAGE_DESCRIPTION_URL: (linkGroupId: string) =>
+    `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/${linkGroupId}/description`,
+  UPDATE_LINK_GROUP_IMAGE_URL: (linkGroupId: string) =>
+    `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/${linkGroupId}/image`,
   UPDATE_BUTTON_URL: (buttonId: string) =>
     `${CONSTANTS.API_URL.THEMES_BASE_URL}/button/${buttonId}`,
   UPDATE_BACKGROUND_URL: (backgroundId: string) =>
