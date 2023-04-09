@@ -33,7 +33,7 @@
     class="app flex flex-col min-h-screen bg-slate-200 dark:bg-slate-800 dark:text-white text-black"
   >
     <main>
-      <PageTransition key="{data.url}" duration="{600}">
+      <PageTransition key="{data.url}" duration="{300}">
         {#if $navigating}
           <FullScreenLoader />
         {:else}
