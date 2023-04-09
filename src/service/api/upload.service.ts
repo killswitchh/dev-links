@@ -4,7 +4,7 @@ import {
   R2_BUCKET_NAME,
   R2_SECRET_ACCESS_KEY_ID,
 } from '$env/static/private';
-import { PutObjectCommand, S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 export const UploadService = {
   async uploadImage(fileBlob: File, destination: string = ''): Promise<string> {

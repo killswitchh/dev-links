@@ -1,32 +1,6 @@
 import { API_URLS } from '../../constants';
 import type { CreateLinkGroupRequest, LinkGroup } from '../../core/models/link-group.dto';
 import { ApiWrapper } from '../api-wrapper.service';
-import { theme } from './theme.service';
-
-const mockPage: LinkGroup = {
-  id: '1',
-  name: 'Page1',
-  createdTs: new Date(),
-  updatedTs: new Date(),
-  ownerId: '12345678',
-  active: true,
-  underCreation: false,
-  theme: theme,
-};
-
-const linkGroups: LinkGroup[] = [
-  mockPage,
-  {
-    id: '2',
-    name: 'Page2',
-    createdTs: new Date(),
-    updatedTs: new Date(),
-    ownerId: '12345678',
-    active: false,
-    underCreation: true,
-    theme: theme,
-  },
-];
 
 export const LinkGroupService = {
   getUserPages(userId: string): Promise<LinkGroup[]> {
