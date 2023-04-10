@@ -1,7 +1,9 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
+  import type { PageData } from '../../../routes/(protected)/admin/links/$types';
 
   let displayForm: boolean;
+  export let data: PageData;
 </script>
 
 {#if !displayForm}
@@ -15,7 +17,7 @@
   </div>
 {:else}
   <div class="flex flex-col justify-start p-6 hover:cursor-pointer">
-    <form method="POST" action="?/createPage" use:enhance>
+    <form method="POST" action="?/createPage&id={data.user?.id}" use:enhance>
       <div>
         <div class="flex flex-row justify-between">
           <input
