@@ -52,7 +52,7 @@ export const actions = {
     const createlinkRequest: CreateLinkRequest = form.data;
     createlinkRequest.linkGroupId = linkGroupObj.id;
     try {
-      if (id) {
+      if (id && id != 'null') {
         const res = await LinkService.editLink(form.data, linkGroupObj, id);
         console.log('link edited', res);
       } else {

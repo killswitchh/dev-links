@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { fade, slide } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
 
   export let key: string;
   export let duration: number = 300;
 </script>
 
 {#key key}
-  <div in:fade="{{ duration, delay: duration }}" out:fade="{{ duration }}">
+  <div in:fade="{{ duration, delay: duration }}">
     <slot />
   </div>
 {/key}

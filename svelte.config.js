@@ -7,18 +7,7 @@ const config = {
   // for more information about preprocessors
   preprocess: vitePreprocess(),
   vitePlugin: {
-    experimental: {
-      inspector: {
-        // change shortcut
-        toggleKeyCombo: 'meta-shift',
-        // hold and release key to toggle inspector mode
-        holdMode: true,
-        // show or hide the inspector option
-        showToggleButton: 'always',
-        // inspector position
-        toggleButtonPos: 'top-right',
-      },
-    },
+    experimental: {},
   },
   kit: {
     // adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.

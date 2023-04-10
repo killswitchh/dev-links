@@ -30,16 +30,14 @@
 
 <div class="{dark ? 'dark' : ''}">
   <div
-    class="app flex flex-col min-h-screen bg-slate-200 dark:bg-slate-800 dark:text-white text-black"
+    class="app flex flex-col min-h-screen bg-slate-50 dark:bg-black dark:text-white text-black overflow-auto"
   >
-    <main>
-      <PageTransition key="{data.url}" duration="{300}">
-        {#if $navigating}
-          <FullScreenLoader />
-        {:else}
-          <slot />
-        {/if}
-      </PageTransition>
-    </main>
+    <PageTransition key="{data.url}" duration="{300}">
+      {#if $navigating}
+        <FullScreenLoader />
+      {:else}
+        <slot />
+      {/if}
+    </PageTransition>
   </div>
 </div>

@@ -8,22 +8,33 @@
   function updateActiveNavBarElement(route: Route) {
     nav_bar.map((x) => (x.active = x.id === route.id));
     nav_bar = nav_bar;
+    console.log('clicked');
   }
 </script>
 
 <header>
-  <navbar class="navbar">
-    <ul>
-      <li>
+  <navbar
+    class="fixed w-[96%] ml-[2%] mt-[1%] bg-white/50 dark:bg-gray-800/50 dark:text-white shadow-md rounded-full z-10 backdrop-blur-sm"
+  >
+    <ul class="list-none m-0 p-0 overflow-hidden">
+      <li class="float-left">
         <img class="h-[35px] p-[5px]" src="{logo}" alt="Not Found" />
       </li>
       {#each nav_bar as route}
-        <li class="{route.active ? 'active' : ''} {route.position === 'right' ? 'right' : ''}">
-          <a href="{route.path}" on:click="{() => updateActiveNavBarElement(route)}">{route.name}</a
+        <li
+          class="{route.active ? 'bg-pink-600 text-white rounded-full' : ''} {route.position ===
+          'right'
+            ? 'float-right right-0'
+            : 'float-left'}"
+        >
+          <a
+            class="block text-center p-[16px] no-underline hover:bg-slate-400 hover:rounded-full"
+            href="{route.path}"
+            on:click="{() => updateActiveNavBarElement(route)}">{route.name}</a
           >
         </li>
       {/each}
-      <li class="right">
+      <li class="float-right right-0">
         <DarkThemeToggle />
       </li>
     </ul>
@@ -31,47 +42,4 @@
 </header>
 
 <style>
-  .right {
-    right: 0;
-    float: right !important;
-  }
-  .navbar {
-    position: fixed;
-    width: 96%;
-    margin-left: 2%;
-    margin-top: 1%;
-    background-color: #ffffff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    z-index: 9999;
-  }
-
-  .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .navbar li {
-    float: left;
-  }
-
-  .navbar li a {
-    display: block;
-    color: #000000;
-    text-align: center;
-    padding: 16px;
-    text-decoration: none;
-  }
-
-  .navbar li a:hover {
-    background-color: #f2f2f2;
-  }
-
-  .active {
-    background-color: #4caf50;
-    color: white;
-    border-radius: 10px;
-  }
 </style>
