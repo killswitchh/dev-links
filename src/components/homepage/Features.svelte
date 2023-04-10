@@ -1,3 +1,9 @@
+<script lang="ts">
+  import sc1 from '$lib/images/sc1.png';
+  import sc2 from '$lib/images/sc2.png';
+  import sc3 from '$lib/images/sc3.png';
+</script>
+
 <section id="features" class="relative">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <div class="pt-2 pb-12 md:pt-12 md:pb-20">
@@ -25,7 +31,7 @@
             <div
               class="w-[335px] h-[587px] max-w-full rounded-xl overflow-hidden shadow-md shadow-white"
             >
-              <img src="/src/lib/images/sc1.png" alt="description" />
+              <img src="{sc1}" alt="description" />
             </div>
             <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
               Side Project Themed
@@ -35,7 +41,7 @@
             <div
               class="w-[335px] h-[587px] max-w-full rounded-xl overflow-hidden shadow-md shadow-white"
             >
-              <img src="/src/lib/images/sc2.png" alt="description" />
+              <img src="{sc2}" alt="description" />
             </div>
             <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
               Blog Themed
@@ -45,7 +51,7 @@
             <div
               class="w-[335px] h-[587px] max-w-full rounded-xl overflow-hidden shadow-md shadow-white"
             >
-              <img src="/src/lib/images/sc3.png" alt="description" />
+              <img src="{sc3}" alt="description" />
             </div>
             <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
               Competitive Coding Themed
