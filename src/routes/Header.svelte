@@ -14,7 +14,7 @@
 
 <header>
   <navbar
-    class="fixed w-[96%] ml-[2%] mt-[1%] bg-white/50 dark:bg-gray-800/50 dark:text-white shadow-md rounded-full z-10 backdrop-blur-sm"
+    class="fixed w-[96%] ml-[2%] mt-[1%] bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm dark:text-white shadow-md rounded-full z-10"
   >
     <ul class="list-none m-0 p-0 overflow-hidden">
       <li class="float-left">

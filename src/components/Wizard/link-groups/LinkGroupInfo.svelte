@@ -29,7 +29,7 @@
   }}"
 >
   <div class="h-full w-full selection:flex flex-col items-center">
-    <div class="h-[50%]">
+    <div class="h-[40%]">
       <div class="pt-4 flex flex-row justify-between m-6">
         <textarea
           id="message"
@@ -47,7 +47,7 @@
         </button>
       </div>
     </div>
-    <div class="h-[50%]">
+    <div>
       <div class="pt-4 flex flex-row justify-between m-6">
         <div class="w-[70%]">
           <div class="mb-3 w-96">

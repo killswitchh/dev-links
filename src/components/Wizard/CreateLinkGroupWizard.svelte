@@ -45,7 +45,7 @@
         on:click="{(e) => buttonClicked(e)}"
       />
       <div
-        class="m-2 min-h-[80%] h-[85%] overflow-auto dark:bg-neutral-700 bg-slate-50 rounded-xl flex flex-col items-center"
+        class="m-2 min-h-[80%] h-[85%] overflow-auto bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl flex flex-col items-center"
       >
         {#if currentStep == 0}
           <PageInfoForm linkGroup="{linkGroup}" />

@@ -21,7 +21,6 @@
 </script>
 
 <h1>Welcome {data.session?.user.email}</h1>
-<p>I am logged in!</p>
 <form method="POST">
   <button
     formaction="?/logout"

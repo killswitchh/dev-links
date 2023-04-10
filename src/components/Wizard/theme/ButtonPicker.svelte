@@ -38,9 +38,9 @@
   }
 </script>
 
-<div class="w-full flex flex-col items-center mt-5">
+<div class="w-full flex flex-col items-center bg-white dark:bg-neutral-700 rounded-lg">
   {#if theme != null && defaultTheme}
-    <div class="flex flex-row justify-between w-[80%]">
+    <div class="flex flex-row justify-between w-[80%] mt-5">
       <div>Button Settings</div>
       <div class="w-[20%]">
         <Button
