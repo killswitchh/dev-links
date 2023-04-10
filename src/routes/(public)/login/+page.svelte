@@ -1,6 +1,8 @@
 <script lang="ts">
   import { enhance, type SubmitFunction } from '$app/forms';
+  import github from '$lib/images/github.svg';
   import type { Provider } from '@supabase/supabase-js';
+
   import { supabase } from '../../../supabaseClient';
 
   let loading = false;
@@ -44,7 +46,7 @@
               data-te-ripple-init
               data-te-ripple-color="light"
             >
-              <img alt="github logo" src="/src/lib/images/github.svg" height="30px" width="30px" />
+              <img alt="github logo" src="{github}" height="30px" width="30px" />
               Continue with Github
             </button>
           </form>
