@@ -4,7 +4,7 @@ import { ApiWrapper } from '../api-wrapper.service';
 
 export const MetadataService = {
   getAllProviders(): Promise<CodeName<Provider>[]> {
-    const url = API_URLS.GET_PROVIDERS_URL();
+    const url = API_URLS.METADATA.GET_PROVIDERS();
     return ApiWrapper.get(url);
   },
 };

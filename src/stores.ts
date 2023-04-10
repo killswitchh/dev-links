@@ -74,4 +74,6 @@ function createEditLinkToggleStore() {
   };
 }
 
+export const loading: Writable<boolean> = writable(false);
+
 export const editLinkToggleStore = createEditLinkToggleStore();

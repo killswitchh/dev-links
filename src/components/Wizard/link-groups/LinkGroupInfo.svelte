@@ -32,11 +32,13 @@
     <div class="h-[50%]">
       <div class="pt-4 flex flex-row justify-between m-6">
         <textarea
-          placeholder="Enter Description"
+          id="message"
           rows="5"
           name="description"
-          class="w-[70%] resize-y rounded-md"
+          placeholder="Write a brief intro for your page here..."
+          class="block p-2.5 text-sm w-[70%] text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           value="{linkGroup?.description ?? ''}"></textarea>
+
         <button
           formaction="?/updateDescription&id={linkGroup?.id}"
           class="h-[20%] text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"

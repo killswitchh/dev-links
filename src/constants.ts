@@ -19,32 +19,42 @@ export const ERROR_MESSAGES = {
 };
 
 export const API_URLS = {
-  GET_LINK_GROUP_BY_USER_ID: (userId: string) =>
-    `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/user-id/${userId}`,
-  GET_PAGE_BY_ID_URL: (userId: string) => `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}users/${userId}`,
-  GET_LINK_GROUP_BY_NAME: (name: string) => `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/name/${name}`,
-  GET_FILTERED_LINK_GROUP_BY_NAME: (name: string) =>
-    `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/name/${name}/active`,
-
-  GET_LINKS_URL: (linkGroupId: string) =>
-    `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}links/${linkGroupId}`,
-  CREATE_LINK_URL: () => `${CONSTANTS.API_URL.LINKS_BASE_URL}`,
-  UPDATE_LINK_URL: (linkId: string) => `${CONSTANTS.API_URL.LINKS_BASE_URL}/${linkId}`,
-  ACTIVATE_LINK_URL: (linkId: string) => `${CONSTANTS.API_URL.LINKS_BASE_URL}/activate/${linkId}`,
-  IN_ACTIVATE_LINK_URL: (linkId: string) =>
-    `${CONSTANTS.API_URL.LINKS_BASE_URL}/inactivate/${linkId}`,
-  ORDER_SWAP_LINK_URL: (first: string, second: string) =>
-    `${CONSTANTS.API_URL.LINKS_BASE_URL}/order-swap/${first}/${second}`,
-  CREATE_LINK_GROUP_URL: () => `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}`,
-  UPDATE_PAGE_DESCRIPTION_URL: (linkGroupId: string) =>
-    `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/${linkGroupId}/description`,
-  UPDATE_LINK_GROUP_IMAGE_URL: (linkGroupId: string) =>
-    `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/${linkGroupId}/image`,
-  UPDATE_BUTTON_URL: (buttonId: string) =>
-    `${CONSTANTS.API_URL.THEMES_BASE_URL}/button/${buttonId}`,
-  UPDATE_BACKGROUND_URL: (backgroundId: string) =>
-    `${CONSTANTS.API_URL.THEMES_BASE_URL}/background/${backgroundId}`,
-  GET_USERS_BY_EMAIL_URL: (email: string) => `${CONSTANTS.API_URL.USERS_BASE_URL}/email/${email}`,
-  CREATE_USER_URL: () => `${CONSTANTS.API_URL.USERS_BASE_URL}`,
-  GET_PROVIDERS_URL: () => `${CONSTANTS.API_URL.METADATA_BASE_URL}/providers`,
+  LINKS: {
+    GET_FOR_LINK_GROUP: (linkGroupId: string) =>
+      `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}links/${linkGroupId}`,
+    CREATE: () => `${CONSTANTS.API_URL.LINKS_BASE_URL}`,
+    UPDATE: (linkId: string) => `${CONSTANTS.API_URL.LINKS_BASE_URL}/${linkId}`,
+    ACTIVATE: (linkId: string) => `${CONSTANTS.API_URL.LINKS_BASE_URL}/activate/${linkId}`,
+    INACTIVATE: (linkId: string) => `${CONSTANTS.API_URL.LINKS_BASE_URL}/inactivate/${linkId}`,
+    ORDER_SWAP: (first: string, second: string) =>
+      `${CONSTANTS.API_URL.LINKS_BASE_URL}/order-swap/${first}/${second}`,
+  },
+  LINK_GROUPS: {
+    GET_BY_USER_ID: (userId: string) =>
+      `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/user-id/${userId}`,
+    GET_BY_NAME: (name: string) => `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/name/${name}`,
+    FILTERED_GET_BY_NAME: (name: string) =>
+      `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/name/${name}/active`,
+    CREATE: () => `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}`,
+    UPDATE_PAGE_DESCRIPTION: (linkGroupId: string) =>
+      `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/${linkGroupId}/description`,
+    UPDATE_IMAGE_URL: (linkGroupId: string) =>
+      `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/${linkGroupId}/image`,
+    ACTIVATE: (linkGroupId: string) =>
+      `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/${linkGroupId}/activate`,
+    INACTIVATE: (linkGroupId: string) =>
+      `${CONSTANTS.API_URL.LINK_GROUP_BASE_URL}/${linkGroupId}/inactivate`,
+  },
+  USERS: {
+    GET_BY_EMAIL: (email: string) => `${CONSTANTS.API_URL.USERS_BASE_URL}/email/${email}`,
+    CREATE: () => `${CONSTANTS.API_URL.USERS_BASE_URL}`,
+  },
+  METADATA: {
+    GET_PROVIDERS: () => `${CONSTANTS.API_URL.METADATA_BASE_URL}/providers`,
+  },
+  THEME: {
+    UPDATE_BUTTON: (buttonId: string) => `${CONSTANTS.API_URL.THEMES_BASE_URL}/button/${buttonId}`,
+    UPDATE_BACKGROUND: (backgroundId: string) =>
+      `${CONSTANTS.API_URL.THEMES_BASE_URL}/background/${backgroundId}`,
+  },
 };

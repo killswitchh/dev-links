@@ -10,6 +10,6 @@ export const PATCH = (async ({ locals: { getSession }, request }) => {
   }
 
   const r: Button = await request.json();
-  const updatedTheme = await ThemeService.updateButtonForTheme(r.themeId, r.id, r);
+  const updatedTheme = await ThemeService.updateButtonForTheme(r.id, r);
   return json({ updatedTheme });
 }) satisfies RequestHandler;

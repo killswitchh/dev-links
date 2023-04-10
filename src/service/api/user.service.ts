@@ -6,13 +6,13 @@ import { ApiWrapper } from './../api-wrapper.service';
 export const UserService = {
   getUserForEmail(email: string): Promise<User> {
     console.log('fetching user for email', email);
-    const url = API_URLS.GET_USERS_BY_EMAIL_URL(email);
+    const url = API_URLS.USERS.GET_BY_EMAIL(email);
     return ApiWrapper.get(url);
   },
 
   createUser(userRequest: CreateUserRequest): Promise<User> {
     console.log('creating user for request', userRequest);
-    const url = API_URLS.CREATE_USER_URL();
+    const url = API_URLS.USERS.CREATE();
     return ApiWrapper.post(url, userRequest);
   },
 

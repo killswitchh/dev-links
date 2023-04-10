@@ -34,28 +34,15 @@ export const theme: Theme = {
   },
 };
 export const ThemeService = {
-  updateThemeForPage(linkGroupId: string): Promise<Theme> {
-    console.log('creating Theme for linkGroupId', linkGroupId);
-    return Promise.resolve(theme);
-    //TODO: Remove after backend integration
-
-    const url = API_URLS.GET_LINKS_URL(linkGroupId);
-    return ApiWrapper.get(url);
-  },
-
-  updateButtonForTheme(themeId: string, buttonId: string, button: Button): Promise<Button> {
+  updateButtonForTheme(buttonId: string, button: Button): Promise<Button> {
     console.log('button ID', buttonId, 'button', button);
-    const url = API_URLS.UPDATE_BUTTON_URL(buttonId);
+    const url = API_URLS.THEME.UPDATE_BUTTON(buttonId);
     return ApiWrapper.patch(url, button);
   },
 
-  updateBackgroundForTheme(
-    themeId: string,
-    backgroundId: string,
-    background: Background,
-  ): Promise<Background> {
+  updateBackgroundForTheme(backgroundId: string, background: Background): Promise<Background> {
     console.log('background ID', backgroundId, 'background', background);
-    const url = API_URLS.UPDATE_BACKGROUND_URL(backgroundId);
+    const url = API_URLS.THEME.UPDATE_BACKGROUND(backgroundId);
     return ApiWrapper.patch(url, background);
   },
 };

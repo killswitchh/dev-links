@@ -27,16 +27,20 @@
     >
       <div class="h-full w-full">
         <div class="flex flex-col align-middle items-center">
-          <div class="rounded-full w-[90px] border h-[90px]">
-            <img
-              class="h-full w-full object-fill rounded-full"
-              alt="link-group-header"
-              src="{linkGroup.imageURL}"
-            />
-          </div>
-          <div class="mt-3">
-            {linkGroup.description}
-          </div>
+          {#if linkGroup.imageURL}
+            <div class="rounded-full w-[90px] border h-[90px]">
+              <img
+                class="h-full w-full object-fill rounded-full"
+                alt="link-group-header"
+                src="{linkGroup.imageURL}"
+              />
+            </div>
+          {/if}
+          {#if linkGroup.description}
+            <div class="mt-3">
+              {linkGroup.description}
+            </div>
+          {/if}
         </div>
         <div class="mt-3 flex flex-col align-middle items-center min-w-[200px]">
           {#if links}

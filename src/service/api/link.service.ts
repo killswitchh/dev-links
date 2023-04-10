@@ -7,7 +7,7 @@ import { ApiWrapper } from './../api-wrapper.service';
 export const LinkService = {
   getLinks(linkGroupId: string): Promise<Link[]> {
     console.log('fetching Links for linkGroupId', linkGroupId);
-    const url = API_URLS.GET_LINKS_URL(linkGroupId);
+    const url = API_URLS.LINKS.GET_FOR_LINK_GROUP(linkGroupId);
     return ApiWrapper.get(url);
   },
 
@@ -16,7 +16,7 @@ export const LinkService = {
     const linkRequest: Link = convertToLink(createLinkRequest);
     linkRequest.linkGroupId = linkGroup.id;
     linkRequest.order = linkGroup.links ? linkGroup.links.length + 1 : 1;
-    const url = API_URLS.CREATE_LINK_URL();
+    const url = API_URLS.LINKS.CREATE();
     return ApiWrapper.post(url, linkRequest);
   },
 
@@ -29,25 +29,25 @@ export const LinkService = {
     const linkReq: Link = convertToLink(createLinkRequest);
     linkReq.id = linkGroup.id;
     linkReq.order = linkGroup.links?.find((x) => x.id === linkId)?.order;
-    const url = API_URLS.UPDATE_LINK_URL(linkId);
+    const url = API_URLS.LINKS.UPDATE(linkId);
     return ApiWrapper.patch(url, linkReq);
   },
 
   activateLink(linkId: string) {
     console.log('activating link for ID', linkId);
-    const url = API_URLS.ACTIVATE_LINK_URL(linkId);
+    const url = API_URLS.LINKS.ACTIVATE(linkId);
     return ApiWrapper.patch(url, {});
   },
 
   inactivateLink(linkId: string) {
     console.log('inactivating link for ID', linkId);
-    const url = API_URLS.IN_ACTIVATE_LINK_URL(linkId);
+    const url = API_URLS.LINKS.INACTIVATE(linkId);
     return ApiWrapper.patch(url, {});
   },
 
   orderSwap(first: string, second: string) {
     console.log('swapping order for link from ', first, 'to', second);
-    const url = API_URLS.ORDER_SWAP_LINK_URL(first, second);
+    const url = API_URLS.LINKS.ORDER_SWAP(first, second);
     return ApiWrapper.patch(url, {});
   },
 };
