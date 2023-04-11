@@ -1,10 +1,8 @@
 import { Provider, type Link, type Prisma } from '@prisma/client';
-import { API_URLS } from '../../constants';
 import AppError from '../../core/models/app-error.dto';
 import type { OLinkGroup } from '../../core/models/link-group.dto';
 import { convertToLink } from '../../core/models/link.dto';
 import type { CreateLinkRequest } from './../../core/models/link.dto';
-import { ApiWrapper } from './../api-wrapper.service';
 import { prisma } from './prisma.service';
 
 export const LinkService = {
@@ -27,8 +25,9 @@ export const LinkService = {
     const linkRequest = convertToLink(createLinkRequest) as Prisma.LinkUncheckedCreateInput;
     linkRequest.linkGroupId = linkGroup.id;
     linkRequest.order = linkGroup.links ? linkGroup.links.length + 1 : 1;
-    const url = API_URLS.LINKS.CREATE();
-    return ApiWrapper.post(url, linkRequest);
+    return prisma.link.create({
+      data: linkRequest,
+    });
   },
 
   editLink(
