@@ -1,6 +1,6 @@
 <script lang="ts">
   import { invalidateAll } from '$app/navigation';
-  import type { Link } from '../../../core/models/link.dto';
+  import type { Link } from '@prisma/client';
   import type { ActivateInactivateEventContent } from '../../../core/models/theme.dto';
   import type { PageData } from '../../../routes/(protected)/admin/create/$types';
   import { ApiWrapper } from '../../../service/api-wrapper.service';

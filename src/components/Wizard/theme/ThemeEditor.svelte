@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { LinkGroup } from '../../../core/models/link-group.dto';
+  import type { RLinkGroup } from '../../../core/models/link-group.dto';
   import BackgroundPicker from './BackgroundPicker.svelte';
   import ButtonPicker from './ButtonPicker.svelte';
 
-  export let linkGroup: LinkGroup | undefined;
+  export let linkGroup: RLinkGroup;
 </script>
 
 <ButtonPicker theme="{linkGroup?.theme}" />

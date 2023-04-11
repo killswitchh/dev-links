@@ -1,69 +1,12 @@
-/**
- * Model Theme
- *
- */
-export type Theme = {
-  id: string;
-  linkGroupId: string;
-  button: Button;
-  background: Background;
-};
-
-/**
- * Model Button
- *
- */
-export type Button = {
-  id: string;
-  buttonTheme: ButtonTheme;
-  buttonShape: ButtonShape;
-  buttonColor: string;
-  fontColor: string;
-  outlineColor: string;
-  themeId: string;
-};
-
-/**
- * Model Background
- *
- */
-export type Background = {
-  id: string;
-  backgroundType: BackgroundType;
-  backgroundColor?: string | null;
-  gradientStops?: GradientStop[];
-  imageUrl?: string | null;
-  themeId: string;
-};
-
-/**
- * Model GradientStop
- *
- */
-export type GradientStop = {
-  id: string;
-  color: string;
-  position: string;
-  backgroundId: string;
-};
-
-export enum BackgroundType {
-  GRADIENT = 'GRADIENT',
-  FILL = 'FILL',
-  IMAGE = 'IMAGE',
-}
-
-export enum ButtonShape {
-  RECTANGLE = 'RECTANGLE',
-  PILL = 'PILL',
-  ROUNDED_RECTANGLE = 'ROUNDED_RECTANGLE',
-}
-
-export enum ButtonTheme {
-  FILL = 'FILL',
-  OUTLINE = 'OUTLINE',
-  SHADOW = 'SHADOW',
-}
+import type {
+  Background,
+  BackgroundType,
+  Button,
+  ButtonShape,
+  ButtonTheme,
+  GradientStop,
+  Theme,
+} from '@prisma/client';
 
 export type ActivateInactivateEvent = {
   clicked: ActivateInactivateEventContent;
@@ -84,7 +27,7 @@ export type BackgroundChangeEvent = {
 export type BackgroundChangeEventContent = {
   backgroundType: BackgroundType;
   backgroundColor?: string | null;
-  gradientStops?: GradientStop[];
+  gradientStops?: GradientStop[] | undefined | null;
   imageUrl?: string | null;
 };
 
@@ -95,4 +38,15 @@ export type ButtonChangeEventContent = {
   buttonColor: string;
   fontColor: string;
   outlineColor: string;
+};
+
+export type BackgroundOptional = Background & { gradientStops: GradientStop[] };
+
+export type OTheme = Theme & { background: BackgroundOptional | null } & { button: Button | null };
+export type RTheme = Theme & {
+  background: Background & {
+    gradientStops: GradientStop[];
+  };
+} & {
+  button: Button;
 };

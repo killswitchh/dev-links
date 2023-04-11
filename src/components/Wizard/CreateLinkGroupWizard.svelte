@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Steps } from 'svelte-steps';
-  import type { LinkGroup } from '../../core/models/link-group.dto';
+  import type { RLinkGroup } from '../../core/models/link-group.dto';
   import type { PageData } from '../../routes/(protected)/admin/create/$types';
   import { wizardStore, type WizardStep } from '../../stores';
-  import PageInfoForm from './link-groups/LinkGroupInfo.svelte';
+  import LinkGroupInfo from './link-groups/LinkGroupInfo.svelte';
   import CreateLinks from './links/CreateLinks.svelte';
   import CreateTheme from './theme/ThemeEditor.svelte';
   let wizardSteps: WizardStep[] = [];
@@ -11,7 +11,7 @@
     wizardSteps = x.steps;
   });
 
-  export let linkGroup: LinkGroup;
+  export let linkGroup: RLinkGroup;
   export let data: PageData;
 
   let currentStep = 0;
@@ -48,7 +48,7 @@
         class="m-2 min-h-[80%] h-[85%] overflow-auto bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl flex flex-col items-center"
       >
         {#if currentStep == 0}
-          <PageInfoForm linkGroup="{linkGroup}" />
+          <LinkGroupInfo linkGroup="{linkGroup}" />
         {/if}
         {#if currentStep == 1}
           <CreateLinks links="{linkGroup.links}" data="{data}" />

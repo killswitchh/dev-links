@@ -1,19 +1,29 @@
-import { API_URLS } from '../../constants';
-import type { CreateUserRequest, User } from '../../core/models/user.dto';
+import type { Prisma, User } from '@prisma/client';
+import AppError from '../../core/models/app-error.dto';
 
-import { ApiWrapper } from './../api-wrapper.service';
+import { prisma } from './prisma.service';
 
 export const UserService = {
-  getUserForEmail(email: string): Promise<User> {
+  async getUserForEmail(email: string): Promise<User> {
     console.log('fetching user for email', email);
-    const url = API_URLS.USERS.GET_BY_EMAIL(email);
-    return ApiWrapper.get(url);
+    const user = await prisma().user.findFirst({
+      where: {
+        email: {
+          equals: email,
+        },
+      },
+    });
+    if (!user) {
+      throw new AppError(`User not found for email ${email}`, 400);
+    }
+    return user;
   },
 
-  createUser(userRequest: CreateUserRequest): Promise<User> {
-    console.log('creating user for request', userRequest);
-    const url = API_URLS.USERS.CREATE();
-    return ApiWrapper.post(url, userRequest);
+  createUser(data: Prisma.UserCreateInput): Promise<User> {
+    console.log('creating user for request', data);
+    return prisma().user.create({
+      data,
+    });
   },
 
   async getOrCreateUser(email: string, name: string): Promise<User> {
@@ -21,7 +31,7 @@ export const UserService = {
     try {
       currentUser = await UserService.getUserForEmail(email);
     } catch (error) {
-      const createUserRequest: CreateUserRequest = {
+      const createUserRequest: Prisma.UserCreateInput = {
         name: name,
         email: email,
       };

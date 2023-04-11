@@ -1,6 +1,6 @@
+import type { LinkGroup } from '@prisma/client';
 import type { Session } from '@supabase/supabase-js';
 import { writable, type Writable } from 'svelte/store';
-import type { LinkGroup } from './core/models/link-group.dto';
 
 export type Store = {
   error?: string | null;

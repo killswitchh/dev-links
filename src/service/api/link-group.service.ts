@@ -1,12 +1,38 @@
-import { API_URLS } from '../../constants';
-import type { CreateLinkGroupRequest, LinkGroup } from '../../core/models/link-group.dto';
-import { ApiWrapper } from '../api-wrapper.service';
+import {
+  BackgroundType,
+  ButtonShape,
+  ButtonTheme,
+  type LinkGroup,
+  type Prisma,
+} from '@prisma/client';
+import type { LinkGroupOptional, OLinkGroupWithLinks } from '../../core/models/link-group.dto';
+import { prisma } from './prisma.service';
 
 export const LinkGroupService = {
-  getUserPages(userId: string): Promise<LinkGroup[]> {
+  includeTheme() {
+    return {
+      button: true,
+      background: {
+        select: {
+          gradientStops: true,
+          id: true,
+          backgroundColor: true,
+          backgroundType: true,
+          imageUrl: true,
+          themeId: true,
+        },
+      },
+    };
+  },
+  async getLinkGroupByUserId(userId: string): Promise<LinkGroup[]> {
     console.log('fetching linkGroups for user', userId);
-    const url = API_URLS.LINK_GROUPS.GET_BY_USER_ID(userId);
-    return ApiWrapper.get(url);
+    return await prisma().linkGroup.findMany({
+      where: {
+        ownerId: {
+          equals: userId,
+        },
+      },
+    });
   },
 
   getAvailablePages(userId: string): Promise<number> {
@@ -14,46 +40,144 @@ export const LinkGroupService = {
     return Promise.resolve(15);
   },
 
-  getPageByName(name: string): Promise<LinkGroup> {
+  async getLinkGroupByName(name: string): Promise<OLinkGroupWithLinks | null> {
     console.log('fetching linkGroups for name', name);
-    const url = API_URLS.LINK_GROUPS.GET_BY_NAME(name);
-    return ApiWrapper.get(url);
+
+    const linkGroup = await prisma().linkGroup.findFirst({
+      where: {
+        name: {
+          equals: name,
+        },
+      },
+      include: {
+        links: true,
+        theme: {
+          include: this.includeTheme(),
+        },
+      },
+    });
+    return linkGroup || null;
   },
 
-  getFilteredPageByName(name: string): Promise<LinkGroup> {
+  async getFilteredLinkGroupByName(name: string): Promise<OLinkGroupWithLinks | null> {
     console.log('fetching filtered linkGroups for name', name);
-    const url = API_URLS.LINK_GROUPS.FILTERED_GET_BY_NAME(name);
-    return ApiWrapper.get(url);
+    const linkGroup = await prisma().linkGroup.findFirst({
+      where: {
+        name: {
+          equals: name,
+        },
+      },
+      include: {
+        links: {
+          where: {
+            active: true,
+          },
+        },
+        theme: {
+          include: this.includeTheme(),
+        },
+      },
+    });
+    return linkGroup || null;
   },
 
-  createPage(createPageRequest: CreateLinkGroupRequest): Promise<LinkGroup> {
-    console.log('creating linkGroup', createPageRequest);
-    const url = API_URLS.LINK_GROUPS.CREATE();
-    return ApiWrapper.post(url, createPageRequest);
+  populateTheme(data: Prisma.LinkGroupUncheckedCreateInput) {
+    data.theme = {
+      create: {
+        button: {
+          create: {
+            buttonShape: ButtonShape.PILL,
+            buttonTheme: ButtonTheme.FILL,
+            buttonColor: '#FFFFFF',
+            fontColor: '#000000',
+            outlineColor: '#000000',
+          },
+        },
+        background: {
+          create: {
+            backgroundColor: '#000FFF',
+            backgroundType: BackgroundType.FILL,
+            gradientStops: {
+              create: [
+                {
+                  color: '#F3F3F3',
+                  position: '0%',
+                },
+                {
+                  color: '#000FFF',
+                  position: '50%',
+                },
+              ],
+            },
+            imageUrl: undefined,
+          },
+        },
+      },
+    };
   },
 
-  updatePageDescription(linkGroupId: string, description: string) {
+  async createLinkGroup(
+    data: Prisma.LinkGroupUncheckedCreateInput,
+  ): Promise<LinkGroupOptional | null> {
+    console.log('creating linkGroup', data);
+    data.name = data.name.toLowerCase();
+    this.populateTheme(data);
+    const linkGroup = await prisma().linkGroup.create({
+      data,
+    });
+    return await prisma().linkGroup.findFirst({
+      where: {
+        id: linkGroup.id,
+      },
+      include: {
+        theme: true,
+      },
+    });
+  },
+
+  updateLinkGroupDescription(linkGroupId: string, description: string) {
     console.log('updating description for ID', linkGroupId, 'to', description);
-    const url = API_URLS.LINK_GROUPS.UPDATE_PAGE_DESCRIPTION(linkGroupId);
-    return ApiWrapper.patch(url, { description });
+    return prisma().linkGroup.update({
+      where: {
+        id: linkGroupId,
+      },
+      data: {
+        description: description,
+      },
+    });
   },
 
   updateLinkGroupImage(linkGroupId: string, imageURL: string) {
     console.log('updating image for link group with ID', linkGroupId, 'URL: ', imageURL);
-    const url = API_URLS.LINK_GROUPS.UPDATE_IMAGE_URL(linkGroupId);
-    return ApiWrapper.patch(url, { imageURL: imageURL });
+    return prisma().linkGroup.update({
+      where: {
+        id: linkGroupId,
+      },
+      data: {
+        imageURL: imageURL,
+      },
+    });
+  },
+
+  async updateLinkGroupStatus(linkGroupId: string, status: boolean): Promise<LinkGroup> {
+    return prisma().linkGroup.update({
+      where: {
+        id: linkGroupId,
+      },
+      data: {
+        active: status,
+      },
+    });
   },
 
   activateLink(linkGroupId: string) {
     console.log('activating link-group with ID', linkGroupId);
-    const url = API_URLS.LINK_GROUPS.ACTIVATE(linkGroupId);
-    return ApiWrapper.patch(url, {});
+    return this.updateLinkGroupStatus(linkGroupId, true);
   },
 
   inactivateLink(linkGroupId: string) {
     console.log('inactivating link-group with ID', linkGroupId);
-    const url = API_URLS.LINK_GROUPS.INACTIVATE(linkGroupId);
-    return ApiWrapper.patch(url, {});
+    return this.updateLinkGroupStatus(linkGroupId, false);
   },
 };
 

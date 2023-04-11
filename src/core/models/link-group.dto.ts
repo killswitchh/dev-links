@@ -1,18 +1,30 @@
-import type { Link } from './link.dto';
-import type { Theme } from './theme.dto';
+import type { BackgroundType, Button, GradientStop, Link, LinkGroup, Theme } from '@prisma/client';
+import type { OTheme, RTheme } from './theme.dto';
 
-export type LinkGroup = {
-  id: string;
-  name: string;
-  description?: string;
-  imageURL?: string;
-  createdTs: Date;
-  updatedTs: Date;
-  ownerId: string;
-  active: boolean;
-  links?: Link[];
-  theme: Theme;
-  underCreation: boolean;
+export type LinkGroupOptional = LinkGroup & { theme: Theme | null };
+
+export type test = Theme & {
+  button: Button | null;
+  background: {
+    id: string;
+    backgroundType: BackgroundType;
+    backgroundColor: string | null;
+    imageUrl: string | null;
+    gradientStops: GradientStop[];
+    themeId: string;
+  } | null;
+};
+
+export type OLinkGroup = LinkGroup & { theme: OTheme | null } & {
+  links: Link[] | null;
+};
+
+export type OLinkGroupWithLinks = LinkGroup & { theme: OTheme | null } & {
+  links: Link[];
+};
+
+export type RLinkGroup = LinkGroup & { theme: RTheme } & {
+  links: Link[] | null;
 };
 
 export type CreateLinkGroupRequest = {

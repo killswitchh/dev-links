@@ -1,30 +1,26 @@
 <script lang="ts">
   import { invalidateAll } from '$app/navigation';
-  import {
-    ButtonShape,
-    ButtonTheme,
-    type ButtonChangeEventContent,
-    type Theme,
-  } from '../../../core/models/theme.dto';
+  import { ButtonShape, ButtonTheme } from '@prisma/client';
+  import type { ButtonChangeEventContent, RTheme } from '../../../core/models/theme.dto';
   import { ApiWrapper } from '../../../service/api-wrapper.service';
   import { refreshIframe } from '../../../stores';
   import Button from '../../consumer/Button.svelte';
 
-  export let theme: Theme | undefined;
+  export let theme: RTheme;
   const defaultTheme = theme;
 
   const buttonThemeList: ButtonTheme[] = Object.values(ButtonTheme);
   const buttonShapeList: ButtonShape[] = Object.values(ButtonShape);
 
   function handleButtonThemeChange(event: CustomEvent<ButtonChangeEventContent>) {
-    if (!theme) {
+    if (!theme || !theme.button) {
       return;
     }
     theme.button.buttonTheme = event.detail.buttonTheme;
   }
 
   function handleButtonShapeChange(event: CustomEvent<ButtonChangeEventContent>) {
-    if (!theme) {
+    if (!theme || !theme.button) {
       return;
     }
     theme.button.buttonShape = event.detail.buttonShape;
