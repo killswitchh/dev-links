@@ -2,7 +2,10 @@ import { error, fail } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import { superValidate } from 'sveltekit-superforms/server';
 
+import type { Provider } from '@prisma/client';
+import { ERROR_MESSAGES } from '../../../../constants';
 import AppError from '../../../../core/models/app-error.dto';
+import type { RLinkGroup } from '../../../../core/models/link-group.dto';
 import {
   CreateLinkRequestSchema,
   type CodeName,
@@ -14,8 +17,6 @@ import MetadataService from '../../../../service/api/metadata.service';
 import UploadService from '../../../../service/api/upload.service';
 import { linkGroupStore } from '../../../../stores';
 import type { PageServerLoad } from './$types';
-import type { Provider } from '@prisma/client';
-import type { RLinkGroup } from '../../../../core/models/link-group.dto';
 
 export const load = (async (event) => {
   console.log('Im Running');
@@ -25,9 +26,18 @@ export const load = (async (event) => {
   }
   const search = event.url.searchParams;
   const linkGroupName = search.get('name');
-  const linkGroup = await LinkGroupService.getLinkGroupByName(linkGroupName as string);
-  const providers: CodeName<Provider>[] = await MetadataService.getAllProviders();
-  const form = await superValidate(event, CreateLinkRequestSchema);
+  let linkGroup;
+  let providers: CodeName<Provider>[];
+  let form;
+  try {
+    linkGroup = await LinkGroupService.getLinkGroupByName(linkGroupName as string);
+    providers = await MetadataService.getAllProviders();
+    form = await superValidate(event, CreateLinkRequestSchema);
+  } catch (e) {
+    console.error('ERROR', e);
+    throw error(500, { message: ERROR_MESSAGES.DEFAULT });
+  }
+
   return {
     form: form,
     linkGroup: linkGroup as RLinkGroup,
