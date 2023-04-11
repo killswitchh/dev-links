@@ -26,7 +26,7 @@ export const LinkGroupService = {
   },
   async getLinkGroupByUserId(userId: string): Promise<LinkGroup[]> {
     console.log('fetching linkGroups for user', userId);
-    return await prisma().linkGroup.findMany({
+    return await prisma.linkGroup.findMany({
       where: {
         ownerId: {
           equals: userId,
@@ -43,7 +43,7 @@ export const LinkGroupService = {
   async getLinkGroupByName(name: string): Promise<OLinkGroupWithLinks | null> {
     console.log('fetching linkGroups for name', name);
 
-    const linkGroup = await prisma().linkGroup.findFirst({
+    const linkGroup = await prisma.linkGroup.findFirst({
       where: {
         name: {
           equals: name,
@@ -61,7 +61,7 @@ export const LinkGroupService = {
 
   async getFilteredLinkGroupByName(name: string): Promise<OLinkGroupWithLinks | null> {
     console.log('fetching filtered linkGroups for name', name);
-    const linkGroup = await prisma().linkGroup.findFirst({
+    const linkGroup = await prisma.linkGroup.findFirst({
       where: {
         name: {
           equals: name,
@@ -122,10 +122,10 @@ export const LinkGroupService = {
     console.log('creating linkGroup', data);
     data.name = data.name.toLowerCase();
     this.populateTheme(data);
-    const linkGroup = await prisma().linkGroup.create({
+    const linkGroup = await prisma.linkGroup.create({
       data,
     });
-    return await prisma().linkGroup.findFirst({
+    return await prisma.linkGroup.findFirst({
       where: {
         id: linkGroup.id,
       },
@@ -137,7 +137,7 @@ export const LinkGroupService = {
 
   updateLinkGroupDescription(linkGroupId: string, description: string) {
     console.log('updating description for ID', linkGroupId, 'to', description);
-    return prisma().linkGroup.update({
+    return prisma.linkGroup.update({
       where: {
         id: linkGroupId,
       },
@@ -149,7 +149,7 @@ export const LinkGroupService = {
 
   updateLinkGroupImage(linkGroupId: string, imageURL: string) {
     console.log('updating image for link group with ID', linkGroupId, 'URL: ', imageURL);
-    return prisma().linkGroup.update({
+    return prisma.linkGroup.update({
       where: {
         id: linkGroupId,
       },
@@ -160,7 +160,7 @@ export const LinkGroupService = {
   },
 
   async updateLinkGroupStatus(linkGroupId: string, status: boolean): Promise<LinkGroup> {
-    return prisma().linkGroup.update({
+    return prisma.linkGroup.update({
       where: {
         id: linkGroupId,
       },

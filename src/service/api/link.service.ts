@@ -10,7 +10,7 @@ import { prisma } from './prisma.service';
 export const LinkService = {
   async getLinks(linkGroupId: string): Promise<Link[]> {
     console.log('fetching Links for linkGroupId', linkGroupId);
-    return await prisma().link.findMany({
+    return await prisma.link.findMany({
       where: {
         linkGroupId: {
           equals: linkGroupId,
@@ -43,7 +43,7 @@ export const LinkService = {
     if (existingLinkOrder) {
       linkReq.order = existingLinkOrder;
     }
-    return prisma().link.update({
+    return prisma.link.update({
       where: {
         id: linkId,
       },
@@ -61,7 +61,7 @@ export const LinkService = {
 
   activateLink(linkId: string) {
     console.log('activating link for ID', linkId);
-    return prisma().link.update({
+    return prisma.link.update({
       where: {
         id: linkId,
       },
@@ -73,7 +73,7 @@ export const LinkService = {
 
   inactivateLink(linkId: string) {
     console.log('inactivating link for ID', linkId);
-    return prisma().link.update({
+    return prisma.link.update({
       where: {
         id: linkId,
       },
@@ -91,7 +91,7 @@ export const LinkService = {
   },
 
   updateOrder(linkId: string, order: number) {
-    return prisma().link.update({
+    return prisma.link.update({
       where: {
         id: linkId,
       },
@@ -102,7 +102,7 @@ export const LinkService = {
   },
 
   async findById(id: string): Promise<Link> {
-    const link = await prisma().link.findFirst({
+    const link = await prisma.link.findFirst({
       where: {
         id: id,
       },
@@ -114,7 +114,7 @@ export const LinkService = {
   },
 
   async getActiveLinksByLinkGroupId(id: string): Promise<Link[]> {
-    const links = await prisma().link.findMany({
+    const links = await prisma.link.findMany({
       where: {
         linkGroupId: {
           equals: id,
