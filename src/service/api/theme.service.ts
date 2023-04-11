@@ -1,12 +1,10 @@
 import type { Background, Button, GradientStop, Theme } from '@prisma/client';
-import { API_URLS } from '../../constants';
-import { ApiWrapper } from '../api-wrapper.service';
-import { prisma } from './prisma.service';
 import type { BackgroundOptional } from '../../core/models/theme.dto';
+import { prisma } from './prisma.service';
 
 export const ThemeService = {
   async getThemeByLinkGroupId(id: string): Promise<Theme | null> {
-    const theme = await prisma().theme.findFirst({
+    const theme = await prisma.theme.findFirst({
       where: {
         linkGroupId: {
           equals: id,
@@ -31,7 +29,7 @@ export const ThemeService = {
   },
   updateButtonForTheme(buttonId: string, button: Button): Promise<Button> {
     console.log('button ID', buttonId, 'button', button);
-    return prisma().button.update({
+    return prisma.button.update({
       where: {
         id: buttonId,
       },
@@ -53,7 +51,7 @@ export const ThemeService = {
     const gradientStops: GradientStop[] = data.gradientStops as GradientStop[];
     const promises: Promise<any>[] = [];
     gradientStops.forEach((g) => {
-      const updatePromise = prisma().gradientStop.update({
+      const updatePromise = prisma.gradientStop.update({
         where: {
           id: g.id,
         },
@@ -65,7 +63,7 @@ export const ThemeService = {
       promises.push(updatePromise);
     });
     await Promise.all(promises);
-    return prisma().background.update({
+    return prisma.background.update({
       where: {
         id: backgroundId,
       },
