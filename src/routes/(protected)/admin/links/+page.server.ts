@@ -34,19 +34,14 @@ export const load = (async ({ locals: { getSession, user } }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-  createPage: async ({ request, locals, url }) => {
+  createPage: async ({ request, locals }) => {
     const body = await request.formData();
     if (!locals.user) {
       return fail(400, { error: ERROR_MESSAGES.DEFAULT });
     }
-
-    const id = url.searchParams.get('id');
-    if (id === 'null') {
-      return fail(400, { error: ERROR_MESSAGES.DEFAULT });
-    }
     const createPageRequest: CreateLinkGroupRequest = {
       name: body.get('name') as string,
-      ownerId: id as string,
+      ownerId: locals.user.id,
       underCreation: true,
       active: true,
     };

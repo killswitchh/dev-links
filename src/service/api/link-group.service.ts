@@ -11,7 +11,7 @@ export const LinkGroupService = {
 
   getAvailablePages(userId: string): Promise<number> {
     console.log('fetching linkGroups for user', userId);
-    return Promise.resolve(10);
+    return Promise.resolve(15);
   },
 
   getPageByName(name: string): Promise<LinkGroup> {
