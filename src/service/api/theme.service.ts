@@ -1,49 +1,80 @@
+import type { Background, Button, GradientStop, Theme } from '@prisma/client';
 import { API_URLS } from '../../constants';
-import {
-  BackgroundType,
-  ButtonShape,
-  ButtonTheme,
-  type Button,
-  type Theme,
-} from '../../core/models/theme.dto';
 import { ApiWrapper } from '../api-wrapper.service';
-import type { Background } from './../../core/models/theme.dto';
+import { prisma } from './prisma.service';
+import type { BackgroundOptional } from '../../core/models/theme.dto';
 
-export const theme: Theme = {
-  id: '1',
-  linkGroupId: '123',
-  button: {
-    id: '1',
-    buttonShape: ButtonShape.PILL,
-    buttonTheme: ButtonTheme.FILL,
-    themeId: 'T123',
-    buttonColor: '#FFFFFF',
-    fontColor: '#000000',
-    outlineColor: '#000000',
-  },
-  background: {
-    id: '1',
-    backgroundColor: '#000FFF',
-    backgroundType: BackgroundType.FILL,
-    themeId: 'T123',
-    gradientStops: [
-      { id: 'G123', color: '#F3F3F3', position: '0%', backgroundId: '1' },
-      { id: 'G124', color: '#000FFF', position: '50%', backgroundId: '1' },
-    ],
-    imageUrl: undefined,
-  },
-};
 export const ThemeService = {
+  async getThemeByLinkGroupId(id: string): Promise<Theme | null> {
+    const theme = await prisma().theme.findFirst({
+      where: {
+        linkGroupId: {
+          equals: id,
+        },
+      },
+      include: {
+        button: true,
+        background: {
+          select: {
+            gradientStops: true,
+            id: true,
+            backgroundColor: true,
+            backgroundType: true,
+            imageUrl: true,
+            themeId: true,
+          },
+        },
+      },
+      take: 1,
+    });
+    return theme || null;
+  },
   updateButtonForTheme(buttonId: string, button: Button): Promise<Button> {
     console.log('button ID', buttonId, 'button', button);
-    const url = API_URLS.THEME.UPDATE_BUTTON(buttonId);
-    return ApiWrapper.patch(url, button);
+    return prisma().button.update({
+      where: {
+        id: buttonId,
+      },
+      data: {
+        buttonColor: button.buttonColor,
+        buttonShape: button.buttonShape,
+        buttonTheme: button.buttonTheme,
+        fontColor: button.fontColor,
+        outlineColor: button.outlineColor,
+      },
+    });
   },
 
-  updateBackgroundForTheme(backgroundId: string, background: Background): Promise<Background> {
-    console.log('background ID', backgroundId, 'background', background);
-    const url = API_URLS.THEME.UPDATE_BACKGROUND(backgroundId);
-    return ApiWrapper.patch(url, background);
+  async updateBackgroundForTheme(
+    backgroundId: string,
+    data: BackgroundOptional,
+  ): Promise<Background> {
+    console.log('background ID', backgroundId, 'background', data);
+    const gradientStops: GradientStop[] = data.gradientStops as GradientStop[];
+    const promises: Promise<any>[] = [];
+    gradientStops.forEach((g) => {
+      const updatePromise = prisma().gradientStop.update({
+        where: {
+          id: g.id,
+        },
+        data: {
+          position: g.position,
+          color: g.color,
+        },
+      });
+      promises.push(updatePromise);
+    });
+    await Promise.all(promises);
+    return prisma().background.update({
+      where: {
+        id: backgroundId,
+      },
+      data: {
+        backgroundColor: data.backgroundColor,
+        backgroundType: data.backgroundType,
+        imageUrl: data.imageUrl,
+      },
+    });
   },
 };
 

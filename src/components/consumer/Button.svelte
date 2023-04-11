@@ -1,8 +1,8 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { ButtonShape, ButtonTheme, type Link } from '@prisma/client';
   import { createEventDispatcher } from 'svelte';
-  import type { Link } from '../../core/models/link.dto';
-  import { ButtonShape, ButtonTheme, type ButtonChangeEvent } from '../../core/models/theme.dto';
+  import type { ButtonChangeEvent } from '../../core/models/theme.dto';
 
   export let buttonText: string;
   export let buttonTheme: ButtonTheme;

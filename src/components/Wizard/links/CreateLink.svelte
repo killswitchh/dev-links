@@ -3,14 +3,13 @@
 
   import { superForm } from 'sveltekit-superforms/client';
 
+  import type { Link, Provider } from '@prisma/client';
   import { get } from 'svelte/store';
   import {
     CreateLinkRequestSchema,
-    Provider,
     convertToCreateLinkRequest,
     type CodeName,
     type CreateLinkRequest,
-    type Link,
     type SelectValue,
   } from '../../../core/models/link.dto';
   import { convertToName } from '../../../core/utils/utils';

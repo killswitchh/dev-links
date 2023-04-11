@@ -1,14 +1,14 @@
 <script lang="ts">
   import { goto, invalidateAll } from '$app/navigation';
   import { get } from 'svelte/store';
-  import type { LinkGroup } from '../../../core/models/link-group.dto';
+  import type { LinkGroupOptional } from '../../../core/models/link-group.dto';
   import type { ActivateInactivateEventContent } from '../../../core/models/theme.dto';
   import { ApiWrapper } from '../../../service/api-wrapper.service';
   import { linkGroupStore, loading } from '../../../stores';
   import Loader from '../../common/Loader.svelte';
   import StatusButton from '../../common/StatusButton.svelte';
 
-  export let linkGroup: LinkGroup;
+  export let linkGroup: LinkGroupOptional;
 
   async function editOnClick() {
     if ($loading) {

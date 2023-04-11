@@ -2,10 +2,11 @@ import type { Session } from '@supabase/supabase-js';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { ERROR_MESSAGES } from '../../../../constants';
 import AppError from '../../../../core/models/app-error.dto';
-import type { CreateLinkGroupRequest, LinkGroup } from '../../../../core/models/link-group.dto';
+import type { CreateLinkGroupRequest } from '../../../../core/models/link-group.dto';
 import { linkGroupStore } from '../../../../stores';
 import type { PageServerLoad } from './$types';
 import { LinkGroupService } from './../../../../service/api/link-group.service';
+import type { LinkGroup } from '@prisma/client';
 
 export const load = (async ({ locals: { getSession, user } }) => {
   const session: Session = await getSession();
@@ -18,7 +19,7 @@ export const load = (async ({ locals: { getSession, user } }) => {
     if (!user) {
       throw new AppError('UNAUTHORIZED', 404);
     }
-    linkGroups = await LinkGroupService.getUserPages(user.id);
+    linkGroups = await LinkGroupService.getLinkGroupByUserId(user.id);
     pageLimit = await LinkGroupService.getAvailablePages(session.user.id);
   } catch (e) {
     if (e instanceof AppError) {
@@ -49,7 +50,7 @@ export const actions = {
       return fail(400, { createPageRequest, error: ERROR_MESSAGES.DEFAULT });
     }
     try {
-      const linkGroup = await LinkGroupService.createPage(createPageRequest);
+      const linkGroup = await LinkGroupService.createLinkGroup(createPageRequest);
       if (linkGroup) {
         linkGroupStore.set(linkGroup);
       }

@@ -1,6 +1,6 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
-import type { Button } from '../../../../core/models/theme.dto';
 import ThemeService from '../../../../service/api/theme.service';
+import type { Button } from '@prisma/client';
 
 export const PATCH = (async ({ locals: { getSession }, request }) => {
   const session = await getSession();

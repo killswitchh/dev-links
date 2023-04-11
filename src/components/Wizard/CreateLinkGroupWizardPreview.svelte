@@ -1,10 +1,10 @@
 <script lang="ts">
   import { PUBLIC_APP_URL } from '$env/static/public';
-  import type { LinkGroup } from '../../core/models/link-group.dto';
+  import type { RLinkGroup } from '../../core/models/link-group.dto';
   import { refreshIframe } from '../../stores';
   import Iframe from '../common/Iframe.svelte';
   import Loader from '../common/Loader.svelte';
-  export let linkGroup: LinkGroup;
+  export let linkGroup: RLinkGroup;
   let iFrameUrl = PUBLIC_APP_URL + linkGroup.name;
 
   refreshIframe.subscribe((x) => {

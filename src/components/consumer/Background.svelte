@@ -1,15 +1,12 @@
 <script lang="ts">
   import logo from '$lib/images/logo.png';
+  import { BackgroundType, type GradientStop } from '@prisma/client';
   import { createEventDispatcher } from 'svelte';
-  import {
-    BackgroundType,
-    type BackgroundChangeEvent,
-    type GradientStop,
-  } from '../../core/models/theme.dto';
+  import type { BackgroundChangeEvent } from '../../core/models/theme.dto';
 
   export let backgroundType: BackgroundType;
   export let backgroundColor: string | null | undefined;
-  export let gradientStops: GradientStop[] | undefined;
+  export let gradientStops: GradientStop[] | undefined | null;
   export let imageUrl: string | null | undefined;
   export let displayBackgroundType = false;
 
@@ -27,7 +24,7 @@
   const getStyles = (
     backgroundType: BackgroundType,
     backgroundColor: string | null | undefined,
-    gradientStops: GradientStop[] | undefined,
+    gradientStops: GradientStop[] | undefined | null,
     imageUrl: string | null | undefined,
   ) => {
     let style = {
@@ -66,7 +63,7 @@
     .map(([key, value]) => `${key}:${value}`)
     .join(';');
 
-  function getGradientBg(gradientStops: GradientStop[] | undefined): string {
+  function getGradientBg(gradientStops: GradientStop[] | undefined | null): string {
     if (!gradientStops) return '';
     return `linear-gradient(${gradientStops[0].color}, ${gradientStops[1].color})`;
   }

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { afterUpdate } from 'svelte';
   import LinkGroupListItem from '../../../../components/Wizard/link-groups/LinkGroupListItem.svelte';
+  import type { RLinkGroup } from '../../../../core/models/link-group.dto';
   import type { NullSafePageItem as NullSafeLinkGroupItem } from '../../../../types';
   import type { PageData } from './$types';
 
@@ -8,7 +9,8 @@
   let linkGroups: NullSafeLinkGroupItem[] = [];
 
   afterUpdate(() => {
-    linkGroups = data.linkGroups.filter(() => true) satisfies NullSafeLinkGroupItem[];
+    const linkG = data.linkGroups as RLinkGroup[];
+    linkGroups = linkG.filter(() => true) satisfies NullSafeLinkGroupItem[];
     while (linkGroups.length < data.pageLimit) {
       linkGroups.push(null);
     }

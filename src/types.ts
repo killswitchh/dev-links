@@ -1,4 +1,4 @@
-import type { LinkGroup } from './core/models/link-group.dto';
+import type { RLinkGroup } from './core/models/link-group.dto';
 
 export type Route = {
   name: string;
@@ -8,4 +8,4 @@ export type Route = {
   position: 'left' | 'right';
 };
 
-export type NullSafePageItem = LinkGroup | null;
+export type NullSafePageItem = RLinkGroup | null;

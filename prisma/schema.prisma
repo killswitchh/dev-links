@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  linkGroups LinkGroup[]
+  name       String
+  email      String      @unique
+  active     Boolean     @default(true)
+}
+
+model LinkGroup {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String   @unique
+  links         Link[]
+  createdTs     DateTime @default(now())
+  updatedTs     DateTime @default(now())
+  owner         User     @relation(fields: [ownerId], references: [id])
+  ownerId       String   @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
+  theme         Theme?
+  active        Boolean  @default(true)
+  underCreation Boolean
+  description   String?
+  imageURL      String?
+}
+
+model Link {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  url         String
+  provider    Provider
+  enrich      Boolean?
+  active      Boolean?  @default(true)
+  name        String?   
+  order       Int
+  prioritize  Boolean   @default(false)
+  linkGroup   LinkGroup @relation(fields: [linkGroupId], references: [id])
+  linkGroupId String    @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
+}
+
+enum Provider {
+  GITHUB
+  STACK_OVERFLOW
+  BITBUCKET
+  LEETCODE
+  CODEFORCES
+  HACKERRANK
+  HACKEREARTH
+  MEDIUM
+  DEV_TO
+  TWITTER
+  LINKEDIN
+  OTHER
+  // Add more here based on availability
+}
+
+model Theme {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  button      Button?
+  background  Background?
+  linkGroup   LinkGroup   @relation(fields: [linkGroupId], references: [id])
+  linkGroupId String      @unique @db.ObjectId
+}
+
+model Button {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  buttonTheme  ButtonTheme
+  buttonShape  ButtonShape
+  theme        Theme       @relation(fields: [themeId], references: [id])
+  themeId      String      @unique @db.ObjectId
+  buttonColor  String
+  fontColor    String
+  outlineColor String
+}
+
+model Background {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  backgroundType  BackgroundType
+  backgroundColor String?
+  gradientStops   GradientStop[]
+  imageUrl        String?
+  theme           Theme          @relation(fields: [themeId], references: [id])
+  themeId         String         @unique @db.ObjectId
+}
+
+model GradientStop {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  color        String
+  position     String
+  background   Background @relation(fields: [backgroundId], references: [id])
+  backgroundId String     @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
+}
+
+enum BackgroundType {
+  GRADIENT
+  FILL
+  IMAGE
+}
+
+enum ButtonTheme {
+  FILL
+  OUTLINE
+  SHADOW
+}
+
+enum ButtonShape {
+  RECTANGLE
+  PILL
+  ROUNDED_RECTANGLE
+}

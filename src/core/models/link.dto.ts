@@ -1,31 +1,5 @@
+import { Provider, type Link, type Prisma } from '@prisma/client';
 import { z } from 'zod';
-
-export type Link = {
-  provider: Provider | null;
-  enrich: boolean | null;
-  prioritize: boolean;
-  url: string;
-  id?: string;
-  order?: number;
-  linkGroupId?: string;
-  active?: boolean;
-  name?: string;
-};
-
-export enum Provider {
-  GITHUB = 'GITHUB',
-  STACK_OVERFLOW = 'STACK_OVERFLOW',
-  BITBUCKET = 'BITBUCKET',
-  LEETCODE = 'LEETCODE',
-  CODEFORCES = 'CODEFORCES',
-  HACKERRANK = 'HACKERRANK',
-  HACKEREARTH = 'HACKEREARTH',
-  MEDIUM = 'MEDIUM',
-  DEV_TO = 'DEV_TO',
-  TWITTER = 'TWITTER',
-  LINKEDIN = 'LINKEDIN',
-  OTHER = 'OTHER',
-}
 
 export const ProviderSelectValueSchema = z.object({
   code: z.nativeEnum(Provider),
@@ -47,7 +21,9 @@ export type CreateLinkRequest = z.infer<typeof CreateLinkRequestSchema>;
 
 export type SelectValue = z.infer<typeof ProviderSelectValueSchema>;
 
-export function convertToLink(createLinkRequest: CreateLinkRequest): Link {
+export function convertToLink(
+  createLinkRequest: CreateLinkRequest,
+): Prisma.LinkUncheckedCreateInput {
   return {
     name: createLinkRequest.name as string,
     prioritize: createLinkRequest.prioritize,
@@ -56,6 +32,7 @@ export function convertToLink(createLinkRequest: CreateLinkRequest): Link {
     active: createLinkRequest.active,
     url: createLinkRequest.url,
     linkGroupId: createLinkRequest.linkGroupId as string,
+    order: 0,
   };
 }
 

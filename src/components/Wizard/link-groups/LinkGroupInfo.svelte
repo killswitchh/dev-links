@@ -1,9 +1,9 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import type { LinkGroup } from '../../../core/models/link-group.dto';
+  import type { RLinkGroup } from '../../../core/models/link-group.dto';
   import { refreshIframe } from '../../../stores';
 
-  export let linkGroup: LinkGroup | undefined;
+  export let linkGroup: RLinkGroup | undefined;
 
   let avatar: string, fileinput;
 
