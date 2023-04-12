@@ -39,10 +39,10 @@ model Link {
   provider    Provider
   enrich      Boolean?
   active      Boolean?  @default(true)
-  name        String?   
+  name        String?
   order       Int
   prioritize  Boolean   @default(false)
-  linkGroup   LinkGroup @relation(fields: [linkGroupId], references: [id])
+  linkGroup   LinkGroup @relation(fields: [linkGroupId], references: [id], onDelete: Cascade)
   linkGroupId String    @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
 }
 
@@ -66,7 +66,7 @@ model Theme {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   button      Button?
   background  Background?
-  linkGroup   LinkGroup   @relation(fields: [linkGroupId], references: [id])
+  linkGroup   LinkGroup   @relation(fields: [linkGroupId], references: [id], onDelete: Cascade)
   linkGroupId String      @unique @db.ObjectId
 }
 
@@ -74,7 +74,7 @@ model Button {
   id           String      @id @default(auto()) @map("_id") @db.ObjectId
   buttonTheme  ButtonTheme
   buttonShape  ButtonShape
-  theme        Theme       @relation(fields: [themeId], references: [id])
+  theme        Theme?      @relation(fields: [themeId], references: [id], onDelete: Cascade)
   themeId      String      @unique @db.ObjectId
   buttonColor  String
   fontColor    String
@@ -87,7 +87,7 @@ model Background {
   backgroundColor String?
   gradientStops   GradientStop[]
   imageUrl        String?
-  theme           Theme          @relation(fields: [themeId], references: [id])
+  theme           Theme?         @relation(fields: [themeId], references: [id], onDelete: Cascade)
   themeId         String         @unique @db.ObjectId
 }
 
@@ -95,7 +95,7 @@ model GradientStop {
   id           String     @id @default(auto()) @map("_id") @db.ObjectId
   color        String
   position     String
-  background   Background @relation(fields: [backgroundId], references: [id])
+  background   Background @relation(fields: [backgroundId], references: [id], onDelete: Cascade)
   backgroundId String     @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
 }
 

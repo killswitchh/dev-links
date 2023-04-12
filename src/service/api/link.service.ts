@@ -126,6 +126,15 @@ export const LinkService = {
     });
     return links;
   },
+
+  async deleteLink(linkId: string) {
+    if (!linkId) return;
+    return await prisma.link.delete({
+      where: {
+        id: linkId,
+      },
+    });
+  },
 };
 
 export default LinkService;

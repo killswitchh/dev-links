@@ -5,6 +5,7 @@ import {
   type LinkGroup,
   type Prisma,
 } from '@prisma/client';
+import AppError from '../../core/models/app-error.dto';
 import type { LinkGroupOptional, OLinkGroupWithLinks } from '../../core/models/link-group.dto';
 import { prisma } from './prisma.service';
 
@@ -24,6 +25,7 @@ export const LinkGroupService = {
       },
     };
   },
+
   async getLinkGroupByUserId(userId: string): Promise<LinkGroup[]> {
     console.log('fetching linkGroups for user', userId);
     return await prisma.linkGroup.findMany({
@@ -121,6 +123,12 @@ export const LinkGroupService = {
   ): Promise<LinkGroupOptional | null> {
     console.log('creating linkGroup', data);
     data.name = data.name.toLowerCase();
+    const existingLinkGroup = await prisma.linkGroup.findFirst({
+      where: {
+        name: data.name,
+      },
+    });
+    if (existingLinkGroup) throw new AppError('Link Group Already present with the name', 500);
     this.populateTheme(data);
     const linkGroup = await prisma.linkGroup.create({
       data,
@@ -178,6 +186,14 @@ export const LinkGroupService = {
   inactivateLink(linkGroupId: string) {
     console.log('inactivating link-group with ID', linkGroupId);
     return this.updateLinkGroupStatus(linkGroupId, false);
+  },
+
+  async deleteLinkGroup(linkGroupId: string) {
+    return await prisma.linkGroup.delete({
+      where: {
+        id: linkGroupId,
+      },
+    });
   },
 };
 

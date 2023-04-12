@@ -19,7 +19,6 @@ import { linkGroupStore } from '../../../../stores';
 import type { PageServerLoad } from './$types';
 
 export const load = (async (event) => {
-  console.log('Im Running');
   const session = await event.locals.getSession();
   if (!session) {
     throw error(401, { message: 'Unauthorized' });

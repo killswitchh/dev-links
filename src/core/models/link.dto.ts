@@ -9,7 +9,7 @@ export const ProviderSelectValueSchema = z.object({
 
 export const CreateLinkRequestSchema = z.object({
   url: z.string().url(),
-  provider: ProviderSelectValueSchema.optional().nullable(),
+  provider: z.nativeEnum(Provider).optional(),
   prioritize: z.boolean(),
   enrich: z.boolean(),
   linkGroupId: z.string().nullable(),
@@ -28,7 +28,7 @@ export function convertToLink(
     name: createLinkRequest.name as string,
     prioritize: createLinkRequest.prioritize,
     enrich: createLinkRequest.enrich,
-    provider: createLinkRequest.provider?.code as Provider,
+    provider: createLinkRequest.provider as Provider,
     active: createLinkRequest.active,
     url: createLinkRequest.url,
     linkGroupId: createLinkRequest.linkGroupId as string,
@@ -36,7 +36,7 @@ export function convertToLink(
   };
 }
 
-export function convertToCreateLinkRequest(link: Link, provider: SelectValue): CreateLinkRequest {
+export function convertToCreateLinkRequest(link: Link, provider: Provider): CreateLinkRequest {
   return {
     name: link.name as string,
     prioritize: link.prioritize,

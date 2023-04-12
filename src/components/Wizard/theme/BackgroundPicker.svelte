@@ -8,7 +8,7 @@
 
   export let theme: RTheme;
 
-  const backgroundTypeList: BackgroundType[] = Object.values(BackgroundType);
+  const backgroundTypeList: BackgroundType[] = [BackgroundType.FILL, BackgroundType.GRADIENT];
 
   function handleBackgroundChange(event: CustomEvent<BackgroundChangeEventContent>) {
     if (!theme) {
@@ -28,9 +28,7 @@
 <div class="w-full flex flex-col items-center mt-5 bg-white dark:bg-neutral-700 rounded-lg">
   <div>Background Settings</div>
   {#if theme != null}
-    <div class="mt-5 flex flex-row justify-between w-[80%]">
-      <span class="p-2"> Style </span>
-
+    <div class="mt-5 flex flex-row justify-evenly w-[80%]">
       {#each backgroundTypeList as backgroundType}
         <div
           class="{backgroundType === theme.background.backgroundType

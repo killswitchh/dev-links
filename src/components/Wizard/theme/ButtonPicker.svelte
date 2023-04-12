@@ -49,8 +49,9 @@
         />
       </div>
     </div>
-    <div class="mt-5 flex flex-row justify-between w-[80%]">
-      <span class="p-2"> Style </span>
+    <span class="p-2"> Style </span>
+
+    <div class="mt-5 flex flex-row justify-evenly w-[80%]">
       {#each buttonThemeList as buttonTheme}
         <div class="{buttonTheme === theme.button.buttonTheme ? 'border-b-4 p-1' : ''} w-[20%]">
           <Button
@@ -65,9 +66,9 @@
         </div>
       {/each}
     </div>
-    <div class="mt-5 flex flex-row justify-between w-[80%]">
-      <span class="p-2"> Shape </span>
+    <span class="p-2"> Shape </span>
 
+    <div class="mt-5 flex flex-row justify-evenly w-[80%]">
       {#each buttonShapeList as buttonShape}
         <div class="{buttonShape === theme.button.buttonShape ? 'border-b-4 p-1' : ''}  w-[20%]">
           <Button

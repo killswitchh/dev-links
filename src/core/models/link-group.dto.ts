@@ -1,4 +1,5 @@
 import type { BackgroundType, Button, GradientStop, Link, LinkGroup, Theme } from '@prisma/client';
+import { z } from 'zod';
 import type { OTheme, RTheme } from './theme.dto';
 
 export type LinkGroupOptional = LinkGroup & { theme: Theme | null };
@@ -33,3 +34,9 @@ export type CreateLinkGroupRequest = {
   underCreation: boolean;
   active: boolean;
 };
+
+const alphanumericHyphenRegex = /^[a-zA-Z0-9\\-]+$/;
+
+export const LinkGroupNameSchema = z.object({
+  name: z.string().regex(alphanumericHyphenRegex),
+});

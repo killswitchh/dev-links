@@ -74,6 +74,19 @@ function createEditLinkToggleStore() {
   };
 }
 
-export const loading: Writable<boolean> = writable(false);
+function createLoadingStore() {
+  const store: Writable<Map<string, boolean>> = writable(new Map());
+  return {
+    subscribe: store.subscribe,
+    updateLoadingForId: (id: string, status: boolean) =>
+      store.update((store) => {
+        console.log('updating store value for id', id);
+        store.set(id, status);
+        return store;
+      }),
+  };
+}
+
+export const loading = createLoadingStore();
 
 export const editLinkToggleStore = createEditLinkToggleStore();

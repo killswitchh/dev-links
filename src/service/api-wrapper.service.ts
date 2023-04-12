@@ -51,6 +51,15 @@ export const ApiWrapper = {
     return await response.json();
   },
 
+  async delete(url: string) {
+    console.log('DELETE REQ', url);
+    const response = await fetch(url, {
+      method: HTTP_METHODS.DELETE,
+      headers: this.getDefaultHeaders(),
+    });
+    return await response.json();
+  },
+
   getDefaultHeaders(): HeadersInit | undefined {
     return { 'Content-Type': 'application/json' };
   },
