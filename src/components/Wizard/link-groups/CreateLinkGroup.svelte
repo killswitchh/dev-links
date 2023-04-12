@@ -1,6 +1,5 @@
 <script lang="ts">
   import { superForm } from 'sveltekit-superforms/client';
-  import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
   import { LinkGroupNameSchema } from '../../../core/models/link-group.dto';
   import type { PageData } from '../../../routes/(protected)/admin/links/$types';
 
@@ -26,7 +25,6 @@
   <div class="flex flex-col justify-start p-6 hover:cursor-pointer">
     <form method="POST" action="?/createPage" use:enhance>
       <div>
-        <SuperDebug data="{$form}" />
         <div class="flex flex-row justify-between">
           <div>
             <input
