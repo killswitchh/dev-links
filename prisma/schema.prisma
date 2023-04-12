@@ -42,7 +42,7 @@ model Link {
   name        String?
   order       Int
   prioritize  Boolean   @default(false)
-  linkGroup   LinkGroup @relation(fields: [linkGroupId], references: [id], onDelete: Cascade)
+  linkGroup   LinkGroup? @relation(fields: [linkGroupId], references: [id], onDelete: Cascade)
   linkGroupId String    @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
 }
 
