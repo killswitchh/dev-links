@@ -10,11 +10,6 @@ import type { PageServerLoad } from './$types';
 import { LinkGroupNameSchema } from './../../../../core/models/link-group.dto';
 import { LinkGroupService } from './../../../../service/api/link-group.service';
 
-export const config = {
-  runtime: 'edge',
-  regions: ['bom1'],
-};
-
 export const load = (async ({ locals: { getSession, user }, request }) => {
   const session: Session = await getSession();
   if (!session) {

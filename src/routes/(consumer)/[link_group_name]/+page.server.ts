@@ -1,10 +1,7 @@
 import AppError from '../../../core/models/app-error.dto';
 import type { RLinkGroup } from '../../../core/models/link-group.dto';
 import LinkGroupService from '../../../service/api/link-group.service';
-export const config = {
-  runtime: 'edge',
-  regions: ['bom1'],
-};
+
 export const load = async ({ params }) => {
   const linkGroupName = params.link_group_name;
   let linkGroup: RLinkGroup | null = null;
