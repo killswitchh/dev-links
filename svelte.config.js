@@ -7,9 +7,7 @@ const config = {
   // for more information about preprocessors
   preprocess: vitePreprocess(),
   vitePlugin: {
-    experimental: {
-      edge: true,
-    },
+    experimental: {},
   },
   kit: {
     // adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
