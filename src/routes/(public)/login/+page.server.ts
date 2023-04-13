@@ -2,6 +2,11 @@ import type { Provider, Session } from '@supabase/supabase-js';
 import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
+export const config = {
+  runtime: 'edge',
+  regions: ['bom1'],
+};
+
 export const load = (async (event) => {
   const session: Session = await event.locals.getSession();
   return {

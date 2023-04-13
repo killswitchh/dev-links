@@ -18,6 +18,11 @@ import UploadService from '../../../../service/api/upload.service';
 import { linkGroupStore } from '../../../../stores';
 import type { PageServerLoad } from './$types';
 
+export const config = {
+  runtime: 'edge',
+  regions: ['bom1'],
+};
+
 export const load = (async (event) => {
   const session = await event.locals.getSession();
   if (!session) {
