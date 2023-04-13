@@ -1,6 +1,7 @@
 import type { BackgroundType, Button, GradientStop, Link, LinkGroup, Theme } from '@prisma/client';
 import { z } from 'zod';
 import type { OTheme, RTheme } from './theme.dto';
+import type { LinkWithProviderDetails } from './providers/provider.dto';
 
 export type LinkGroupOptional = LinkGroup & { theme: Theme | null };
 
@@ -25,7 +26,7 @@ export type OLinkGroupWithLinks = LinkGroup & { theme: OTheme | null } & {
 };
 
 export type RLinkGroup = LinkGroup & { theme: RTheme } & {
-  links: Link[] | null;
+  links: LinkWithProviderDetails[] | null;
 };
 
 export type CreateLinkGroupRequest = {
