@@ -1,11 +1,7 @@
 import type { Provider } from '@prisma/client';
 import AppError from '../../../core/models/app-error.dto';
 import type { RLinkGroup } from '../../../core/models/link-group.dto';
-import type {
-  GithubAccountDetails,
-  ProviderDetails,
-  ProviderRequest,
-} from '../../../core/models/providers/provider.dto';
+import type { ProviderDetails, ProviderRequest } from '../../../core/models/providers/provider.dto';
 import { extractGithubUsername } from '../../../core/utils/providerutils';
 import GithubService from '../../../service/api/github.service';
 import LinkGroupService from '../../../service/api/link-group.service';
@@ -30,7 +26,7 @@ export const load = async ({ params }) => {
           ...(providerMap.get(l.provider) || []),
         ]),
       );
-      const promises: Promise<GithubAccountDetails>[] = [];
+      const promises: Promise<ProviderDetails>[] = [];
       providerMap.forEach((value: ProviderRequest[], key: Provider) => {
         switch (key) {
           case 'GITHUB':
@@ -50,7 +46,6 @@ export const load = async ({ params }) => {
         }
       });
       const providerDetails: ProviderDetails[] = await Promise.all(promises);
-      console.log(providerDetails);
       linkGroup.links?.map(
         (li) => (li.providerDetails = providerDetails.find((x) => x.linkDetails.linkId === li.id)),
       );
