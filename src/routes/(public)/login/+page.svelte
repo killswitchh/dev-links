@@ -13,7 +13,7 @@
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider,
       options: {
-        redirectTo: `${PUBLIC_APP_URL}/links`,
+        redirectTo: `${PUBLIC_APP_URL}/admin/links`,
       },
     });
     loading = false;
