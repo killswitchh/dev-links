@@ -1,3 +1,5 @@
+import { ButtonShape, ButtonTheme } from '@prisma/client';
+
 export function convertToName(value: string): string | undefined {
   if (!value) return;
   const words = value.split('_');
@@ -21,4 +23,38 @@ export function debounce<T extends Procedure>(func: T, delay: number): T {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return debouncedFunc as any;
+}
+
+export function extractStylesFromButton(
+  buttonTheme: ButtonTheme,
+  buttonShape: ButtonShape,
+  buttonColor: string,
+  fontColor: string,
+  outlineColor: string,
+) {
+  let border_radius;
+  switch (buttonShape) {
+    case ButtonShape.PILL:
+      border_radius = '35px';
+      break;
+    case ButtonShape.RECTANGLE:
+      border_radius = '0px';
+      break;
+    case ButtonShape.ROUNDED_RECTANGLE:
+      border_radius = '12px';
+      break;
+  }
+
+  const style = {
+    'background-color':
+      buttonTheme === ButtonTheme.FILL || buttonTheme === ButtonTheme.SHADOW
+        ? buttonColor
+        : 'transparent',
+    color: fontColor,
+    'border-radius': border_radius,
+    border: buttonTheme === ButtonTheme.OUTLINE ? `1px solid ${outlineColor}` : 'none',
+    'box-shadow': buttonTheme === ButtonTheme.SHADOW ? '5px 10px 8px #888888' : '',
+  };
+
+  return style;
 }

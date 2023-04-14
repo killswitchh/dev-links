@@ -10,7 +10,7 @@ export const ProviderSelectValueSchema = z.object({
 export const CreateLinkRequestSchema = z.object({
   url: z.string().url(),
   provider: z.nativeEnum(Provider).optional(),
-  prioritize: z.boolean(),
+  prioritize: z.boolean().default(false),
   enrich: z.boolean(),
   linkGroupId: z.string().nullable(),
   name: z.string().max(50),

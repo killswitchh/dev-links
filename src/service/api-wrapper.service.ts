@@ -1,5 +1,6 @@
+import { PUBLIC_GITHUB_API_TOKEN } from '$env/static/public';
+import { Provider } from '@prisma/client';
 import AppError from '../core/models/app-error.dto';
-
 export enum HTTP_METHODS {
   CONNECT = 'CONNECT',
   DELETE = 'DELETE',
@@ -13,11 +14,12 @@ export enum HTTP_METHODS {
 }
 
 export const ApiWrapper = {
-  async get(url: string) {
-    console.log('GET REQ', url);
+  async get(url: string, provider: Provider | undefined = undefined) {
+    const header = this.getHeader(provider);
+    console.log('GET REQ', url, header);
     const response = await fetch(url, {
       method: HTTP_METHODS.GET,
-      headers: this.getDefaultHeaders(),
+      headers: header,
     });
     return await this.handleError(response);
   },
@@ -62,5 +64,22 @@ export const ApiWrapper = {
 
   getDefaultHeaders(): HeadersInit | undefined {
     return { 'Content-Type': 'application/json' };
+  },
+
+  getGithubHeaders(): HeadersInit | undefined {
+    return {
+      'Content-Type': 'application/json',
+      Authorization: `token ${PUBLIC_GITHUB_API_TOKEN}`,
+    };
+  },
+  getHeader(provider: Provider | undefined) {
+    switch (provider) {
+      case Provider.GITHUB:
+      case Provider.GITHUB_PROFILE:
+      case Provider.GITHUB_REPOSITORY:
+        return ApiWrapper.getGithubHeaders();
+      default:
+        return ApiWrapper.getDefaultHeaders();
+    }
   },
 };

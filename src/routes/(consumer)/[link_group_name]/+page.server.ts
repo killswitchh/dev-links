@@ -2,7 +2,7 @@ import type { Provider } from '@prisma/client';
 import AppError from '../../../core/models/app-error.dto';
 import type { RLinkGroup } from '../../../core/models/link-group.dto';
 import type { ProviderDetails, ProviderRequest } from '../../../core/models/providers/provider.dto';
-import { extractGithubUsername } from '../../../core/utils/providerutils';
+import { generateProviderRequestFromLink } from '../../../core/utils/providerutils';
 import GithubService from '../../../service/api/github.service';
 import LinkGroupService from '../../../service/api/link-group.service';
 
@@ -16,21 +16,18 @@ export const load = async ({ params }) => {
       const enrichedLinks = linkGroup.links?.filter((x) => x.enrich === true);
       enrichedLinks?.forEach((l) =>
         providerMap.set(l.provider, [
-          ...[
-            {
-              username: extractGithubUsername(l.url) as string,
-              linkId: l.id,
-              url: l.url,
-            },
-          ],
+          ...[generateProviderRequestFromLink(l)],
           ...(providerMap.get(l.provider) || []),
         ]),
       );
-      const promises: Promise<ProviderDetails>[] = [];
+      const promises: Promise<ProviderDetails | undefined>[] = [];
       providerMap.forEach((value: ProviderRequest[], key: Provider) => {
         switch (key) {
-          case 'GITHUB':
+          case 'GITHUB_PROFILE':
             value.map((v) => promises.push(GithubService.getUser(v)));
+            break;
+          case 'GITHUB_REPOSITORY':
+            value.map((v) => promises.push(GithubService.getUserRepos(v)));
             break;
           case 'STACK_OVERFLOW':
           case 'BITBUCKET':
@@ -45,9 +42,16 @@ export const load = async ({ params }) => {
           case 'OTHER':
         }
       });
-      const providerDetails: ProviderDetails[] = await Promise.all(promises);
+
+      const p: (ProviderDetails | undefined)[] = await Promise.all(
+        promises.map((p) => p.catch((e) => e)),
+      );
+      const providerDetails = p.filter(
+        (result) => !(result instanceof Error || result instanceof AppError),
+      );
+      console.log(providerDetails);
       linkGroup.links?.map(
-        (li) => (li.providerDetails = providerDetails.find((x) => x.linkDetails.linkId === li.id)),
+        (li) => (li.providerDetails = providerDetails.find((x) => x?.linkDetails.linkId === li.id)),
       );
     } catch (e) {
       if (e instanceof AppError) {

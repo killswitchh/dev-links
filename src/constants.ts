@@ -13,8 +13,8 @@ export const CONSTANTS = {
 };
 
 export const GITHUB_API_URLS = {
-  GITHUB_GET_REPOS_URL: (userName: string) =>
-    `${CONSTANTS.API_URL.GITHUB_BASE_URL}users/${userName}/repos`,
+  GITHUB_GET_REPOS_URL: (userName: string, repositoryName: string) =>
+    `${CONSTANTS.API_URL.GITHUB_BASE_URL}repos/${userName}/${repositoryName}`,
 
   GITHUB_GET_USER_URL: (userName: string) =>
     `${CONSTANTS.API_URL.GITHUB_BASE_URL}users/${userName}`,

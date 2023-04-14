@@ -7,6 +7,6 @@ export const routes: Route[] = [
 ];
 
 export const routesLoggedIn: Route[] = [
-  { name: 'Links', path: '/admin/links', id: 1, active: true, position: 'left' },
-  { name: 'Profile', path: '/admin/profile', id: 3, active: false, position: 'right' },
+  { name: 'Links', path: '/admin/links', id: 1, active: false, position: 'left' },
+  { name: 'Profile', path: '/admin/profile', id: 3, active: true, position: 'right' },
 ];

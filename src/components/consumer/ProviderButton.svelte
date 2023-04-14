@@ -12,14 +12,16 @@
   export let link: LinkWithProviderDetails | null = null;
 </script>
 
-{#if link && link.provider === Provider.GITHUB}
-  <GithubProviderButton
-    link="{link}"
-    buttonColor="{buttonColor}"
-    buttonShape="{buttonShape}"
-    buttonTheme="{buttonTheme}"
-    outlineColor="{outlineColor}"
-    fontColor="{fontColor}"
-    buttonText="{buttonText}"
-  />
+{#if link}
+  {#if link.provider === Provider.GITHUB_PROFILE || link.provider === Provider.GITHUB_REPOSITORY}
+    <GithubProviderButton
+      link="{link}"
+      buttonColor="{buttonColor}"
+      buttonShape="{buttonShape}"
+      buttonTheme="{buttonTheme}"
+      outlineColor="{outlineColor}"
+      fontColor="{fontColor}"
+      buttonText="{buttonText}"
+    />
+  {/if}
 {/if}

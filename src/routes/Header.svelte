@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import logo from '$lib/images/logo.png';
   import DarkThemeToggle from '../components/dark-theme-toggle/DarkThemeToggle.svelte';
   import type { Route } from '../types';
@@ -8,7 +9,13 @@
   function updateActiveNavBarElement(route: Route) {
     nav_bar.map((x) => (x.active = x.id === route.id));
     nav_bar = nav_bar;
-    console.log('clicked');
+  }
+
+  const currentUrl = $page.url.pathname;
+  const currentRoute = nav_bar.find((x) => x.path === currentUrl);
+  if (currentRoute) {
+    console.log('updating to', currentRoute);
+    updateActiveNavBarElement(currentRoute);
   }
 </script>
 

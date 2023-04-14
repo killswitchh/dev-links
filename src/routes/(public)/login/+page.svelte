@@ -4,6 +4,7 @@
   import type { Provider } from '@supabase/supabase-js';
 
   import { supabase } from '../../../supabaseClient';
+  import { PUBLIC_APP_URL } from '$env/static/public';
 
   let loading = false;
 
@@ -11,6 +12,9 @@
     loading = true;
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider,
+      options: {
+        redirectTo: `${PUBLIC_APP_URL}/links`,
+      },
     });
     loading = false;
   };
