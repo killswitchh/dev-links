@@ -3,7 +3,8 @@
   import { ButtonShape, ButtonTheme } from '@prisma/client';
   import type { ButtonChangeEventContent, RTheme } from '../../../core/models/theme.dto';
   import { ApiWrapper } from '../../../service/api-wrapper.service';
-  import { refreshIframe } from '../../../stores';
+  import { loading, refreshIframe } from '../../../stores';
+  import Loader from '../../common/Loader.svelte';
   import Button from '../../consumer/Button.svelte';
 
   export let theme: RTheme;
@@ -27,8 +28,10 @@
   }
 
   async function saveButtonLayout() {
+    loading.updateLoadingForId(theme.id, true);
     const buttonEvent = await ApiWrapper.patch('/api/theme/button', theme?.button);
     refreshIframe.set(true);
+    loading.updateLoadingForId(theme.id, false);
     invalidateAll();
     return buttonEvent;
   }
@@ -118,11 +121,15 @@
     </div>
     <div class="w-full flex flex-row justify-end mt-5">
       <button
-        on:click="{(event) => saveButtonLayout()}"
+        on:click="{() => saveButtonLayout()}"
+        disabled="{$loading.get(theme.id)}"
         class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
       >
         Save
       </button>
+      {#if $loading.get(theme.id)}
+        <Loader />
+      {/if}
     </div>
   {/if}
 </div>

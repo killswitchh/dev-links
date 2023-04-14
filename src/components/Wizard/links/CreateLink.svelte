@@ -11,7 +11,8 @@
   import { getProvider } from '../../../core/utils/providerutils';
   import { debounce } from '../../../core/utils/utils';
   import type { PageData } from '../../../routes/(protected)/admin/create/$types';
-  import { editLinkToggleStore, refreshIframe } from '../../../stores';
+  import { editLinkToggleStore, loading, refreshIframe } from '../../../stores';
+  import Loader from '../../common/Loader.svelte';
 
   export let data: PageData;
   export let currentLink: Link | undefined = undefined; // for editing
@@ -22,9 +23,13 @@
     taintedMessage: null,
     validators: CreateLinkRequestSchema,
     dataType: 'json',
+    onSubmit: () => {
+      loading.updateLoadingForId('create-link-button', true);
+    },
     onResult: ({ result }) => {
       const res = result as unknown as { data: { id: string } };
       editLinkToggleStore.updateToggleValue(res.data.id, false);
+      loading.updateLoadingForId('create-link-button', false);
       refreshIframe.set(true);
     },
   });
@@ -129,10 +134,14 @@
         {/if}
         <button
           type="submit"
+          disabled="{$loading.get('create-link-button')}"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
         >
           Save
         </button>
+        {#if $loading.get('create-link-button')}
+          <Loader />
+        {/if}
       </div>
     </div>
   </form>

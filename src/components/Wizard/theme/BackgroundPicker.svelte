@@ -3,7 +3,8 @@
   import { BackgroundType } from '@prisma/client';
   import type { BackgroundChangeEventContent, RTheme } from '../../../core/models/theme.dto';
   import { ApiWrapper } from '../../../service/api-wrapper.service';
-  import { refreshIframe } from '../../../stores';
+  import { loading, refreshIframe } from '../../../stores';
+  import Loader from '../../common/Loader.svelte';
   import Background from '../../consumer/Background.svelte';
 
   export let theme: RTheme;
@@ -18,8 +19,10 @@
   }
 
   async function saveBackgroundLayout() {
+    loading.updateLoadingForId(theme.id, true);
     const backgroundEvent = await ApiWrapper.patch('/api/theme/background', theme?.background);
     refreshIframe.set(true);
+    loading.updateLoadingForId(theme.id, false);
     invalidateAll();
     return backgroundEvent;
   }
@@ -102,10 +105,14 @@
     <div class="w-full flex flex-row justify-end mt-5">
       <button
         on:click="{() => saveBackgroundLayout()}"
+        disabled="{$loading.get(theme.id)}"
         class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
       >
         Save
       </button>
+      {#if $loading.get(theme.id)}
+        <Loader />
+      {/if}
     </div>
   {/if}
 </div>
