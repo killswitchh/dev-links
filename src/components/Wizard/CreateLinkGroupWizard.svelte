@@ -6,6 +6,8 @@
   import LinkGroupInfo from './link-groups/LinkGroupInfo.svelte';
   import CreateLinks from './links/CreateLinks.svelte';
   import CreateTheme from './theme/ThemeEditor.svelte';
+  import { afterUpdate } from 'svelte';
+
   let wizardSteps: WizardStep[] = [];
   wizardStore.subscribe((x) => {
     wizardSteps = x.steps;
@@ -50,7 +52,7 @@
           <CreateLinks links="{linkGroup.links}" data="{data}" />
         {/if}
         {#if currentStep == 2}
-          <CreateTheme linkGroup="{linkGroup}" />
+          <CreateTheme linkGroup="{linkGroup}" defaultTheme="{data.defaultTheme}" />
         {/if}
       </div>
       <div class="m-2 flex flex-row justify-between">

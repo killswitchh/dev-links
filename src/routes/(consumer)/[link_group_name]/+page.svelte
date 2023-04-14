@@ -16,6 +16,17 @@
     if (link.name) return link.name;
     return link.provider as string;
   }
+
+  const getStyles = () => {
+    let style = {
+      color: linkGroup?.fontColor,
+    };
+    return style;
+  };
+
+  $: cssVarStyles = Object.entries(getStyles())
+    .map(([key, value]) => `${key}:${value}`)
+    .join(';');
 </script>
 
 {#if linkGroup && linkGroup.theme}
@@ -39,7 +50,7 @@
               </div>
             {/if}
             {#if linkGroup.description}
-              <div class="mt-3">
+              <div class="mt-3" style="{cssVarStyles}">
                 {linkGroup.description}
               </div>
             {/if}

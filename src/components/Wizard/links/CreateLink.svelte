@@ -56,8 +56,10 @@
   $: providerString = data.providers.find((x) => x.code === $form.provider)?.name;
 </script>
 
-<div class="mt-5 mb-2 w-[60%] bg-white dark:bg-neutral-700 rounded-xl flex flex-col items-center">
-  <div>Create Link</div>
+<div
+  class="mt-5 mb-2 min-w-[60%] bg-white dark:bg-neutral-700 rounded-xl flex flex-col items-center"
+>
+  <div class="mt-2">Create Link</div>
   <form
     method="POST"
     action="?/link&name={data.linkGroup.name}&id={currentLink ? currentLink.id : null}"
@@ -115,7 +117,7 @@
           </label>
         </div>
       {/if}
-      <div class="flex flex-row justify-end">
+      <div class="flex flex-row justify-end mt-3">
         {#if currentLink && currentLink.id}
           <button
             type="submit"

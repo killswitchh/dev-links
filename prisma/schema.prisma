@@ -31,19 +31,20 @@ model LinkGroup {
   underCreation Boolean
   description   String?
   imageURL      String?
+  fontColor     String?   @default("#000000")
 }
 
 model Link {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   url         String
   provider    Provider
   enrich      Boolean?
-  active      Boolean?  @default(true)
+  active      Boolean?   @default(true)
   name        String?
   order       Int
-  prioritize  Boolean   @default(false)
+  prioritize  Boolean    @default(false)
   linkGroup   LinkGroup? @relation(fields: [linkGroupId], references: [id], onDelete: Cascade)
-  linkGroupId String    @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
+  linkGroupId String     @db.ObjectId // relation scalar field  (used in the `@relation` attribute above)
 }
 
 enum Provider {

@@ -14,6 +14,7 @@ import {
 import LinkGroupService from '../../../../service/api/link-group.service';
 import LinkService from '../../../../service/api/link.service';
 import MetadataService from '../../../../service/api/metadata.service';
+import ThemeService from '../../../../service/api/theme.service';
 import UploadService from '../../../../service/api/upload.service';
 import { linkGroupStore } from '../../../../stores';
 import type { PageServerLoad } from './$types';
@@ -28,6 +29,7 @@ export const load = (async (event) => {
   let linkGroup;
   let providers: CodeName<Provider>[];
   let form;
+  const defaultTheme = ThemeService.getDefaultTheme();
   try {
     linkGroup = await LinkGroupService.getLinkGroupByName(linkGroupName as string);
     providers = await MetadataService.getAllProviders();
@@ -40,6 +42,7 @@ export const load = (async (event) => {
   return {
     form: form,
     linkGroup: linkGroup as RLinkGroup,
+    defaultTheme: defaultTheme,
     providers: providers,
     session: event.locals.getSession(),
   };
@@ -85,12 +88,24 @@ export const actions = {
   updateDescription: async ({ request, url }) => {
     const body = await request.formData();
     const description = body.get('description') as string;
+    const fontColor = body.get('fontColor') as string;
+
     try {
       const id = url.searchParams.get('id');
       if (!id) {
         throw new AppError('ID not found', 400);
       }
-      return await LinkGroupService.updateLinkGroupDescription(id as string, description);
+      if (description === 'null' || description === 'undefined') {
+        throw new AppError('Description not found', 400);
+      }
+      if (fontColor === 'null' || fontColor === 'undefined') {
+        throw new AppError('fontColor not found', 400);
+      }
+      return await LinkGroupService.updateLinkGroupDescriptionAndFont(
+        id as string,
+        description,
+        fontColor,
+      );
     } catch (e) {
       console.error('ERROR', e);
       return fail(400, { error: e });

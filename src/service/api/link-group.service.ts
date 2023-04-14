@@ -39,7 +39,7 @@ export const LinkGroupService = {
 
   getAvailablePages(userId: string): Promise<number> {
     console.log('fetching linkGroups for user', userId);
-    return Promise.resolve(15);
+    return Promise.resolve(3);
   },
 
   async getLinkGroupByName(name: string): Promise<OLinkGroupWithLinks | null> {
@@ -143,14 +143,20 @@ export const LinkGroupService = {
     });
   },
 
-  updateLinkGroupDescription(linkGroupId: string, description: string) {
-    console.log('updating description for ID', linkGroupId, 'to', description);
+  updateLinkGroupDescriptionAndFont(linkGroupId: string, description: string, fontColor: string) {
+    console.log(
+      'updating linkgroup',
+      linkGroupId,
+      'to',
+      `description: ${description} - fontColor: ${fontColor}`,
+    );
     return prisma.linkGroup.update({
       where: {
         id: linkGroupId,
       },
       data: {
         description: description,
+        fontColor: fontColor,
       },
     });
   },

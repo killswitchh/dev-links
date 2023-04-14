@@ -25,10 +25,17 @@
   }
 </script>
 
-<div class="w-full flex flex-col items-center mt-5 bg-white dark:bg-neutral-700 rounded-lg">
-  <div>Background Settings</div>
+<div class="w-full flex flex-col px-8 mt-5 bg-white dark:bg-neutral-700 rounded-lg">
+  <h1
+    class="mb-4 mt-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-5xl"
+  >
+    <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
+      >Background Settings</span
+    >
+  </h1>
+
   {#if theme != null}
-    <div class="mt-5 flex flex-row justify-evenly w-[80%]">
+    <div class="mt-5 flex flex-row justify-evenly w-full">
       {#each backgroundTypeList as backgroundType}
         <div
           class="{backgroundType === theme.background.backgroundType
@@ -47,7 +54,7 @@
       {/each}
     </div>
 
-    <div class="mt-5 flex flex-row justify-around w-[80%]">
+    <div class="mt-5 flex flex-row justify-evenly w-full">
       {#if theme.background.backgroundType === BackgroundType.FILL}
         <label>
           <input style="padding:0" type="color" bind:value="{theme.background.backgroundColor}" />
@@ -91,11 +98,14 @@
         </div>
       {/if}
     </div>
-    <button
-      on:click="{(event) => saveBackgroundLayout()}"
-      class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-    >
-      Save
-    </button>
+
+    <div class="w-full flex flex-row justify-end mt-5">
+      <button
+        on:click="{() => saveBackgroundLayout()}"
+        class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+      >
+        Save
+      </button>
+    </div>
   {/if}
 </div>
