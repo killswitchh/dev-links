@@ -12,6 +12,7 @@ export type GithubAccountDetails = {
   following: number;
   bio: string;
   profileImageUrl: string;
+  profileUrl: string;
 } & { linkDetails: ProviderRequest };
 
 export type GithubRepositoryDetails = {
@@ -24,6 +25,7 @@ export type GithubRepositoryDetails = {
   topics: string[];
   description: string;
   profileImageUrl: string;
+  profileUrl: string;
 } & { linkDetails: ProviderRequest };
 
 export type ProviderRequest = {

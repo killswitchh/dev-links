@@ -62,11 +62,13 @@
 
       <div class="flex flex-row mt-2 w-full justify-evenly">
         <div class="rounded-full w-[60px] border h-[60px]">
-          <img
-            class="h-full w-full object-fill rounded-full"
-            alt="link-group-header"
-            src="{githubUserDetails.profileImageUrl}"
-          />
+          <a href="{githubUserDetails.profileUrl}">
+            <img
+              class="h-full w-full object-fill rounded-full"
+              alt="link-group-header"
+              src="{githubUserDetails.profileImageUrl}"
+            />
+          </a>
         </div>
         <div class="flex flex-col">
           <span class="font-bold">{githubUserDetails.name}</span>
@@ -79,11 +81,11 @@
           </div>
         </div>
       </div>
-      <div class="mt-2">
+      <div class="mt-2 w-full flex flex-row justify-center">
         <button
           type="button"
           on:click="{buttonClicked}"
-          class="bg-slate-900 hover:bg-slate-700 text-white py-1 px-2 rounded-full"
+          class="bg-slate-900 hover:bg-slate-700 text-white py-1 px-2 rounded-full min-w-[40%]"
         >
           {buttonText}
         </button>
@@ -96,17 +98,21 @@
   <div class="p-3 w-full" style="{cssVarStyles}">
     <div class="flex flex-col align-middle items-center">
       <div class="flex flex-row justify-center w-full">
-        <div class="h-5 w-5"><img src="{github}" alt="github-logo" /></div>
+        <div class="h-5 w-5">
+          <img src="{github}" alt="github-logo" />
+        </div>
         <div class="flex items-center">Github</div>
       </div>
 
       <div class="flex flex-row mt-2 w-full justify-evenly">
         <div class="rounded-full w-[60px] border h-[60px]">
-          <img
-            class="h-full w-full object-fill rounded-full"
-            alt="link-group-header"
-            src="{githubRepoDetails.profileImageUrl}"
-          />
+          <a href="{githubRepoDetails.profileUrl}">
+            <img
+              class="h-full w-full object-fill rounded-full"
+              alt="link-group-header"
+              src="{githubRepoDetails.profileImageUrl}"
+            />
+          </a>
         </div>
         <div class="flex flex-col">
           <span class="font-bold">{githubRepoDetails.name}</span>

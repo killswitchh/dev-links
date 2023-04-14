@@ -14,6 +14,7 @@ export const GithubService = {
     const repos: GithubRepository = await ApiWrapper.get(url, req.provider);
     return {
       name: repos.name,
+      profileUrl: repos.owner.html_url,
       description: repos.description,
       language: repos.language,
       stars: repos.stargazers_count,
@@ -31,6 +32,7 @@ export const GithubService = {
     if (!user) return;
     return {
       name: user.name,
+      profileUrl: user.html_url,
       repos: user.public_repos,
       bio: user.bio,
       followers: user.followers,
