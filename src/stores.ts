@@ -66,7 +66,6 @@ function createEditLinkToggleStore() {
     subscribe: store.subscribe,
     updateToggleValue: (linkId: string | undefined, status: boolean) =>
       store.update((store) => {
-        console.log('updating store value for linkID', linkId);
         if (!linkId) return store;
         store.set(linkId, status);
         return store;
@@ -80,7 +79,6 @@ function createLoadingStore() {
     subscribe: store.subscribe,
     updateLoadingForId: (id: string, status: boolean) =>
       store.update((store) => {
-        console.log('updating store value for id', id);
         store.set(id, status);
         return store;
       }),

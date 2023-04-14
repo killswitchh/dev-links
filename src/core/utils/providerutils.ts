@@ -22,7 +22,6 @@ export function getProvider(url: string): Provider {
     case 'github.com':
       // eslint-disable-next-line no-case-declarations
       const path = new URL(url).pathname.split('/');
-      console.log('path', path);
       return path.length === 2 ? Provider.GITHUB_PROFILE : Provider.GITHUB_REPOSITORY;
     default:
       return Provider.OTHER;

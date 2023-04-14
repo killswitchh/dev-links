@@ -37,7 +37,6 @@
     loading.updateLoadingForId(linkGroup.id, true);
     switch (event.detail.action) {
       case 'INACTIVATE':
-        console.log('hi');
         await ApiWrapper.patch(`/api/link-groups/inactivate/${linkGroup.id}`);
         invalidateAll().then(() => loading.updateLoadingForId(linkGroup.id, false));
         break;

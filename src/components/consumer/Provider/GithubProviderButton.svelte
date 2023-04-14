@@ -26,7 +26,6 @@
   let githubRepoDetails: GithubRepositoryDetails;
 
   if (providerDetails) {
-    console.log(link);
     switch (link?.provider) {
       case Provider.GITHUB_PROFILE:
         githubUserDetails = providerDetails as GithubAccountDetails;

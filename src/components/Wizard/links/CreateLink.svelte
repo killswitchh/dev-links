@@ -31,7 +31,6 @@
 
   const debouncedHandleInput = debounce(() => {
     const provider = getProvider($form.url);
-    console.log('PROVIDER FOUND?', provider, getProvider($form.url));
     if (provider) {
       const formValue = get(form);
       formValue.provider = provider;

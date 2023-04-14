@@ -68,7 +68,6 @@ export const actions = {
     } catch (e) {
       console.error('ERROR', e);
       if (e instanceof AppError) {
-        console.log('im here');
         return setError(form, 'name', e.message);
       }
       return setError(form, 'name', ERROR_MESSAGES.DEFAULT);

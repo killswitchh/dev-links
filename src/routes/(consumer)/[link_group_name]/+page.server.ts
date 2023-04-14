@@ -49,7 +49,6 @@ export const load = async ({ params }) => {
       const providerDetails = p.filter(
         (result) => !(result instanceof Error || result instanceof AppError),
       );
-      console.log(providerDetails);
       linkGroup.links?.map(
         (li) => (li.providerDetails = providerDetails.find((x) => x?.linkDetails.linkId === li.id)),
       );

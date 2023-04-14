@@ -11,7 +11,6 @@ export const GithubService = {
   async getUserRepos(req: ProviderRequest): Promise<GithubRepositoryDetails | undefined> {
     if (!req.repository) return;
     const url = GITHUB_API_URLS.GITHUB_GET_REPOS_URL(req.username, req.repository);
-    console.log(url);
     const repos: GithubRepository = await ApiWrapper.get(url, req.provider);
     return {
       name: repos.name,
