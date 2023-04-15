@@ -9,7 +9,6 @@
   import { goto } from '$app/navigation';
 
   onMount(() => {
-    console.log('SESSION FOUND', !!$page.data.session);
     if ($page.data.session) {
       goto('/admin/profile');
     }

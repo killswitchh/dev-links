@@ -5,6 +5,7 @@ import type { ProviderDetails, ProviderRequest } from '../../../core/models/prov
 import { generateProviderRequestFromLink } from '../../../core/utils/providerutils';
 import GithubService from '../../../service/api/github.service';
 import LinkGroupService from '../../../service/api/link-group.service';
+import { error } from '@sveltejs/kit';
 
 export const load = async ({ params }) => {
   const linkGroupName = params.link_group_name;
@@ -54,7 +55,7 @@ export const load = async ({ params }) => {
       );
     } catch (e) {
       if (e instanceof AppError) {
-        console.log('ERROR:', e);
+        return error(500, e.message);
       }
     }
   }

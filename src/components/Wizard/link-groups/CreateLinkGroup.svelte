@@ -14,7 +14,6 @@
       loading.updateLoadingForId('create-linkgroup-button', true);
     },
     onResult({ result }) {
-      console.log(result);
       loading.updateLoadingForId('create-linkgroup-button', false);
     },
     dataType: 'json',
