@@ -18,6 +18,7 @@
   }
 
   const getStyles = () => {
+    console.log(linkGroup?.fontColor);
     let style = {
       color: linkGroup?.fontColor,
     };
