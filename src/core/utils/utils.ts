@@ -60,11 +60,17 @@ export function extractStylesFromButton(
 }
 
 export function shortenNumber(num: number): string {
-  const abbrev = ['K', 'M', 'B', 'T'];
-  let index = 0;
-  while (num >= 1000 && index < abbrev.length - 1) {
-    num /= 1000;
-    index++;
+  if (num < 100) return `${num}`;
+  const abbreviations = ['', 'K', 'M', 'B', 'T'];
+  const decimalPlaces = 1;
+
+  for (let i = abbreviations.length - 1; i >= 0; i--) {
+    const size = Math.pow(10, i * 3);
+    if (size <= Math.abs(num)) {
+      const result = (num / size).toFixed(decimalPlaces);
+      return result + abbreviations[i];
+    }
   }
-  return num.toFixed(0).toString() + abbrev[index];
+
+  return num.toString();
 }
