@@ -6,7 +6,6 @@
   import LinkGroupInfo from './link-groups/LinkGroupInfo.svelte';
   import CreateLinks from './links/CreateLinks.svelte';
   import CreateTheme from './theme/ThemeEditor.svelte';
-  import { afterUpdate } from 'svelte';
 
   let wizardSteps: WizardStep[] = [];
   wizardStore.subscribe((x) => {
@@ -43,7 +42,7 @@
         on:click="{(e) => buttonClicked(e)}"
       />
       <div
-        class="m-2 min-h-[80%] h-[85%] overflow-auto bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl flex flex-col items-center"
+        class="m-2 mx-12 min-h-[80%] h-[85%] overflow-auto bg-white/50 dark:border-[#2e2e2e] dark:border dark:bg-[#0A0A0A] backdrop-blur-sm rounded-xl flex flex-col items-center scrollbar-width dark:scrollbar-bg-dark scrollbar-bg-light"
       >
         {#if currentStep == 0}
           <LinkGroupInfo linkGroup="{linkGroup}" />
@@ -55,7 +54,7 @@
           <CreateTheme linkGroup="{linkGroup}" defaultTheme="{data.defaultTheme}" />
         {/if}
       </div>
-      <div class="m-2 flex flex-row justify-between">
+      <div class="m-2 flex flex-row justify-between mx-12">
         <button
           type="button"
           disabled="{currentStep <= 0}"
@@ -69,7 +68,7 @@
           <button
             type="button"
             disabled="{currentStep > wizardSteps.length}"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none min-w-[98px]"
             on:click="{() => updateCurrentStep(1, currentStep > wizardSteps.length - 1)}"
           >
             {isLastStep() ? 'Create' : 'Next'}

@@ -47,7 +47,9 @@
 
 {#if link && link.id}
   {#if $editLinkToggleStore.get(link.id) === undefined || $editLinkToggleStore.get(link.id) === false}
-    <div class="mt-4 min-w-[60%] p-5 bg-white dark:bg-neutral-700 rounded-xl">
+    <div
+      class="mt-4 min-w-[60%] p-5 bg-white dark:bg-neutral-900 rounded-xl dark:border-[#2e2e2e] dark:border"
+    >
       <div class="flex flex-col">
         <div class="flex flex-row justify-between mb-5">
           <div class="flex flex-row justify-start">

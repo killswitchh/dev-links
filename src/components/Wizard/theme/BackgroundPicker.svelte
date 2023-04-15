@@ -28,14 +28,8 @@
   }
 </script>
 
-<div class="w-full flex flex-col px-8 mt-5 bg-white dark:bg-neutral-700 rounded-lg">
-  <h1
-    class="mb-4 mt-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-5xl"
-  >
-    <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-400"
-      >Background Settings</span
-    >
-  </h1>
+<div class="w-full flex flex-col px-8 bg-white dark:bg-neutral-900 py-6">
+  <h1 class="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white">Background Settings</h1>
 
   {#if theme != null}
     <div class="mt-5 flex flex-row justify-evenly w-full">
@@ -94,7 +88,7 @@
             />
           </div>
           <button
-            class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+            class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none min-w-[98px]"
           >
             Upload
           </button>
@@ -106,7 +100,7 @@
       <button
         on:click="{() => saveBackgroundLayout()}"
         disabled="{$loading.get(theme.id)}"
-        class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+        class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none min-w-[98px]"
       >
         Save
       </button>
