@@ -1,7 +1,4 @@
 import { ButtonShape, ButtonTheme } from '@prisma/client';
-import AppError from '../models/app-error.dto';
-import type { HttpError } from '@sveltejs/kit';
-import { ERROR_MESSAGES } from '../../constants';
 
 export function convertToName(value: string): string | undefined {
   if (!value) return;
@@ -60,4 +57,14 @@ export function extractStylesFromButton(
   };
 
   return style;
+}
+
+export function shortenNumber(num: number): string {
+  const abbrev = ['K', 'M', 'B', 'T'];
+  let index = 0;
+  while (num >= 1000 && index < abbrev.length - 1) {
+    num /= 1000;
+    index++;
+  }
+  return num.toFixed(0).toString() + abbrev[index];
 }

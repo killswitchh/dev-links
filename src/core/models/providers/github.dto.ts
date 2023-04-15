@@ -112,6 +112,7 @@ export interface GithubRepository {
   open_issues: number;
   watchers: number;
   default_branch: string;
+  subscribers_count: number;
 }
 
 export interface GithubUser {

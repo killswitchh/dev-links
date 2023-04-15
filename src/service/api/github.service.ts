@@ -5,6 +5,7 @@ import type {
   GithubRepositoryDetails,
   ProviderRequest,
 } from '../../core/models/providers/provider.dto';
+import { shortenNumber } from '../../core/utils/utils';
 import { ApiWrapper } from './../api-wrapper.service';
 
 export const GithubService = {
@@ -17,10 +18,10 @@ export const GithubService = {
       profileUrl: repos.owner.html_url,
       description: repos.description,
       language: repos.language,
-      stars: repos.stargazers_count,
-      forks: repos.forks_count,
+      stars: shortenNumber(repos.stargazers_count),
+      forks: shortenNumber(repos.forks_count),
       licenseName: repos.license.name,
-      watchers: repos.watchers,
+      watchers: shortenNumber(repos.subscribers_count),
       profileImageUrl: repos.owner.avatar_url,
       topics: repos.topics,
       linkDetails: req,
@@ -33,9 +34,9 @@ export const GithubService = {
     return {
       name: user.name,
       profileUrl: user.html_url,
-      repos: user.public_repos,
+      repos: shortenNumber(user.public_repos),
       bio: user.bio,
-      followers: user.followers,
+      followers: shortenNumber(user.followers),
       following: user.following,
       profileImageUrl: user.avatar_url,
       company: user.company,
