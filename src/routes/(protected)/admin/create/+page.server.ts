@@ -1,10 +1,9 @@
-import { error, fail } from '@sveltejs/kit';
+import { error, fail, type HttpError } from '@sveltejs/kit';
 import { get } from 'svelte/store';
 import { superValidate } from 'sveltekit-superforms/server';
 
 import type { Provider } from '@prisma/client';
-import { ERROR_MESSAGES } from '../../../../constants';
-import AppError from '../../../../core/models/app-error.dto';
+import AppError, { getErrorMessage } from '../../../../core/models/app-error.dto';
 import type { RLinkGroup } from '../../../../core/models/link-group.dto';
 import {
   CreateLinkRequestSchema,
@@ -32,11 +31,14 @@ export const load = (async (event) => {
   const defaultTheme = ThemeService.getDefaultTheme();
   try {
     linkGroup = await LinkGroupService.getLinkGroupByName(linkGroupName as string);
+    if (linkGroup?.ownerId != event.locals.user.id) {
+      throw error(401, { message: 'Unauthorized' });
+    }
     providers = await MetadataService.getAllProviders();
     form = await superValidate(event, CreateLinkRequestSchema);
-  } catch (e) {
-    console.error('ERROR', e);
-    throw error(500, { message: ERROR_MESSAGES.DEFAULT });
+  } catch (e: HttpError | AppError | unknown) {
+    const message = getErrorMessage(e);
+    throw error(500, { message: message });
   }
 
   return {

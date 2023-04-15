@@ -34,6 +34,7 @@ export type CreateLinkGroupRequest = {
   ownerId: string;
   underCreation: boolean;
   active: boolean;
+  description: string;
 };
 
 const alphanumericHyphenRegex = /^[a-zA-Z0-9\\-]+$/;

@@ -8,7 +8,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="{dark ? 'p-[6px]' : 'p-[9px]'}" on:click="{() => toggleDark()}">
+<div class="{dark ? 'sm:p-[6px] p-[4px]' : 'sm:p-[9px] p-[6px]'}" on:click="{() => toggleDark()}">
   {#if dark}
     <div
       class="h-9 fill-black dark:fill-white"

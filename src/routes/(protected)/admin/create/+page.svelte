@@ -13,6 +13,6 @@
 
 <div class="flex flex-row justify-center h-[80vh]">
   <CreateLinkGroupWizard data="{data}" linkGroup="{linkGroup}" />
-  <div class="border-black border-l-2"></div>
+  <div class="border-black border-l-2 sm:flex hidden"></div>
   <CreateLinkGroupWizardPreview linkGroup="{linkGroup}" />
 </div>

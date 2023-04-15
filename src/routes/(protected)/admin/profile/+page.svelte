@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import type { PageData } from '../$types';
   import { supabase } from '../../../../supabaseClient';
 
@@ -20,15 +21,32 @@
   };
 </script>
 
-<h1>Welcome {data.session?.user.email}</h1>
-<form method="POST">
-  <button
-    formaction="?/logout"
-    type="submit"
-    aria-live="polite"
-    disabled="{loading}"
-    class="inline-block w-full rounded bg-primary px-7 pt-3 pb-2.5 text-sm font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+<div class="w-screen h-[88vh] flex flex-row justify-center items-center align-middle">
+  <div
+    class="flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100"
   >
-    <span>{loading ? 'Loading' : 'Logout'}</span>
-  </button>
-</form>
+    <div class="space-y-4 text-center divide-y divide-gray-700">
+      <div class="my-2 space-y-1">
+        <h2 class="text-xl font-semibold sm:text-2xl">{data.session?.user.user_metadata.name}</h2>
+        <p class="px-3 text-xs sm:text-base dark:text-gray-400">{data.session?.user.email}</p>
+      </div>
+      <form method="POST" class="pt-3">
+        <button
+          on:click|preventDefault="{() => goto('/admin/links')}"
+          disabled="{loading}"
+          class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+        >
+          My Links
+        </button>
+        <button
+          formaction="?/logout"
+          type="submit"
+          disabled="{loading}"
+          class=" text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+        >
+          {loading ? 'Loading' : 'Logout'}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

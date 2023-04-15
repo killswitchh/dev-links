@@ -48,7 +48,7 @@
         <h1
           class="mb-4 mt-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-5xl"
         >
-          <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-400"
             >Header Settings</span
           >
         </h1>
@@ -88,10 +88,10 @@
         class="w-full min-h-[350px] flex flex-col px-8 mt-5 bg-white dark:bg-neutral-700 rounded-lg"
       >
         <div class="flex flex-row justify-between mt-10">
-          <div class="flex justify-center w-[50%] min-w-[400px]">
+          <div class="flex justify-center w-[50%]">
             <div class="rounded-lg shadow-xl bg-gray-50 dark:bg-neutral-600 lg:w-1/2">
               <div class="m-4">
-                <label for="formFile" class="inline-block mb-2">Upload Image(jpg,png,jpeg)</label>
+                <label for="formFile" class="inline-block mb-2">Header (jpg,png,jpeg)</label>
                 <div class="flex items-center justify-center w-full">
                   <label
                     class="flex flex-col w-full h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
@@ -137,7 +137,7 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-col align-middle items-center justify-center w-[50%] min-w-[400px]">
+          <div class="flex flex-col align-middle items-center justify-center w-[50%]">
             {#if linkGroup?.imageURL}
               <span>Current Image </span>
 

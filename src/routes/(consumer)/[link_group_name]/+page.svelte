@@ -41,7 +41,7 @@
         <div class="h-full w-full">
           <div class="flex flex-col align-middle items-center">
             {#if linkGroup.imageURL}
-              <div class="rounded-full w-[90px] border h-[90px]">
+              <div class="rounded-full w-[110px] border border-3 h-[110px]">
                 <img
                   class="h-full w-full object-fill rounded-full"
                   alt="link-group-header"

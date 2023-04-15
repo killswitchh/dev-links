@@ -32,7 +32,7 @@
   $: isLastStep = () => currentStep === wizardSteps.length - 1;
 </script>
 
-<div class="w-[70%] border-l-amber-900 flex flex-row justify-center">
+<div class="sm:w-[70%] w-full border-l-amber-900 flex flex-row justify-center">
   <div class="h-full w-full py-4">
     <div class="h-full w-full container mx-auto">
       <Steps

@@ -20,9 +20,18 @@ export function getProvider(url: string): Provider {
   }
   switch (hostname) {
     case 'github.com':
+    case 'www.github.com':
       // eslint-disable-next-line no-case-declarations
-      const path = new URL(url).pathname.split('/');
-      return path.length === 2 ? Provider.GITHUB_PROFILE : Provider.GITHUB_REPOSITORY;
+      const urlParts = url.split('/');
+      // eslint-disable-next-line no-case-declarations
+      const lastPart = urlParts[urlParts.length - 1];
+      if (lastPart === '') {
+        return Provider.GITHUB_PROFILE;
+      } else if (urlParts.length === 4) {
+        return Provider.GITHUB_PROFILE;
+      } else {
+        return Provider.GITHUB_REPOSITORY;
+      }
     default:
       return Provider.OTHER;
   }

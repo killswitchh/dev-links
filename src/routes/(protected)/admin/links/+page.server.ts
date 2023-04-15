@@ -56,6 +56,7 @@ export const actions = {
       ownerId: locals.user.id,
       underCreation: true,
       active: true,
+      description: 'Welcome to my page!',
     };
     if (createPageRequest.ownerId === null) {
       return fail(400, { createPageRequest, error: ERROR_MESSAGES.DEFAULT });

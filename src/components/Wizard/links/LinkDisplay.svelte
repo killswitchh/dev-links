@@ -47,7 +47,7 @@
 
 {#if link && link.id}
   {#if $editLinkToggleStore.get(link.id) === undefined || $editLinkToggleStore.get(link.id) === false}
-    <div class="mt-4 w-[60%] p-5 bg-white dark:bg-neutral-700 rounded-xl">
+    <div class="mt-4 min-w-[60%] p-5 bg-white dark:bg-neutral-700 rounded-xl">
       <div class="flex flex-col">
         <div class="flex flex-row justify-between mb-5">
           <div class="flex flex-row justify-start">
@@ -70,25 +70,6 @@
             </a>
           </div>
           <div class="flex flex-row justify-end">
-            {#if link.enrich}
-              <span
-                class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-                >{enrichedName()} ✨
-              </span>
-            {/if}
-
-            {#if link.active}
-              <span
-                class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
-              >
-                Active
-              </span>
-            {:else}
-              <span
-                class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
-                >Inactive</span
-              >
-            {/if}
             {#if $loading.get(link.id)}
               <Loader />
             {:else if !link.active}
@@ -100,7 +81,7 @@
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="red"
-                class="w-6 h-6 cursor-pointer"
+                class="sm:w-6 w-4 sm:h-6 h-4 cursor-pointer"
               >
                 <path
                   stroke-linecap="round"
@@ -112,8 +93,32 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-row justify-between">
-        <StatusButton status="{!!link.active}" on:clicked="{(e) => handleStatusChange(e)}" />
+      <div class="flex flex-row">
+        {#if link.enrich}
+          <span
+            class="bg-blue-100 text-blue-800 sm:text-sm text-xs truncate ... font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
+            >{enrichedName()} ✨
+          </span>
+        {/if}
+
+        {#if link.active}
+          <span
+            class="bg-green-100 text-green-800 sm:text-sm text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+          >
+            Active
+          </span>
+        {:else}
+          <span
+            class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
+            >Inactive</span
+          >
+        {/if}
+      </div>
+      <div class="flex flex-row justify-between mt-2">
+        <div class="sm:w-[120px] w-[110px]">
+          <StatusButton status="{!!link.active}" on:clicked="{(e) => handleStatusChange(e)}" />
+        </div>
+
         <button
           on:click="{() => editLinkToggleStore.updateToggleValue(link.id, true)}"
           class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"

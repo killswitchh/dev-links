@@ -14,7 +14,7 @@
 
 <button
   class="{status ? 'bg-red-500 hover:bg-red-700' : 'bg-green-500 hover:bg-green-700'} 
-      text-white font-bold py-2 px-4 rounded mt-2"
+      text-white font-bold py-2 sm:px-4 px-2 rounded mt-2 w-full"
   on:click="{buttonClicked}"
   disabled="{disabled}"
 >

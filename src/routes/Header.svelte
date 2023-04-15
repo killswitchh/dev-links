@@ -14,7 +14,6 @@
   const currentUrl = $page.url.pathname;
   const currentRoute = nav_bar.find((x) => x.path === currentUrl);
   if (currentRoute) {
-    console.log('updating to', currentRoute);
     updateActiveNavBarElement(currentRoute);
   }
 </script>

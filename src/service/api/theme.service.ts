@@ -1,14 +1,6 @@
-import {
-  BackgroundType,
-  ButtonShape,
-  ButtonTheme,
-  type Background,
-  type Button,
-  type GradientStop,
-  type Prisma,
-  type Theme,
-} from '@prisma/client';
+import type { Background, Button, GradientStop, Theme } from '@prisma/client';
 import type { BackgroundOptional, RTheme } from '../../core/models/theme.dto';
+import { defaultTheme } from '../../core/utils/themeutils';
 import { prisma } from './prisma.service';
 
 export const ThemeService = {
@@ -37,76 +29,8 @@ export const ThemeService = {
     return theme || null;
   },
 
-  populateTheme(data: Prisma.LinkGroupUncheckedCreateInput) {
-    data.theme = {
-      create: {
-        button: {
-          create: {
-            buttonShape: ButtonShape.PILL,
-            buttonTheme: ButtonTheme.FILL,
-            buttonColor: '#FFFFFF',
-            fontColor: '#000000',
-            outlineColor: '#000000',
-          },
-        },
-        background: {
-          create: {
-            backgroundColor: '#000FFF',
-            backgroundType: BackgroundType.FILL,
-            gradientStops: {
-              create: [
-                {
-                  color: '#F3F3F3',
-                  position: '0%',
-                },
-                {
-                  color: '#000FFF',
-                  position: '50%',
-                },
-              ],
-            },
-            imageUrl: undefined,
-          },
-        },
-      },
-    };
-  },
-
   getDefaultTheme(): RTheme {
-    return {
-      id: 'T1',
-      linkGroupId: 'L1',
-      button: {
-        id: '1',
-        themeId: 'T1',
-        buttonShape: ButtonShape.PILL,
-        buttonTheme: ButtonTheme.FILL,
-        buttonColor: '#F3F3F3',
-        fontColor: '#000000',
-        outlineColor: '#000000',
-      },
-      background: {
-        backgroundColor: '#000FFF',
-        id: 'B1',
-        themeId: 'T1',
-        backgroundType: BackgroundType.GRADIENT,
-        gradientStops: [
-          {
-            color: '#F3F3F3',
-            id: '1',
-            backgroundId: 'B1',
-            position: '0%',
-          },
-          {
-            color: '#000FFF',
-            id: '2',
-            backgroundId: 'B1',
-            position: '50%',
-          },
-        ],
-        imageUrl: null,
-      },
-    };
+    return defaultTheme;
   },
 
   updateButtonForTheme(buttonId: string, button: Button): Promise<Button> {

@@ -43,12 +43,12 @@
       <h1
         class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-5xl"
       >
-        <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-400"
           >Button Settings</span
         >
       </h1>
 
-      <div class="w-[20%]">
+      <div class="sm:min-w-[20%] w-[100px]">
         <Button
           buttonColor="{theme.button.buttonColor}"
           buttonShape="{theme.button.buttonShape}"
@@ -61,10 +61,14 @@
     </div>
 
     <div class="mt-5 flex flex-row justify-evenly w-full pt-6 pb-6">
-      <div class="text-2xl pt-2 min-w-[150px]">Style</div>
+      <div class="text-2xl pt-2 sm:min-w-[150px]">Style</div>
       <div class="flex flex-row justify-between w-full ml-5">
         {#each buttonThemeList as buttonTheme}
-          <div class="{buttonTheme === theme.button.buttonTheme ? 'border-b-4 p-1' : ''} w-[20%]">
+          <div
+            class="{buttonTheme === theme.button.buttonTheme
+              ? 'border-b-4 p-1'
+              : ''} sm:min-w-[20%] w-[100px]"
+          >
             <Button
               on:selected="{(e) => handleButtonThemeChange(e)}"
               buttonColor="{defaultTheme.button.buttonColor}"
@@ -80,10 +84,14 @@
     </div>
 
     <div class="mt-5 flex flex-row justify-evenly w-full pt-6 pb-6">
-      <div class="text-2xl pt-2 min-w-[150px]">Shape</div>
+      <div class="text-2xl pt-2 sm:min-w-[150px]">Shape</div>
       <div class="flex flex-row justify-between w-full ml-5">
         {#each buttonShapeList as buttonShape}
-          <div class="{buttonShape === theme.button.buttonShape ? 'border-b-4 p-1' : ''}  w-[20%]">
+          <div
+            class="{buttonShape === theme.button.buttonShape
+              ? 'border-b-4 p-1'
+              : ''} sm:min-w-[20%] w-[100px]"
+          >
             <Button
               on:selected="{(e) => handleButtonShapeChange(e)}"
               buttonColor="{defaultTheme.button.buttonColor}"
@@ -99,7 +107,7 @@
     </div>
 
     <div class="mt-5 flex flex-row justify-around w-full">
-      <div class="text-2xl min-w-[150px]">Color</div>
+      <div class="text-2xl sm:min-w-[150px]">Color</div>
       <div class="flex flex-row justify-between w-full ml-5">
         {#if theme.button.buttonTheme === ButtonTheme.FILL || theme.button.buttonTheme === ButtonTheme.SHADOW}
           <label>

@@ -1,12 +1,8 @@
-import {
-  BackgroundType,
-  ButtonShape,
-  ButtonTheme,
-  type LinkGroup,
-  type Prisma,
-} from '@prisma/client';
+import type { LinkGroup, Prisma } from '@prisma/client';
 import AppError from '../../core/models/app-error.dto';
 import type { LinkGroupOptional, OLinkGroupWithLinks } from '../../core/models/link-group.dto';
+import type { RTheme } from '../../core/models/theme.dto';
+import { defaultTheme } from '../../core/utils/themeutils';
 import { prisma } from './prisma.service';
 
 export const LinkGroupService = {
@@ -84,30 +80,31 @@ export const LinkGroupService = {
   },
 
   populateTheme(data: Prisma.LinkGroupUncheckedCreateInput) {
+    const dheme: RTheme = defaultTheme;
     data.theme = {
       create: {
         button: {
           create: {
-            buttonShape: ButtonShape.PILL,
-            buttonTheme: ButtonTheme.FILL,
-            buttonColor: '#FFFFFF',
-            fontColor: '#000000',
-            outlineColor: '#000000',
+            buttonShape: dheme.button.buttonShape,
+            buttonTheme: dheme.button.buttonTheme,
+            buttonColor: dheme.button.buttonColor,
+            fontColor: dheme.button.fontColor,
+            outlineColor: dheme.button.outlineColor,
           },
         },
         background: {
           create: {
-            backgroundColor: '#000FFF',
-            backgroundType: BackgroundType.FILL,
+            backgroundColor: dheme.background.backgroundColor,
+            backgroundType: dheme.background.backgroundType,
             gradientStops: {
               create: [
                 {
-                  color: '#F3F3F3',
-                  position: '0%',
+                  color: dheme.background.gradientStops[0].color,
+                  position: dheme.background.gradientStops[0].position,
                 },
                 {
-                  color: '#000FFF',
-                  position: '50%',
+                  color: dheme.background.gradientStops[1].color,
+                  position: dheme.background.gradientStops[1].position,
                 },
               ],
             },
