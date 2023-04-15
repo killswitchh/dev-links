@@ -6,9 +6,9 @@ export type ProviderDetails = GithubAccountDetails | GithubRepositoryDetails;
 
 export type GithubAccountDetails = {
   name: string;
-  followers: number;
+  followers: string;
   company: string;
-  repos: number;
+  repos: string;
   following: number;
   bio: string;
   profileImageUrl: string;
@@ -17,9 +17,9 @@ export type GithubAccountDetails = {
 
 export type GithubRepositoryDetails = {
   name: string;
-  stars: number;
-  watchers: number;
-  forks: number;
+  stars: string;
+  watchers: string;
+  forks: string;
   language: string;
   licenseName: string;
   topics: string[];

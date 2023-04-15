@@ -17,8 +17,6 @@
   export let data: PageData;
   export let currentLink: Link | undefined = undefined; // for editing
 
-  afterUpdate(() => console.log('im updating'));
-
   const { form, errors, enhance } = superForm(data.form, {
     taintedMessage: null,
     validators: CreateLinkRequestSchema,

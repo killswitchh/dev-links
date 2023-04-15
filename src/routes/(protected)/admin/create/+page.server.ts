@@ -62,6 +62,11 @@ export const actions = {
     const id = event.url.searchParams.get('id');
     const linkGroup = get(linkGroupStore);
     const linkGroupName = name ? name : linkGroup.name;
+    if (!name) {
+      return fail(400, {
+        form,
+      });
+    }
     const linkGroupObj = await LinkGroupService.getLinkGroupByName(linkGroupName);
     if (!linkGroupObj) {
       return fail(400, {

@@ -124,7 +124,7 @@
         </div>
         {#if linkGroup.description}
           <p class="mb-4 sm:text-base text-sm text-neutral-600 dark:text-neutral-200">
-            {linkGroup.description}{linkGroup.description}{linkGroup.description}
+            {linkGroup.description}
           </p>
         {/if}
         <p class="text-xs text-neutral-500 dark:text-neutral-300">

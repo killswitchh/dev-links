@@ -114,24 +114,21 @@
             />
           </a>
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col max-w-[70%]">
           <span class="font-bold">{githubRepoDetails.name}</span>
           <small class="font-light">{githubRepoDetails.language}</small>
-          <div class="flex flex-row justify-between">
+          <div class="flex flex-row justify-between text-xs">
             <div class="flex flex-row">
               <GithubStar />
-              :
-              {githubRepoDetails.stars}
+              <span>:{githubRepoDetails.stars}</span>
             </div>
             <div class="flex flex-row ml-2">
               <GithubFork />
-              :
-              {githubRepoDetails.forks}
+              <span>:{githubRepoDetails.forks}</span>
             </div>
             <div class="flex flex-row ml-2">
               <GithubWatcher />
-              :
-              {githubRepoDetails.watchers}
+              <span>:{githubRepoDetails.watchers}</span>
             </div>
           </div>
         </div>

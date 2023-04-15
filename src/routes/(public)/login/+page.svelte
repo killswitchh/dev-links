@@ -19,7 +19,6 @@
   };
 
   const submitSocialLogin: SubmitFunction = async ({ action, cancel }) => {
-    console.log('here');
     switch (action.searchParams.get('provider')) {
       case 'github':
         await signInWithProvider('github');

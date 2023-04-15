@@ -27,7 +27,6 @@
       <Features />
     </div>
   </div>
-  <section>Welcome to Dev Links</section>
 </div>
 
 <style lang="postcss">
