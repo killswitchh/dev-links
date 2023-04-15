@@ -26,6 +26,10 @@ What sets Dev Links apart from competitors like Linktree and Kofi are the follow
 - We used community-made packages such as SvelteKit Superforms for proper form validation.
 - The app is deployed on Vercel with integrations with Axiom for observability.
 
+## Demo Video
+
+Please watch our [demo video](https://clipchamp.com/watch/kddzJ041PPC) for a quick overview of the application's features.
+
 ## Getting Started
 
 To get started, simply head to https://devlinks.pro and sign in with your Github account. Once signed in, you can create a custom page and start adding links.
