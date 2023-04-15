@@ -33,7 +33,7 @@
 
 <div class="sm:w-[70%] w-full border-l-amber-900 flex flex-row justify-center">
   <div class="h-full w-full py-4">
-    <div class="h-full w-full container mx-auto">
+    <div class="h-full w-full container sm:mx-auto">
       <Steps
         size="2rem"
         line="2rem"
@@ -42,7 +42,7 @@
         on:click="{(e) => buttonClicked(e)}"
       />
       <div
-        class="m-2 mx-12 min-h-[80%] h-[85%] overflow-auto bg-white/50 dark:border-[#2e2e2e] dark:border dark:bg-[#0A0A0A] backdrop-blur-sm rounded-xl flex flex-col items-center scrollbar-width dark:scrollbar-bg-dark scrollbar-bg-light"
+        class="m-2 sm:w-auto w-full sm:mx-12 min-h-[80%] h-[85%] overflow-auto bg-white/50 dark:border-[#2e2e2e] dark:border dark:bg-[#0A0A0A] backdrop-blur-sm rounded-xl flex flex-col items-center scrollbar-width dark:scrollbar-bg-dark scrollbar-bg-light"
       >
         {#if currentStep == 0}
           <LinkGroupInfo linkGroup="{linkGroup}" />
