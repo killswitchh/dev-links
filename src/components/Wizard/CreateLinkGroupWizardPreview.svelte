@@ -20,7 +20,10 @@
   });
 </script>
 
-<div class="sm:flex hidden w-[30%] border-l-amber-900 flex-row justify-center">
+<div class="sm:flex hidden w-[30%] flex-row justify-center relative overflow-visible">
+  <div
+    class="border-l h-[103%] border-slate-200 dark:border-zinc-800 sm:flex hidden absolute bottom-0 left-0"
+  ></div>
   <div
     class="border-black rounded-3xl border-2 ml-4 mr-4 mt-20 h-[80%] w-min-[250px] w-[350px] bg-slate-200 flex flex-row justify-center"
   >

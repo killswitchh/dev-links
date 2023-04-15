@@ -33,3 +33,19 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.scrollbar-width::-webkit-scrollbar {
+  background-color: transparent;
+  border-radius: 0.75rem;
+  width: 8px;
+}
+
+.scrollbar-bg-color::-webkit-scrollbar-thumb {
+  background-color: #71717a;
+  border-radius: 0.75rem;
+}
+
+.scrollbar-bg-light::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 0.75rem;
+}

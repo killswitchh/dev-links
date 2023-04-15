@@ -4,7 +4,7 @@
 </script>
 
 <Header nav_bar="{routesLoggedIn}" />
-<main class="mt-[75px]">
+<main class="mt-[95px]">
   <slot />
 </main>
 

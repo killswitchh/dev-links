@@ -9,7 +9,7 @@
 </script>
 
 <div
-  class="sm:w-[450px] w-full flex flex-col rounded-lg bg-white shadow-lg dark:bg-neutral-700 md:max-w-xl md:flex-row justify-center"
+  class="sm:w-[450px] w-full flex flex-col rounded-lg bg-white shadow-lg dark:bg-neutral-900 md:max-w-xl md:flex-row justify-center"
 >
   {#if !linkGroup}
     <CreatePage data="{data}" />

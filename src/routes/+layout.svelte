@@ -30,7 +30,7 @@
 
 <div class="{dark ? 'dark' : ''}">
   <div
-    class="app flex flex-col min-h-screen bg-slate-50 dark:bg-black dark:text-white text-black overflow-auto"
+    class="app flex flex-col min-h-screen bg-stone-100 dark:bg-black dark:text-white text-black overflow-auto"
   >
     <PageTransition key="{data.url}" duration="{300}">
       {#if $navigating}

@@ -11,8 +11,7 @@
   afterUpdate(() => (linkGroup = data.linkGroup));
 </script>
 
-<div class="flex flex-row justify-center h-[80vh]">
+<div class="flex flex-row justify-center h-[90vh] relative">
   <CreateLinkGroupWizard data="{data}" linkGroup="{linkGroup}" />
-  <div class="border-black border-l-2 sm:flex hidden"></div>
   <CreateLinkGroupWizardPreview linkGroup="{linkGroup}" />
 </div>
