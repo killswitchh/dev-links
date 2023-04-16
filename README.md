@@ -2,9 +2,9 @@
 
 Dev Links is a web application focused on developers, designed to help them showcase multiple links in a single place. Similar to Linktree and Kofi, Dev Links allows users to create a custom page with their choice of links and customize the button shape, color, and background color and gradient. Users can also upload a header image that will be displayed at the top of the page.
 
-What sets Dev Links apart from competitors like Linktree and Kofi are the following features:
+What sets Dev Links apart from sites like Linktree and Kofi are the following features:
 
-- Users can create up to three links, as opposed to one allowed by competitors.
+- Users can create up to three links, as opposed to one.
 - For developer-related links (e.g. GitHub), users can display more details such as followers count and repository count, making it easier to showcase more on the list page itself.
 - Enhanced links are currently supported only for GitHub, but more providers will be added soon.
 
