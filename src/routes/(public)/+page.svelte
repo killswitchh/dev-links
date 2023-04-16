@@ -16,8 +16,8 @@
 </script>
 
 <svelte:head>
-  <title>Home</title>
-  <meta name="description" content="Svelte demo app" />
+  <title>Devlinks</title>
+  <meta name="description" content="Devlinks" />
 </svelte:head>
 
 <div class="h-[100vh] overflow-y-scroll scroll-smooth">
