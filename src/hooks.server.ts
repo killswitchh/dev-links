@@ -54,12 +54,23 @@ async function populateUser(
   event: RequestEvent<Partial<Record<string, string>>, string | null>,
 ) {
   if (session && event.locals.user) return;
+
   if (session) {
     event.locals.user = await UserService.getOrCreateUser(
       session.user.email as string,
-      session.user.user_metadata.name,
+      getUserName(session),
     );
   } else {
     event.locals.user = null;
   }
+}
+function getUserName(session: Session): string {
+  let username = session.user.user_metadata.name;
+  if (!username) {
+    username = session.user.user_metadata.user_name;
+  }
+  if (!username) {
+    username = session.user.email;
+  }
+  return username;
 }
