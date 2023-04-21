@@ -50,6 +50,7 @@
     "@supabase/auth-helpers-sveltekit": "^0.9.0",
     "@supabase/supabase-js": "^2.12.0",
     "@sveltejs/adapter-vercel": "^2.4.1",
+    "@vercel/analytics": "^1.0.0",
     "aws-sdk": "^2.1353.0",
     "dayjs": "^1.11.7",
     "svelte-select": "^5.5.2",
