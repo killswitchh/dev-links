@@ -11,6 +11,12 @@ export function extractGithubRepository(link: string): string | null {
   return match ? match[2] : null;
 }
 
+export function extractLeetCodeUsername(link: string): string | null {
+  let pathParts = link.split('/');
+  pathParts = pathParts.filter((x) => x !== '');
+  return pathParts[pathParts.length - 1];
+}
+
 export function getProvider(url: string): Provider {
   let hostname: string;
   try {
@@ -20,10 +26,8 @@ export function getProvider(url: string): Provider {
   }
   switch (hostname) {
     case 'github.com':
-    case 'www.github.com':
-      // eslint-disable-next-line no-case-declarations
+    case 'www.github.com': {
       const urlParts = url.split('/');
-      // eslint-disable-next-line no-case-declarations
       const lastPart = urlParts[urlParts.length - 1];
       if (lastPart === '') {
         return Provider.GITHUB_PROFILE;
@@ -32,17 +36,52 @@ export function getProvider(url: string): Provider {
       } else {
         return Provider.GITHUB_REPOSITORY;
       }
+    }
+    case 'leetcode.com':
+    case 'www.leetcode.com': {
+      let pathParts = url.split('/');
+      pathParts = pathParts.filter((x) => x !== '');
+      const username = pathParts[pathParts.length - 1];
+      if (pathParts.length === 3 && username !== '') {
+        return Provider.LEETCODE;
+      }
+      break;
+    }
     default:
       return Provider.OTHER;
   }
+  return Provider.OTHER;
 }
 
 export function generateProviderRequestFromLink(l: LinkWithProviderDetails) {
-  return {
-    username: extractGithubUsername(l.url) as string,
-    linkId: l.id,
-    url: l.url,
-    repository: extractGithubRepository(l.url) as string,
-    provider: l.provider,
-  };
+  switch (l.provider) {
+    case Provider.GITHUB_PROFILE:
+    case Provider.GITHUB_REPOSITORY: {
+      return {
+        username: extractGithubUsername(l.url) as string,
+        linkId: l.id,
+        url: l.url,
+        repository: extractGithubRepository(l.url) as string,
+        provider: l.provider,
+      };
+    }
+    case Provider.LEETCODE: {
+      const username = extractLeetCodeUsername(l.url) as string;
+      return {
+        username: username,
+        linkId: l.id,
+        url: l.url,
+        repository: '',
+        provider: l.provider,
+      };
+    }
+    default:
+      return {
+        username: '',
+        linkId: l.id,
+        url: l.url,
+        repository: '',
+        provider: l.provider,
+      };
+  }
 }

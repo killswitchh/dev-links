@@ -2,7 +2,10 @@ import type { Link, Provider } from '@prisma/client';
 
 export type LinkWithProviderDetails = Link & { providerDetails?: ProviderDetails };
 
-export type ProviderDetails = GithubAccountDetails | GithubRepositoryDetails;
+export type ProviderDetails =
+  | GithubAccountDetails
+  | GithubRepositoryDetails
+  | LeetcodeProfileDetails;
 
 export type GithubAccountDetails = {
   name: string;
@@ -35,3 +38,14 @@ export type ProviderRequest = {
   repository?: string;
   provider: Provider;
 };
+
+export type LeetcodeProfileDetails = {
+  name: string;
+  profileImage: string;
+  problems: {
+    easy: number;
+    medium: number;
+    hard: number;
+  };
+  ranking: number;
+} & { linkDetails: ProviderRequest };

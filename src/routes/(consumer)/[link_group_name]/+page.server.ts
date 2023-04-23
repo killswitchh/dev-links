@@ -1,11 +1,12 @@
 import type { Provider } from '@prisma/client';
+import { error } from '@sveltejs/kit';
 import AppError from '../../../core/models/app-error.dto';
 import type { RLinkGroup } from '../../../core/models/link-group.dto';
 import type { ProviderDetails, ProviderRequest } from '../../../core/models/providers/provider.dto';
 import { generateProviderRequestFromLink } from '../../../core/utils/providerutils';
 import GithubService from '../../../service/api/github.service';
+import LeetCodeService from '../../../service/api/leetcode.service';
 import LinkGroupService from '../../../service/api/link-group.service';
-import { error } from '@sveltejs/kit';
 
 export const load = async ({ params }) => {
   const linkGroupName = params.link_group_name;
@@ -33,6 +34,8 @@ export const load = async ({ params }) => {
           case 'STACK_OVERFLOW':
           case 'BITBUCKET':
           case 'LEETCODE':
+            value.map((v) => promises.push(LeetCodeService.getUserProfile(v)));
+            break;
           case 'CODEFORCES':
           case 'HACKERRANK':
           case 'HACKEREARTH':

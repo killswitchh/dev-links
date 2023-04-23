@@ -60,8 +60,8 @@
         <div class="flex items-center">Github</div>
       </div>
 
-      <div class="flex flex-row mt-2 w-full justify-evenly">
-        <div class="rounded-full w-[60px] border h-[60px]">
+      <div class="flex flex-row mt-2 w-full justify-start sm:pl-[25%] pl-[4%]">
+        <div class="rounded-full w-[60px] border h-[60px] mr-8">
           <a href="{githubUserDetails.profileUrl}">
             <img
               class="h-full w-full object-fill rounded-full"
@@ -104,8 +104,8 @@
         <div class="flex items-center">Github</div>
       </div>
 
-      <div class="flex flex-row mt-2 w-full justify-evenly">
-        <div class="rounded-full w-[60px] border h-[60px]">
+      <div class="flex flex-row mt-2 w-full justify-start sm:pl-[25%] pl-[4%]">
+        <div class="rounded-full w-[60px] border h-[60px] mr-8">
           <a href="{githubRepoDetails.profileUrl}">
             <img
               class="h-full w-full object-fill rounded-full"

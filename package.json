@@ -53,6 +53,7 @@
     "@vercel/analytics": "^1.0.0",
     "aws-sdk": "^2.1353.0",
     "dayjs": "^1.11.7",
+    "leetcode-query": "^0.2.7",
     "svelte-select": "^5.5.2",
     "svelte-steps": "^2.4.1",
     "tw-elements": "^1.0.0-beta1"
