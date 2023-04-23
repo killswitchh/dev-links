@@ -31,11 +31,11 @@ export const load = async ({ params }) => {
           case 'GITHUB_REPOSITORY':
             value.map((v) => promises.push(GithubService.getUserRepos(v)));
             break;
-          case 'STACK_OVERFLOW':
-          case 'BITBUCKET':
           case 'LEETCODE':
             value.map((v) => promises.push(LeetCodeService.getUserProfile(v)));
             break;
+          case 'STACK_OVERFLOW':
+          case 'BITBUCKET':
           case 'CODEFORCES':
           case 'HACKERRANK':
           case 'HACKEREARTH':

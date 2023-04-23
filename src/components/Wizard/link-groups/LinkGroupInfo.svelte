@@ -8,10 +8,6 @@
 
   export let linkGroup: RLinkGroup | undefined;
 
-  afterUpdate(() => {
-    console.log(linkGroup?.imageURL);
-  });
-
   let avatar: string, fileinput;
 
   const onFileSelected = (e: any) => {
