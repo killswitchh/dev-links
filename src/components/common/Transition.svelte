@@ -13,7 +13,6 @@
 
 <style>
   div {
-    position: absolute;
-    inset: 0;
+    overflow-x: auto;
   }
 </style>

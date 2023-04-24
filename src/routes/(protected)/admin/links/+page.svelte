@@ -17,7 +17,7 @@
   });
 </script>
 
-<div class="h-[92vh] overflow-y-auto p-3">
+<div class="h-[88vh] overflow-y-auto p-3">
   {#each linkGroups as linkGroup}
     <div class="flex justify-center mb-5">
       <LinkGroupListItem data="{data}" linkGroup="{linkGroup}" />

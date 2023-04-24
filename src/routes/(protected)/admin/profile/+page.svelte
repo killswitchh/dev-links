@@ -21,7 +21,7 @@
   };
 </script>
 
-<div class="w-screen h-[88vh] flex flex-row justify-center items-center align-middle">
+<div class="w-full h-[80vh] flex flex-row justify-center items-center align-middle">
   <div
     class="flex flex-col justify-center p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-900 dark:text-gray-100"
   >
